@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class BattleObject : MonoBehaviour
 {
+    public Vector2Int coordinates;
+
     public RotatableSprite sprite;
 
     private SpriteRenderer m_Renderer;

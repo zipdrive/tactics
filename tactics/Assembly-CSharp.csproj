@@ -54,13 +54,22 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Battle\Scripts\AssetHolder.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleAgent.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAction\BattleAction.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleAgent.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAgent\ManualBattleAgent.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleGrid.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleManager.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenu.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuTileSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleSelectableRectangle.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleSelectableZone.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentDecision.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueMember.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableManhattanRadius.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableRectangle.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableZone.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelector.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleTile.cs" />
+     <Compile Include="Assets\Battle\Scripts\Character.cs" />
      <Compile Include="Assets\Battle\Scripts\RotatableSprite.cs" />
      <None Include="Assets\Battle\Maps\map_test.txt" />
  <Reference Include="Unity.TextMeshPro.Editor">

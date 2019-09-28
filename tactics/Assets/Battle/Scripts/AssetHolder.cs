@@ -11,7 +11,7 @@ public class AssetHolder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string[] spriteGUIDs = AssetDatabase.FindAssets("t:sprite");
+        string[] spriteGUIDs = AssetDatabase.FindAssets("t:Sprite");
 
         foreach (string spriteGUID in spriteGUIDs)
         {
@@ -26,7 +26,7 @@ public class AssetHolder : MonoBehaviour
             }
         }
 
-        string[] objectGUIDs = AssetDatabase.FindAssets("t:sprite");
+        string[] objectGUIDs = AssetDatabase.FindAssets("t:BattleObject");
 
         foreach (string objectGUID in objectGUIDs)
         {

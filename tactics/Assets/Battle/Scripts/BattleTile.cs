@@ -8,16 +8,22 @@ public class BattleTile
     public BattleObject obj;
 
     public Sprite sprite;
+    public SpriteRenderer renderer;
 
     public BattleTile(string spriteName)
     {
-        sprite = AssetHolder.Tiles[spriteName.Trim()];
+        if (!AssetHolder.Tiles.ContainsKey(spriteName))
+            throw new KeyNotFoundException("[BattleTile] Invalid tile sprite: \"" + spriteName + "\"");
+
+        sprite = AssetHolder.Tiles[spriteName];
     }
 
-    public BattleTile(string spriteName, string objectName)
+    public BattleTile(string spriteName, string objectName) : this(spriteName)
     {
-        sprite = AssetHolder.Tiles[spriteName.Trim()];
-        m_ObjPrefab = AssetHolder.Objects[objectName.Trim()];
+        if (!AssetHolder.Objects.ContainsKey(objectName))
+            throw new KeyNotFoundException("[BattleTile] Invalid object: \"" + objectName + "\"");
+        
+        m_ObjPrefab = AssetHolder.Objects[objectName];
     }
 
     public void Instantiate(int x, int y, Transform parent)
@@ -31,6 +37,8 @@ public class BattleTile
         renderer.sprite = sprite;
 
         if (m_ObjPrefab != null) obj = GameObject.Instantiate<BattleObject>(m_ObjPrefab, tileObject.transform);
+
+        this.renderer = renderer;
     }
 
     public virtual bool IsSelectable()

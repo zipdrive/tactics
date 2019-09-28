@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 
 public class BattleGrid : MonoBehaviour, BattleSelectableZone
 {
+    public static float CameraSpeed = 0.05f;
+
     public static float RotationSpeed = 90f;
     private static Vector3 RotationAxis = new Vector3(0f, 0.5f, -Mathf.Sqrt(0.75f));
     private static float YAxisScale = Mathf.Sqrt(0.75f);
@@ -69,9 +71,13 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
                     if (line.StartsWith("define "))
                     {
                         string data = line.Remove(0, 7);
-                        string[] defname = data.Split(new string[] { " = " }, 2, System.StringSplitOptions.RemoveEmptyEntries);
+                        string[] defname = data.Split(new string[] { "=" }, 2, System.StringSplitOptions.RemoveEmptyEntries);
                         string[] defargs = defname[1].Split(new string[] { "," }, System.StringSplitOptions.None);
-                        defs[defname[0]] = defargs;
+
+                        for (int k = defargs.Length - 1; k >= 0; --k)
+                            defargs[k] = defargs[k].Trim().ToLower();
+
+                        defs[defname[0].Trim()] = defargs;
                     }
 
                     foreach (Match match in Regex.Matches(line, regRectangle))
@@ -133,7 +139,38 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
     }
 
     public BattleSelector Selector;
-    public BattleSelectableZone SelectableZone;
+
+    private BattleSelectableZone m_SelectableZone;
+    public BattleSelectableZone SelectableZone
+    {
+        get
+        {
+            return m_SelectableZone;
+        }
+
+        set
+        {
+            if (m_SelectableZone != null)
+            {
+                foreach (BattleTile tile in m_Tiles)
+                    tile.renderer.color = Color.white;
+            }
+
+            if (value != null)
+            {
+                for (int i = m_Width - 1; i >= 0; --i)
+                {
+                    for (int j = (m_Tiles.Length / m_Width) - 1; j >= 0; --j)
+                    {
+                        if (value.IsSelectable(i, j))
+                            this[i, j].renderer.color = new Color32(0xd9, 0x86, 0x86, 0xff);
+                    }
+                }
+            }
+
+            m_SelectableZone = value;
+        }
+    }
 
     public string filename;
 
@@ -208,12 +245,30 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
                 {
                     Selector.SelectedTile = prospectiveTile;
                 }
+                else if (SelectableZone != null)
+                {
+                    /* select closest selectable tile in direction of selection, like so:
+                     * # selectable zone, o unselectable zone, X current selected tile
+                     * 
+                     * o o o o o                                o o o o o
+                     * o o X o o                                o o # o o
+                     * o # o # o    -- right arrow button -->   o # o X o
+                     * o o # o o                                o o # o o
+                     * o o o o o                                o o o o o
+                     * 
+                     */
+                    
+                    // TODO
+                    Selector.Velocity = new Vector3();
+                }
                 else
                 {
                     Selector.Velocity = new Vector3();
                 }
             }
         }
+        
+        transform.position -= CameraSpeed * (transform.position + (transform.rotation * Selector.transform.localPosition));
     }
 
     public bool IsSelectable(int x, int y)
