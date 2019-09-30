@@ -5,37 +5,53 @@ using UnityEditor;
 
 public class AssetHolder : MonoBehaviour
 {
+    public static bool AssetsLoaded = false;
+
     public static Dictionary<string, Sprite> Tiles = new Dictionary<string, Sprite>();
     public static Dictionary<string, BattleObject> Objects = new Dictionary<string, BattleObject>();
 
-    // Start is called before the first frame update
+    public static Dictionary<string, Character> Characters = new Dictionary<string, Character>();
+    public static Dictionary<string, Item> Items = new Dictionary<string, Item>();
+
     void Start()
     {
-        string[] spriteGUIDs = AssetDatabase.FindAssets("t:Sprite");
-
-        foreach (string spriteGUID in spriteGUIDs)
+        if (!AssetsLoaded)
         {
-            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GUIDToAssetPath(spriteGUID));
-
-            if (sprite != null)
+            // Tiles
+            string[] spriteGUIDs = AssetDatabase.FindAssets("t:Sprite");
+            foreach (string spriteGUID in spriteGUIDs)
             {
-                if (sprite.name.StartsWith("tile_"))
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GUIDToAssetPath(spriteGUID));
+
+                if (sprite != null)
                 {
-                    Tiles[sprite.name.Remove(0, 5)] = sprite;
+                    if (sprite.name.StartsWith("tile_"))
+                    {
+                        Tiles[sprite.name.Remove(0, 5)] = sprite;
+                    }
                 }
             }
-        }
 
-        string[] objectGUIDs = AssetDatabase.FindAssets("t:BattleObject");
+            // Objects
+            List<string> objectGUIDs = new List<string>();
+            objectGUIDs.AddRange(AssetDatabase.FindAssets("agent"));
 
-        foreach (string objectGUID in objectGUIDs)
-        {
-            BattleObject obj = AssetDatabase.LoadAssetAtPath<BattleObject>(AssetDatabase.GUIDToAssetPath(objectGUID));
-
-            if (obj != null)
+            foreach (string objectGUID in objectGUIDs)
             {
-                Objects[obj.name.ToLower()] = obj;
+                BattleObject obj = AssetDatabase.LoadAssetAtPath<BattleObject>(AssetDatabase.GUIDToAssetPath(objectGUID));
+
+                if (obj != null)
+                {
+                    if (obj.name.StartsWith("agent "))
+                    {
+                        Objects[obj.name.Remove(0, 6)] = obj;
+                    }
+                }
             }
+
+            // Characters
+            Characters["debug"] = new PlayerCharacter();
+            // TODO
         }
     }
 }

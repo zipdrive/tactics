@@ -55,13 +55,18 @@
   <ItemGroup>
      <Compile Include="Assets\Battle\Scripts\AssetHolder.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleAction.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleAgent.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleAgent\ManualBattleAgent.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAction\BattleSkillAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleGrid.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleManager.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenu.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuTileSelection.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleObject.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuListSelection.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuRootSelection.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuSkillAreaSelection.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuWeaponSkillSelection.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleAgent\BattleAgent.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleAgent\ManualBattleAgent.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject2D.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentDecision.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueMember.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableManhattanRadius.cs" />
@@ -69,8 +74,18 @@
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableZone.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelector.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleTile.cs" />
-     <Compile Include="Assets\Battle\Scripts\Character.cs" />
+     <Compile Include="Assets\Battle\Scripts\Character\Character.cs" />
+     <Compile Include="Assets\Battle\Scripts\Character\PlayerCharacter.cs" />
+     <Compile Include="Assets\Battle\Scripts\Item\Item.cs" />
+     <Compile Include="Assets\Battle\Scripts\Item\PlayerInventory.cs" />
+     <Compile Include="Assets\Battle\Scripts\Item\Weapon.cs" />
+     <Compile Include="Assets\Battle\Scripts\Item\WeaponType.cs" />
      <Compile Include="Assets\Battle\Scripts\RotatableSprite.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\Skill.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\SkillArea.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\WeaponSkillArea.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\WeaponSkill.cs" />
+     <Compile Include="Assets\Battle\UI\BattleMenuUI.cs" />
      <None Include="Assets\Battle\Maps\map_test.txt" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Zach/Documents/GitHub/tactics/tactics/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

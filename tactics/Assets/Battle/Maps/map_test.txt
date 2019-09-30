@@ -1,9 +1,6 @@
 width 10
 height 10
 
-define DEFAULT = sample
+define DEFAULT = texture:sample, height:1
 
-(2, 3) border
-(3, 3) border
-(4, 3) border
-(5, 3) border
+(1, 1) = texture:sample, height:3, agent:debug_manualagent

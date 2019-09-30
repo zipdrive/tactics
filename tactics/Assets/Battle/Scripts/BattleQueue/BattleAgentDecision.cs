@@ -20,6 +20,11 @@ public class BattleAgentDecision : BattleQueueMember
         m_Agent = agent;
     }
 
+    public override void QStart(BattleManager manager)
+    {
+        m_Agent.QStart(manager, m_MoveAllowed, m_ActionAllowed);
+    }
+
     public override bool QUpdate(BattleManager manager)
     {
         BattleAction decision = null;

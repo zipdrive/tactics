@@ -1,4 +1,6 @@
-﻿public interface BattleAction
+﻿public abstract class BattleAction
 {
-    void Execute(BattleManager manager, int time);
+    public BattleAgent actor;
+
+    public abstract void Execute(BattleManager manager, int time);
 }

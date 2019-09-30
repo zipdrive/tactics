@@ -26,6 +26,6 @@ public class BattleSelector : MonoBehaviour
 
     public void Snap()
     {
-        transform.localPosition = new Vector3(SelectedTile.x, SelectedTile.y, 0); // TODO z-value
+        transform.localPosition = new Vector3(SelectedTile.x, SelectedTile.y, -0.5f * GetComponentInParent<BattleGrid>()[SelectedTile.x, SelectedTile.y].Height);
     }
 }

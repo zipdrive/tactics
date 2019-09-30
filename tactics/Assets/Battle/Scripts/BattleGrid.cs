@@ -17,6 +17,7 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
     private float m_Rotation = 0f;
     private bool m_RotationTrigger = false;
 
+    public BattleTile tilePrefab;
     private BattleTile[] m_Tiles;
     private int m_Width;
 
@@ -32,6 +33,9 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
             m_Tiles[x + (y * m_Width)] = value;
         }
     }
+
+    public int Width { get { return m_Width; } }
+    public int Height { get { return m_Tiles.Length / m_Width; } }
 
     public string datafile
     {
@@ -80,44 +84,52 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
                         defs[defname[0].Trim()] = defargs;
                     }
 
-                    foreach (Match match in Regex.Matches(line, regRectangle))
+                    Match m = Regex.Match(line, regRectangle);
+                    if (m.Success)
                     {
-                        int x1 = int.Parse(match.Groups[1].Value);
-                        int x2 = int.Parse(match.Groups[3].Value);
+                        int x1 = int.Parse(m.Groups[1].Value);
+                        int x2 = int.Parse(m.Groups[3].Value);
                         int xmin = System.Math.Min(x1, x2);
                         int xmax = System.Math.Max(x1, x2);
-                        int y1 = int.Parse(match.Groups[2].Value);
-                        int y2 = int.Parse(match.Groups[4].Value);
+                        int y1 = int.Parse(m.Groups[2].Value);
+                        int y2 = int.Parse(m.Groups[4].Value);
                         int ymin = System.Math.Min(y1, y2);
                         int ymax = System.Math.Max(y1, y2);
 
-                        string args = match.Groups[5].Value.TrimEnd();
+                        string args = m.Groups[5].Value.TrimEnd();
                         string[] argarr = defs.ContainsKey(args) ? defs[args] : args.Split(new string[] { "," }, System.StringSplitOptions.None);
 
                         for (int i = xmin; i <= xmax; ++i)
                         {
                             for (int j = ymin; j <= ymax; ++j)
                             {
-                                this[i, j] = 
-                                    argarr.Length > 1 ? 
-                                    new BattleTile(argarr[0], argarr[1]) : 
-                                    new BattleTile(argarr[0]);
+                                if (this[i, j] != null) Destroy(this[i, j].gameObject);
+
+                                this[i, j] = Instantiate(tilePrefab, transform);
+                                this[i, j].name = "Tile (" + i + ", " + j + ")";
+                                this[i, j].transform.localPosition = new Vector3(i, j);
+                                this[i, j].Construct(argarr);
                             }
                         }
                     }
-
-                    foreach (Match match in Regex.Matches(line, regSingle))
+                    else
                     {
-                        int i = int.Parse(match.Groups[1].Value);
-                        int j = int.Parse(match.Groups[2].Value);
+                        m = Regex.Match(line, regSingle);
+                        if (m.Success)
+                        {
+                            int i = int.Parse(m.Groups[1].Value);
+                            int j = int.Parse(m.Groups[2].Value);
 
-                        string args = match.Groups[3].Value.TrimEnd();
-                        string[] argarr = defs.ContainsKey(args) ? defs[args] : args.Split(new string[] { "," }, System.StringSplitOptions.None);
+                            string args = m.Groups[3].Value.TrimEnd();
+                            string[] argarr = defs.ContainsKey(args) ? defs[args] : args.Split(new string[] { "," }, System.StringSplitOptions.None);
 
-                        this[i, j] =
-                            argarr.Length > 1 ?
-                            new BattleTile(argarr[0], argarr[1]) :
-                            new BattleTile(argarr[0]);
+                            if (this[i, j] != null) Destroy(this[i, j].gameObject);
+
+                            this[i, j] = Instantiate(tilePrefab, transform);
+                            this[i, j].name = "Tile (" + i + ", " + j + ")";
+                            this[i, j].transform.localPosition = new Vector3(i, j);
+                            this[i, j].Construct(argarr);
+                        }
                     }
                 }
 
@@ -128,10 +140,13 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
 
                     for (int k = m_Tiles.Length - 1; k >= 0; --k)
                     {
-                        if (m_Tiles[k] == null) m_Tiles[k] =
-                                defargs.Length > 1 ?
-                                new BattleTile(defargs[0], defargs[1]) :
-                                new BattleTile(defargs[0]);
+                        if (m_Tiles[k] == null)
+                        {
+                            m_Tiles[k] = Instantiate(tilePrefab, transform);
+                            m_Tiles[k].name = "Tile (" + (k % Width) + ", " + (k / Width) + ")";
+                            m_Tiles[k].transform.localPosition = new Vector3(k % Width, k / Width);
+                            m_Tiles[k].Construct(defargs);
+                        }
                     }
                 }
             }
@@ -150,23 +165,23 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
 
         set
         {
-            if (m_SelectableZone != null)
+            /*if (m_SelectableZone != null)
             {
                 foreach (BattleTile tile in m_Tiles)
-                    tile.renderer.color = Color.white;
+                    tile.GetComponent<Renderer>().color = Color.white;
             }
 
             if (value != null)
             {
-                for (int i = m_Width - 1; i >= 0; --i)
+                for (int i = Width - 1; i >= 0; --i)
                 {
-                    for (int j = (m_Tiles.Length / m_Width) - 1; j >= 0; --j)
+                    for (int j = Height - 1; j >= 0; --j)
                     {
                         if (value.IsSelectable(i, j))
-                            this[i, j].renderer.color = new Color32(0xd9, 0x86, 0x86, 0xff);
+                            this[i, j].GetComponent<Renderer>().color = new Color32(0xd9, 0x86, 0x86, 0xff);
                     }
                 }
-            }
+            }*/
 
             m_SelectableZone = value;
         }
@@ -177,17 +192,8 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
     // Start is called before the first frame update
     void Start()
     {
-        // Load tiles
+        // Load and render tiles
         datafile = filename;
-
-        // Render tiles
-        for (int i = m_Width - 1; i >= 0; --i)
-        {
-            for (int j = (m_Tiles.Length / m_Width) - 1; j >= 0; --j)
-            {
-                this[i, j].Instantiate(i, j, transform);
-            }
-        }
     }
 
     // Update is called once per frame
@@ -243,6 +249,7 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
                 if (IsSelectable(prospectiveTile.x, prospectiveTile.y) 
                     && (SelectableZone == null || SelectableZone.IsSelectable(prospectiveTile.x, prospectiveTile.y)))
                 {
+                    Selector.Velocity += new Vector3(0f, 0f, 0.5f * (this[Selector.SelectedTile.x, Selector.SelectedTile.y].Height - this[prospectiveTile.x, prospectiveTile.y].Height));
                     Selector.SelectedTile = prospectiveTile;
                 }
                 else if (SelectableZone != null)
@@ -273,7 +280,7 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
 
     public bool IsSelectable(int x, int y)
     {
-        if (x >= 0 && x < m_Width && y >= 0 && y < m_Tiles.Length / m_Width)
+        if (x >= 0 && x < Width && y >= 0 && y < Height)
             return this[x, y].IsSelectable();
         return false;
     }
