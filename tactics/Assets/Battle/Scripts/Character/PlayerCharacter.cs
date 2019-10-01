@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 public class PlayerCharacter : Character
 {
@@ -70,8 +71,8 @@ public class PlayerCharacter : Character
             return 3;
         }
     }
-
-    List<WeaponSkill> m_WeaponSkills;
+    
+    List<WeaponSkill> m_WeaponSkills = new List<WeaponSkill>();
 
     public List<WeaponSkill> WeaponSkills
     {
@@ -129,12 +130,37 @@ public class PlayerCharacter : Character
 
     public PlayerCharacter()
     {
-        m_WeaponSkills = new List<WeaponSkill>();
         m_WeaponSkills.Add(new WeaponSkill(
-            "Bash", 
+            "Attack", 
             "", 
             new WeaponSkillArea(), 
-            WeaponType.Hammer, WeaponType.Shield
+            WeaponType.Axe, WeaponType.Sword, WeaponType.Knife, WeaponType.Hammer, WeaponType.Spear, WeaponType.Bow, WeaponType.Gun, WeaponType.Shield, WeaponType.Fist
             ));
+    }
+
+    public PlayerCharacter(XmlElement characterInfo)
+    {
+        XmlElement statsInfo = characterInfo["stats"];
+        m_HP = int.Parse(statsInfo.GetAttribute("hp"));
+        m_SP = int.Parse(statsInfo.GetAttribute("sp"));
+        m_Attack = int.Parse(statsInfo.GetAttribute("attack"));
+        m_Defense = int.Parse(statsInfo.GetAttribute("defense"));
+        m_Magic = int.Parse(statsInfo.GetAttribute("magic"));
+        m_Speed = int.Parse(statsInfo.GetAttribute("speed"));
+
+        XmlElement skillsInfo = characterInfo["skills"];
+        foreach (XmlElement skillListInfo in skillsInfo)
+        {
+            switch (skillListInfo.Name)
+            {
+                case "weapons":
+                    foreach (XmlElement skillInfo in skillListInfo)
+                        m_WeaponSkills.Add(AssetHolder.WeaponSkills[skillInfo.GetAttribute("name")]);
+                    break;
+                default:
+                    UnityEngine.Debug.Log("Unrecognized name: \"" + skillListInfo.Name + "\"");
+                    break;
+            }
+        }
     }
 }

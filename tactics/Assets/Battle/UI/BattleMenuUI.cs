@@ -13,14 +13,6 @@ public class BattleMenuUI : MonoBehaviour
 
     public int maxNumberOptionsShown = 6;
 
-    void Start()
-    {
-        if (m_Index < m_Options.Count)
-        {
-            m_Options[m_Index].SetBool("Highlighted", true);
-        }
-    }
-
     public void ClearOptions()
     {
         foreach (Animator anim in m_Options)
@@ -71,5 +63,10 @@ public class BattleMenuUI : MonoBehaviour
             m_Options[m_Index++].SetBool("Highlighted", false);
             m_Options[m_Index].SetBool("Highlighted", true);
         }
+    }
+
+    public void Reset()
+    {
+        m_Options[m_Index].SetBool("Highlighted", true);
     }
 }

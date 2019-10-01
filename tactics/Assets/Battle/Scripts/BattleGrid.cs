@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 public class BattleGrid : MonoBehaviour, BattleSelectableZone
 {
@@ -41,7 +42,48 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
     {
         set
         {
-            FileInfo src = new FileInfo(value);
+            XmlDocument src = new XmlDocument();
+            src.PreserveWhitespace = false;
+            try
+            {
+                src.Load(value);
+
+                XmlNode root = src["grid"];
+                m_Width = int.Parse(root.Attributes["width"].Value);
+                m_Tiles = new BattleTile[m_Width * int.Parse(root.Attributes["height"].Value)];
+
+                foreach (XmlNode tilesNode in root.ChildNodes)
+                {
+                    XmlElement tiles = (XmlElement)tilesNode;
+
+                    int x = int.Parse(tiles.GetAttribute("x"));
+                    int y = int.Parse(tiles.GetAttribute("y"));
+                    int w = tiles.HasAttribute("width") ? int.Parse(tiles.GetAttribute("width")) - 1 : 0;
+                    int h = tiles.HasAttribute("height") ? int.Parse(tiles.GetAttribute("height")) - 1 : 0;
+
+                    XmlElement tile = tiles["tile"];
+
+                    for (int i = x + w; i >= x; --i)
+                    {
+                        for (int j = y + h; j >= y; --j)
+                        {
+                            if (this[i, j] == null)
+                            {
+                                this[i, j] = Instantiate(tilePrefab, transform);
+                                this[i, j].name = "Tile (" + i + ", " + j + ")";
+                                this[i, j].transform.localPosition = new Vector3(i, j);
+                                this[i, j].Load(tile, i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw new FileLoadException("[BattleGrid] Could not load map from file \"" + value + "\"");
+            }
+
+            /*FileInfo src = new FileInfo(value);
             using (StreamReader reader = src.OpenText())
             {
                 string line;
@@ -149,7 +191,7 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
                         }
                     }
                 }
-            }
+            }*/
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 public class BattleTile : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class BattleTile : MonoBehaviour
     public BattleObject Object;
     public BattleAgent Agent;
 
-    public void Construct(params string[] args)
+    /*public void Construct(params string[] args)
     {
         foreach (string arg in args)
         {
@@ -67,6 +68,24 @@ public class BattleTile : MonoBehaviour
             {
                 Agent = Instantiate((BattleAgent)AssetHolder.Objects[m.Groups[1].Value], surface.transform);
             }
+        }
+    }*/
+
+    public void Load(XmlElement tileInfo, int x, int y)
+    {
+        // TODO texture attribute
+        Height = int.Parse(tileInfo.GetAttribute("height"));
+
+        if (tileInfo.HasAttribute("object"))
+        {
+            Object = Instantiate(AssetHolder.Objects[tileInfo.GetAttribute("object")], surface.transform);
+            Object.coordinates = new Vector2Int(x, y);
+        }
+
+        if (tileInfo.HasAttribute("agent"))
+        {
+            Agent = Instantiate(AssetHolder.Agents[tileInfo.GetAttribute("agent")], surface.transform);
+            Agent.coordinates = new Vector2Int(x, y);
         }
     }
 

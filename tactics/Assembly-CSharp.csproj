@@ -86,7 +86,12 @@
      <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\WeaponSkillArea.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\WeaponSkill.cs" />
      <Compile Include="Assets\Battle\UI\BattleMenuUI.cs" />
-     <None Include="Assets\Battle\Maps\map_test.txt" />
+     <None Include="Assets\Battle\Data\Maps\map_test1.txt" />
+     <None Include="Assets\Battle\Data\Maps\map_test.txt" />
+     <None Include="Assets\Battle\Data\characters.xml" />
+     <None Include="Assets\Battle\Data\skills.xml" />
+     <None Include="Assets\Battle\Data\Maps\map_test.xml" />
+     <None Include="Assets\Battle\Data\characters.txt" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Zach/Documents/GitHub/tactics/tactics/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>

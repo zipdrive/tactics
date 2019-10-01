@@ -17,6 +17,9 @@ public class ManualBattleAgent : BattleAgent
         m_Menus = new Stack<BattleMenu>();
         m_Menus.Push(m_BaseMenu);
         m_BaseMenu.Construct(manager);
+
+        manager.grid.Selector.SelectedTile = coordinates;
+        manager.grid.Selector.Snap();
     }
 
     public override bool QUpdate(BattleManager manager, bool canMove, bool canAct, ref BattleAction decision)
@@ -27,6 +30,9 @@ public class ManualBattleAgent : BattleAgent
             {
                 m_Menus.Push(m_BaseMenu);
                 m_BaseMenu.Construct(manager);
+
+                manager.grid.Selector.SelectedTile = coordinates;
+                manager.grid.Selector.Snap();
             }
             else
             {
@@ -56,7 +62,7 @@ public class ManualBattleAgent : BattleAgent
             }
         }
 
-        m_Menus.Peek().MUpdate(manager);
+        if (m_Menus.Count > 0) m_Menus.Peek().MUpdate(manager);
 
         return false;
     }

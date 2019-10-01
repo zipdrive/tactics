@@ -1,0 +1,15 @@
+{
+	width: 10,
+	height: 10,
+
+	default: {
+		texture: sample,
+		height: 1
+	},
+
+	tile[1, 1]: {
+		texture: sample, 
+		height: 3,
+		agent: debug_manualagent
+	}
+}

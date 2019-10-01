@@ -25,6 +25,7 @@ public abstract class BattleMenuListSelection<T> : BattleMenu
     public override void Construct(BattleManager manager)
     {
         m_MenuUI.menu.gameObject.SetActive(true);
+        m_MenuUI.Reset();
         BattleSelector.Frozen = true;
     }
 
