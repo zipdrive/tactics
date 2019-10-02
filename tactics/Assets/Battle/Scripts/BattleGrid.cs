@@ -194,7 +194,8 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
             }
         }
         
-        transform.position -= CameraSpeed * (transform.position + (transform.rotation * Selector.transform.localPosition));
+        // TODO fix the weird jump that the camera does after rotation
+        transform.position -= CameraSpeed * (transform.position + (transform.rotation * Selector.Cursor.transform.localPosition));
     }
 
     public bool IsSelectable(int x, int y)

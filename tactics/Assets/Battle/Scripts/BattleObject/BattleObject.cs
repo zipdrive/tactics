@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BattleObject : MonoBehaviour
 {
-    public Vector2Int coordinates;
+    //public Vector2Int coordinates;
 }

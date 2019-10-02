@@ -121,8 +121,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 17602138}
+  - component: {fileID: 17602139}
   m_Layer: 0
-  m_Name: Selector Transform
+  m_Name: Selector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,6 +144,21 @@ Transform:
   m_Father: {fileID: 1977842255}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &17602139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17602137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc1ffcd6db53a948ae87514cc2cac4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cursor: {fileID: 1020646795}
+  SelectedTile: {x: 0, y: 0}
+  Velocity: {x: 0, y: 0, z: 0}
 --- !u!1 &30823048
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +393,6 @@ MonoBehaviour:
   rootMenu: {fileID: 2058809263}
   weaponSkillMenu: {fileID: 30823050}
   grid: {fileID: 1977842254}
-  agents: []
 --- !u!4 &558804441
 Transform:
   m_ObjectHideFlags: 0
@@ -519,28 +534,13 @@ GameObject:
   - component: {fileID: 1020646794}
   - component: {fileID: 1020646793}
   - component: {fileID: 1020646792}
-  - component: {fileID: 1020646791}
   m_Layer: 0
-  m_Name: Selector
+  m_Name: Selector Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1020646791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1020646790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc1ffcd6db53a948ae87514cc2cac4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SelectedTile: {x: 0, y: 0}
-  Velocity: {x: 0, y: 0, z: 0}
 --- !u!64 &1020646792
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -972,7 +972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 3111908954926786727, guid: e84ce3559d6c7534caed9130304fa816,
     type: 3}
-  Selector: {fileID: 1020646791}
+  Selector: {fileID: 17602139}
   SelectableAreas: {fileID: 1511171303}
   TargetedAreas: {fileID: 2061488885}
   filename: Assets/Battle/Data/Maps/map_test.xml
@@ -983,7 +983,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977842253}
-  m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

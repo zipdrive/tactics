@@ -37,39 +37,7 @@ public class BattleTile : MonoBehaviour
     }
 
     public BattleObject Object;
-    public BattleAgent Agent;
-
-    /*public void Construct(params string[] args)
-    {
-        foreach (string arg in args)
-        {
-            Match m;
-
-            m = Regex.Match(arg, TexturePattern);
-            if (m.Success)
-            {
-                // TODO
-            }
-
-            m = Regex.Match(arg, HeightPattern);
-            if (m.Success)
-            {
-                Height = int.Parse(m.Groups[1].Value);
-            }
-
-            m = Regex.Match(arg, ObjectPattern);
-            if (m.Success)
-            {
-                Object = Instantiate(AssetHolder.Objects[m.Groups[1].Value], surface.transform);
-            }
-
-            m = Regex.Match(arg, AgentPattern);
-            if (m.Success)
-            {
-                Agent = Instantiate((BattleAgent)AssetHolder.Objects[m.Groups[1].Value], surface.transform);
-            }
-        }
-    }*/
+    public BattleActor Actor;
 
     public void Load(XmlElement tileInfo, int x, int y)
     {
@@ -79,50 +47,19 @@ public class BattleTile : MonoBehaviour
         if (tileInfo.HasAttribute("object"))
         {
             Object = Instantiate(AssetHolder.Objects[tileInfo.GetAttribute("object")], surface.transform);
-            Object.coordinates = new Vector2Int(x, y);
         }
 
-        if (tileInfo.HasAttribute("agent"))
+        if (tileInfo.HasAttribute("character"))
         {
-            Agent = Instantiate(AssetHolder.Agents[tileInfo.GetAttribute("agent")], surface.transform);
-            Agent.coordinates = new Vector2Int(x, y);
+            Actor = Instantiate((BattleActor)AssetHolder.Objects["actor"], surface.transform);
+
+            Character character = AssetHolder.Characters[tileInfo.GetAttribute("character")];
+            if (character is PlayerCharacter)
+                Actor.Agent = new ManualBattleAgent(character);
+
+            Actor.Agent.Coordinates = new Vector2Int(x, y);
         }
     }
-
-    /*
-    public BattleTile(params string[] args)
-    {
-        if (args.Length > 0)
-        {
-            if (!AssetHolder.Tiles.ContainsKey(args[0]))
-                throw new KeyNotFoundException("[BattleTile] Invalid tile sprite: \"" + args[0] + "\"");
-
-            sprite = AssetHolder.Tiles[args[0]];
-        }
-        
-        if (args.Length > 1)
-        {
-            if (!AssetHolder.Objects.ContainsKey(args[1]))
-                throw new KeyNotFoundException("[BattleTile] Invalid object: \"" + args[1] + "\"");
-
-            m_ObjPrefab = AssetHolder.Objects[args[1]];
-        }
-    }
-
-    public void Instantiate(int x, int y, Transform parent)
-    {
-        GameObject tileObject = new GameObject("Tile (" + x + ", " + y + ")");
-        tileObject.transform.parent = parent;
-        tileObject.transform.localPosition = new Vector3(x, y, 0f);
-        tileObject.transform.localRotation = Quaternion.identity;
-
-        SpriteRenderer renderer = tileObject.AddComponent<SpriteRenderer>();
-        renderer.sprite = sprite;
-
-        if (m_ObjPrefab != null) obj = GameObject.Instantiate<BattleObject>(m_ObjPrefab, tileObject.transform);
-
-        this.renderer = renderer;
-    }*/
 
     public virtual bool IsSelectable()
     {

@@ -10,6 +10,11 @@ public class ManualBattleAgent : BattleAgent
     private Stack<BattleMenu> m_Menus;
     private BattleMenu m_BaseMenu;
 
+    public ManualBattleAgent(Character baseCharacter) : base(baseCharacter)
+    {
+        // ???
+    }
+
     public override void QStart(BattleManager manager, bool canMove, bool canAct)
     {
         m_BaseMenu = new BattleMenuRootSelection(this, canMove, canAct);

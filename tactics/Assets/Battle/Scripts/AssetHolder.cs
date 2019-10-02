@@ -8,9 +8,10 @@ public class AssetHolder : MonoBehaviour
 {
     public static bool AssetsLoaded = false;
 
+    public static Dictionary<string, BattleSprite> Sprites = new Dictionary<string, BattleSprite>();
+
     public static Dictionary<string, Sprite> Tiles = new Dictionary<string, Sprite>();
     public static Dictionary<string, BattleObject> Objects = new Dictionary<string, BattleObject>();
-    public static Dictionary<string, BattleAgent> Agents = new Dictionary<string, BattleAgent>();
 
     public static Dictionary<string, WeaponSkill> WeaponSkills = new Dictionary<string, WeaponSkill>();
     public static Dictionary<string, Skill> MagicSkills = new Dictionary<string, Skill>();
@@ -21,6 +22,55 @@ public class AssetHolder : MonoBehaviour
     {
         if (!AssetsLoaded)
         {
+            // Sprites
+            XmlDocument spritesDoc = new XmlDocument();
+            spritesDoc.PreserveWhitespace = false;
+
+            //try
+            {
+                spritesDoc.Load("Assets/Battle/Data/sprites.xml");
+                XmlElement root = spritesDoc["sprites"];
+
+                foreach (XmlElement spriteInfo in root.ChildNodes)
+                {
+                    string spriteName = spriteInfo.GetAttribute("name");
+                    Dictionary<string, Material> images = new Dictionary<string, Material>();
+
+                    foreach (XmlElement imageInfo in spriteInfo["images"].ChildNodes)
+                        images[imageInfo.GetAttribute("name")] = AssetDatabase.LoadAssetAtPath<Material>(
+                            "Assets/Battle/Objects/2D/Sprites/Materials/"
+                            + spriteName + " "
+                            + imageInfo.GetAttribute("name")
+                            + ".mat"
+                            );
+
+                    BattleSprite sprite = new BattleSprite();
+
+                    foreach (XmlElement animationInfo in spriteInfo["animations"].ChildNodes)
+                    {
+                        BattleSpriteAnimation animation = new BattleSpriteAnimation();
+
+                        foreach (XmlElement frameInfo in animationInfo.ChildNodes)
+                            animation.Add(images[frameInfo.InnerText.Trim()], float.Parse(frameInfo.GetAttribute("duration")));
+
+                        Direction dir;
+                        if (System.Enum.TryParse(
+                            animationInfo.GetAttribute("direction").Substring(0, 1).ToUpper() 
+                            + animationInfo.GetAttribute("direction").Substring(1).ToLower(),
+                            out dir))
+                        {
+                            sprite.Add(dir, animationInfo.GetAttribute("name"), animation);
+                        }
+                    }
+
+                    Sprites.Add(spriteName, sprite);
+                }
+            }
+            /*catch
+            {
+                throw new System.IO.FileLoadException("[AssetHolder] Unable to load sprites from file.");
+            }*/
+
             // Tiles
             string[] spriteGUIDs = AssetDatabase.FindAssets("t:Sprite");
             foreach (string spriteGUID in spriteGUIDs)
@@ -44,19 +94,7 @@ public class AssetHolder : MonoBehaviour
 
                 if (obj != null && obj.name.StartsWith("object "))
                 {
-                    Objects[obj.name.Remove(0, 6)] = obj;
-                }
-            }
-
-            // Agents
-            string[] agentGUIDs = AssetDatabase.FindAssets("agent");
-            foreach (string agentGUID in agentGUIDs)
-            {
-                BattleAgent agent = AssetDatabase.LoadAssetAtPath<BattleAgent>(AssetDatabase.GUIDToAssetPath(agentGUID));
-
-                if (agent != null && agent.name.StartsWith("agent "))
-                {
-                    Agents[agent.name.Remove(0, 6)] = agent;
+                    Objects[obj.name.Remove(0, 7)] = obj;
                 }
             }
 

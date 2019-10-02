@@ -1,20 +1,30 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
-public interface Character
+public abstract class Character
 {
-    int HP { get; }
-    int SP { get; }
+    public readonly string Name;
+    public readonly BattleSprite Sprite;
 
-    int Attack { get; }
-    int Defense { get; }
-    int Magic { get; }
-    int Speed { get; }
+    public abstract int HP { get; }
+    public abstract int SP { get; }
 
-    int Move { get; }
+    public abstract int Attack { get; }
+    public abstract int Defense { get; }
+    public abstract int Magic { get; }
+    public abstract int Speed { get; }
 
-    List<WeaponSkill> WeaponSkills { get; }
-    List<Skill> MagicSkills { get; }
+    public abstract int Move { get; }
 
-    Weapon PrimaryWeapon { get; set; }
-    Weapon SecondaryWeapon { get; set; }
+    public abstract List<WeaponSkill> WeaponSkills { get; }
+    public abstract List<Skill> MagicSkills { get; }
+
+    public abstract Weapon PrimaryWeapon { get; set; }
+    public abstract Weapon SecondaryWeapon { get; set; }
+
+    public Character(XmlElement characterInfo)
+    {
+        Name = characterInfo.GetAttribute("name");
+        Sprite = AssetHolder.Sprites[characterInfo.GetAttribute("sprite")];
+    }
 }

@@ -15,7 +15,7 @@ public class RadialSkillArea : SkillArea
 
     public BattleSelectableZone SelectableCenters(BattleAgent user)
     {
-        return new BattleSelectableManhattanRadius(user.coordinates, MinRange, MaxRange);
+        return new BattleSelectableManhattanRadius(user.Coordinates, MinRange, MaxRange);
     }
 
     public bool IsWithinArea(BattleAgent user, Vector2Int center, Vector2Int tile)

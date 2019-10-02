@@ -21,9 +21,9 @@ public class BattleManager : MonoBehaviour
         {
             for (int j = 0; j < grid.Height; ++j)
             {
-                if (grid[i, j] != null && grid[i, j].Agent != null)
+                if (grid[i, j] != null && grid[i, j].Actor != null)
                 {
-                    agents.Add(grid[i, j].Agent);
+                    agents.Add(grid[i, j].Actor.Agent);
                 }
             }
         }

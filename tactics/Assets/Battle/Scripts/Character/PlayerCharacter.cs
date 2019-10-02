@@ -11,7 +11,7 @@ public class PlayerCharacter : Character
     int m_Magic;
     int m_Speed;
 
-    public int HP
+    public override int HP
     {
         get
         {
@@ -19,7 +19,7 @@ public class PlayerCharacter : Character
         }
     }
 
-    public int SP
+    public override int SP
     {
         get
         {
@@ -27,7 +27,7 @@ public class PlayerCharacter : Character
         }
     }
 
-    public int Attack
+    public override int Attack
     {
         get
         {
@@ -40,7 +40,7 @@ public class PlayerCharacter : Character
         }
     }
 
-    public int Defense
+    public override int Defense
     {
         get
         {
@@ -48,7 +48,7 @@ public class PlayerCharacter : Character
         }
     }
 
-    public int Magic
+    public override int Magic
     {
         get
         {
@@ -56,7 +56,7 @@ public class PlayerCharacter : Character
         }
     }
 
-    public int Speed
+    public override int Speed
     {
         get
         {
@@ -64,7 +64,7 @@ public class PlayerCharacter : Character
         }
     }
 
-    public int Move
+    public override int Move
     {
         get
         {
@@ -74,7 +74,7 @@ public class PlayerCharacter : Character
     
     List<WeaponSkill> m_WeaponSkills = new List<WeaponSkill>();
 
-    public List<WeaponSkill> WeaponSkills
+    public override List<WeaponSkill> WeaponSkills
     {
         get
         {
@@ -82,7 +82,7 @@ public class PlayerCharacter : Character
         }
     }
 
-    public List<Skill> MagicSkills
+    public override List<Skill> MagicSkills
     {
         get
         {
@@ -93,7 +93,7 @@ public class PlayerCharacter : Character
     Weapon m_Primary;
     Weapon m_Secondary;
 
-    public Weapon PrimaryWeapon
+    public override Weapon PrimaryWeapon
     {
         get
         {
@@ -114,7 +114,7 @@ public class PlayerCharacter : Character
         }
     }
 
-    public Weapon SecondaryWeapon
+    public override Weapon SecondaryWeapon
     {
         get
         {
@@ -128,17 +128,7 @@ public class PlayerCharacter : Character
     }
 
 
-    public PlayerCharacter()
-    {
-        m_WeaponSkills.Add(new WeaponSkill(
-            "Attack", 
-            "", 
-            new WeaponSkillArea(), 
-            WeaponType.Axe, WeaponType.Sword, WeaponType.Knife, WeaponType.Hammer, WeaponType.Spear, WeaponType.Bow, WeaponType.Gun, WeaponType.Shield, WeaponType.Fist
-            ));
-    }
-
-    public PlayerCharacter(XmlElement characterInfo)
+    public PlayerCharacter(XmlElement characterInfo) : base(characterInfo)
     {
         XmlElement statsInfo = characterInfo["stats"];
         m_HP = int.Parse(statsInfo.GetAttribute("hp"));

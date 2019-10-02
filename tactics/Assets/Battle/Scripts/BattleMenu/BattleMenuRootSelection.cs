@@ -4,7 +4,7 @@ public class BattleMenuRootSelection : BattleMenuListSelection<BattleMenu>
 {
     private BattleAgent m_Agent;
 
-    public BattleMenuRootSelection(BattleAgent agent, bool canMove, bool canAct) : base("Root Battle Menu UI", agent.coordinates)
+    public BattleMenuRootSelection(BattleAgent agent, bool canMove, bool canAct) : base("Root Battle Menu UI", agent.Coordinates)
     {
         m_Agent = agent;
 

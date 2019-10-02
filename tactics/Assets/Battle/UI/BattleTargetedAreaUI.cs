@@ -2,6 +2,8 @@
 
 public class BattleTargetedAreaUI : MonoBehaviour
 {
+    private static Vector3 m_Position = new Vector3(0f, 0f, -0.002f);
+
     public Transform targetedAreaPrefab;
 
     private BattleGrid m_Grid;
@@ -21,6 +23,8 @@ public class BattleTargetedAreaUI : MonoBehaviour
         if (m_Time > 1f) m_Time -= 2.0f;
 
         m_Material.color = new Color(1f, 0.855f, 0.157f, 0.5f * Mathf.Abs(m_Time));
+
+        transform.position = m_Grid.transform.position + m_Position;
     }
 
     public void Set(SkillArea area, BattleAgent user, Vector2Int center)
@@ -34,7 +38,7 @@ public class BattleTargetedAreaUI : MonoBehaviour
                 if (area.IsWithinArea(user, center, new Vector2Int(i, j)))
                 {
                     Transform tile = Instantiate(targetedAreaPrefab, transform);
-                    tile.localPosition = new Vector3(i, j - 0.00115f, (-0.5f * m_Grid[i, j].Height) - 0.002f);
+                    tile.localPosition = new Vector3(i, j, -0.5f * m_Grid[i, j].Height);
                 }
             }
         }

@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BattleAgent : BattleObject2D
+public abstract class BattleAgent
 {
     public Character BaseCharacter;
-    public string BaseCharacterName;
 
-    void Awake()
+    /// <summary>
+    /// The coordinates of the agent.
+    /// </summary>
+    public Vector2Int Coordinates;
+    /// <summary>
+    /// The direction that the agent is facing.
+    /// </summary>
+    public float Direction;
+
+    public BattleAgent(Character baseCharacter)
     {
-        BaseCharacter = AssetHolder.Characters[BaseCharacterName];
+        BaseCharacter = baseCharacter;
     }
 
     public virtual void QStart(BattleManager manager, bool canMove, bool canAct) { }

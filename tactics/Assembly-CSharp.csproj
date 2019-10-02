@@ -56,6 +56,8 @@
      <Compile Include="Assets\Battle\Scripts\AssetHolder.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleSkillAction.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleAgent.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAgent\ManualBattleAgent.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleGrid.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleManager.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenu.cs" />
@@ -64,8 +66,7 @@
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuSkillAreaConfirmation.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuSkillAreaSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuWeaponSkillSelection.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleAgent\BattleAgent.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleAgent\ManualBattleAgent.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleActor.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject2D.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentDecision.cs" />
@@ -74,6 +75,9 @@
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableRectangle.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableZone.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelector.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleSprite\BattleSprite.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleSprite\BattleSpriteAnimation.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleSprite\Direction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleTile.cs" />
      <Compile Include="Assets\Battle\Scripts\Character\Character.cs" />
      <Compile Include="Assets\Battle\Scripts\Character\PlayerCharacter.cs" />
@@ -95,6 +99,7 @@
      <Compile Include="Assets\Battle\UI\BattleTargetedAreaUI.cs" />
      <None Include="Assets\Battle\Data\Maps\map_test1.txt" />
      <None Include="Assets\Battle\Data\Maps\map_test.txt" />
+     <None Include="Assets\Battle\Data\sprites.xml" />
      <None Include="Assets\Battle\Data\characters.xml" />
      <None Include="Assets\Battle\Data\skills.xml" />
      <None Include="Assets\Battle\Data\Maps\map_test.xml" />

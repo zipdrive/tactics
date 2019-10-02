@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<sprites>
+  
+  <sprite name="debug">
+    
+    <images>
+      <image name="blank" />
+      <image name="standing" />
+    </images>
+
+    <animations>
+      <animation name="idle" direction="forward">
+        <frame duration="1">standing</frame>
+      </animation>
+
+      <animation name="idle" direction="right">
+        <frame duration="1">standing</frame>
+      </animation>
+
+      <animation name="idle" direction="back">
+        <frame duration="1">standing</frame>
+      </animation>
+    </animations>
+    
+  </sprite>
+  
+</sprites>
