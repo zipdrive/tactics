@@ -27,13 +27,13 @@ public class BattleMenuSkillAreaSelection : BattleMenu
 
         if (manager.grid.SelectableZone.IsSelectable(center.x, center.y))
         {
-            decision = new BattleSkillAction(user, skill, center);
+            next = new BattleMenuSkillAreaConfirmation(user, skill, center);
         }
         else
         {
-            decision = null;
+            next = null;
         }
 
-        next = null;
+        decision = null;
     }
 }

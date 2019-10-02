@@ -2,7 +2,7 @@
 
 <skills>
   
-  <weapons>
+  <skillclass type="weapon">
     <skill name="Punch" types="fist" range="weapon">
       A barehanded punch.
     </skill>
@@ -16,16 +16,16 @@
       A blunt attack that does high damage, but has low accuracy.
     </skill>
 
-    <skill name="Debug1" types="fist" range="weapon">
+    <skill name="Debug1" types="fist" range="1;1">
       Description of Debug1.
     </skill>
-    <skill name="Debug2" types="fist" range="weapon">
+    <skill name="Debug2" types="fist" range="2-3;1">
       Description of Debug2.
     </skill>
-    <skill name="Debug3" types="fist" range="weapon">
+    <skill name="Debug3" types="fist" range="2-3;3">
       Description of Debug3.
     </skill>
-    <skill name="Debug4" types="fist" range="weapon">
+    <skill name="Debug4" types="fist" range="6;3">
       Description of Debug4.
     </skill>
     <skill name="Debug5" types="fist" range="weapon">
@@ -34,10 +34,18 @@
     <skill name="Debug6" types="fist" range="weapon">
       Description of Debug6.
     </skill>
-  </weapons>
+  </skillclass>
 
-  <magic>
-    
-  </magic>
+  <skillclass type="magic">
+    <skill name="Fire α" cost="1" range="3;1">
+      Description of Fire α.
+    </skill>
+    <skill name="Fire β" cost="2" range="3;2">
+      Description of Fire β.
+    </skill>
+    <skill name="Fire ω" cost="3" range="3;3">
+      Description of Fire ω.
+    </skill>
+  </skillclass>
   
 </skills>

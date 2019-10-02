@@ -47,7 +47,6 @@ public class BattleMenuUI : MonoBehaviour
 
     public void ScrollUp()
     {
-        Debug.Log("Scroll up. Current index: " + m_Index);
         if (m_Index > 0)
         {
             m_Options[m_Index--].SetBool("Highlighted", false);
@@ -57,7 +56,6 @@ public class BattleMenuUI : MonoBehaviour
 
     public void ScrollDown()
     {
-        Debug.Log("Scroll down. Current index: " + m_Index);
         if (m_Index < m_Options.Count - 1)
         {
             m_Options[m_Index++].SetBool("Highlighted", false);

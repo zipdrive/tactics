@@ -6,7 +6,7 @@ public class BattleMenuWeaponSkillSelection : BattleMenuListSelection<WeaponSkil
 {
     private BattleAgent m_User;
 
-    public BattleMenuWeaponSkillSelection(BattleAgent user) : base("Weapon Skill Battle Menu UI")
+    public BattleMenuWeaponSkillSelection(BattleAgent user) : base("Weapon Skill Battle Menu UI", user.coordinates)
     {
         m_User = user;
 

@@ -9,7 +9,17 @@ public abstract class BattleMenuListSelection<T> : BattleMenu
     protected List<T> m_Options;
     protected int m_Index;
 
-    public BattleMenuListSelection(string uiName)
+    public int Count
+    {
+        get
+        {
+            return m_Options.Count;
+        }
+    }
+
+    protected Vector2Int m_Coordinates;
+
+    public BattleMenuListSelection(string uiName, Vector2Int coordinates)
     {
         GameObject obj = GameObject.Find(uiName);
         if (obj == null)
@@ -20,6 +30,8 @@ public abstract class BattleMenuListSelection<T> : BattleMenu
 
         m_Index = 0;
         m_Options = new List<T>();
+
+        m_Coordinates = coordinates;
     }
 
     public override void Construct(BattleManager manager)
@@ -27,6 +39,9 @@ public abstract class BattleMenuListSelection<T> : BattleMenu
         m_MenuUI.menu.gameObject.SetActive(true);
         m_MenuUI.Reset();
         BattleSelector.Frozen = true;
+
+        manager.grid.Selector.SelectedTile = m_Coordinates;
+        manager.grid.Selector.Snap();
     }
 
     public override void Destruct(BattleManager manager)

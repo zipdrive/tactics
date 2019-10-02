@@ -5,7 +5,7 @@
   <character name="debug" type="player">
     <stats hp="50" sp="50" attack="5" defense="5" magic="5" speed="5" />
     <skills>
-      <weapons>
+      <skillclass type="weapon">
         <skill name="Punch" />
         <skill name="Debug1" />
         <skill name="Debug2" />
@@ -13,7 +13,7 @@
         <skill name="Debug4" />
         <skill name="Debug5" />
         <skill name="Debug6" />
-      </weapons>
+      </skillclass>
     </skills>
   </character>
   

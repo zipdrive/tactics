@@ -61,6 +61,7 @@
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenu.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuListSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuRootSelection.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuSkillAreaConfirmation.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuSkillAreaSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuWeaponSkillSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleAgent\BattleAgent.cs" />
@@ -81,11 +82,17 @@
      <Compile Include="Assets\Battle\Scripts\Item\Weapon.cs" />
      <Compile Include="Assets\Battle\Scripts\Item\WeaponType.cs" />
      <Compile Include="Assets\Battle\Scripts\RotatableSprite.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\MagicSkill.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\MoveSkill.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\Skill.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\MoveArea.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\RadialSkillArea.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\SkillArea.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\WeaponSkillArea.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\WeaponSkill.cs" />
      <Compile Include="Assets\Battle\UI\BattleMenuUI.cs" />
+     <Compile Include="Assets\Battle\UI\BattleSelectableAreaUI.cs" />
+     <Compile Include="Assets\Battle\UI\BattleTargetedAreaUI.cs" />
      <None Include="Assets\Battle\Data\Maps\map_test1.txt" />
      <None Include="Assets\Battle\Data\Maps\map_test.txt" />
      <None Include="Assets\Battle\Data\characters.xml" />

@@ -149,16 +149,16 @@ public class PlayerCharacter : Character
         m_Speed = int.Parse(statsInfo.GetAttribute("speed"));
 
         XmlElement skillsInfo = characterInfo["skills"];
-        foreach (XmlElement skillListInfo in skillsInfo)
+        foreach (XmlElement skillClass in skillsInfo)
         {
-            switch (skillListInfo.Name)
+            switch (skillClass.GetAttribute("type"))
             {
-                case "weapons":
-                    foreach (XmlElement skillInfo in skillListInfo)
+                case "weapon":
+                    foreach (XmlElement skillInfo in skillClass)
                         m_WeaponSkills.Add(AssetHolder.WeaponSkills[skillInfo.GetAttribute("name")]);
                     break;
                 default:
-                    UnityEngine.Debug.Log("Unrecognized name: \"" + skillListInfo.Name + "\"");
+                    UnityEngine.Debug.Log("[PlayerCharacter] Unrecognized skill type: \"" + skillClass.GetAttribute("type") + "\"");
                     break;
             }
         }

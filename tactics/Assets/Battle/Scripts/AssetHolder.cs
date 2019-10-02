@@ -64,22 +64,36 @@ public class AssetHolder : MonoBehaviour
             XmlDocument skillsDoc = new XmlDocument();
             skillsDoc.PreserveWhitespace = false;
 
-            /*try*/
+            try
             {
                 skillsDoc.Load("Assets/Battle/Data/skills.xml");
                 XmlElement root = skillsDoc["skills"];
 
-                foreach (XmlElement weaponSkillInfo in root["weapons"])
-                    WeaponSkills[weaponSkillInfo.GetAttribute("name")] = new WeaponSkill(weaponSkillInfo);
-
-                foreach (XmlElement magicSkillInfo in root["magic"])
-                    MagicSkills[magicSkillInfo.GetAttribute("name")] = new WeaponSkill(magicSkillInfo);
+                foreach (XmlElement skillClass in root.ChildNodes)
+                {
+                    if (skillClass.HasAttribute("type"))
+                    {
+                        switch (skillClass.GetAttribute("type"))
+                        {
+                            case "weapon":
+                                foreach (XmlElement weaponSkillInfo in skillClass)
+                                    WeaponSkills[weaponSkillInfo.GetAttribute("name")] = new WeaponSkill(weaponSkillInfo);
+                                break;
+                            case "magic":
+                                foreach (XmlElement magicSkillInfo in skillClass)
+                                    MagicSkills[magicSkillInfo.GetAttribute("name")] = new MagicSkill(magicSkillInfo);
+                                break;
+                            default:
+                                Debug.Log("Unrecognized skill class: \"" + skillClass.GetAttribute("type") + "\"");
+                                break;
+                        }
+                    }
+                }
             }
-            /*catch (System.Exception e)
+            catch
             {
-                
-                //throw new System.IO.FileLoadException("[AssetHolder] Unable to load skills from file.");
-            }*/
+                throw new System.IO.FileLoadException("[AssetHolder] Unable to load skills from file.");
+            }
 
             // Characters
             XmlDocument characterDoc = new XmlDocument();

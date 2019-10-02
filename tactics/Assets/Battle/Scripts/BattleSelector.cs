@@ -15,6 +15,8 @@ public class BattleSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // TODO selector gets off-center after rotations
+
         transform.localPosition += Velocity * SelectionSpeed * Time.deltaTime;
 
         if ((transform.localPosition.x > SelectedTile.x && Velocity.x > 0f)
