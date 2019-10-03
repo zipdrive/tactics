@@ -17,15 +17,14 @@ public class BattleMenuWeaponSkillSelection : BattleMenuListSelection<WeaponSkil
 
             if (skill.Types.Contains(type1) || skill.Types.Contains(type2))
             {
-                m_Options.Add(skill);
-                m_MenuUI.AddOption(false, skill.Name);
+                Add(false, skill, skill.Name);
             }
         }
     }
 
     public override void Select(BattleManager manager, out BattleMenu next, out BattleAction decision)
     {
-        next = new BattleMenuSkillAreaSelection(m_User, m_Options[m_Index]);
+        next = new BattleMenuSkillAreaSelection(m_User, m_Options[m_Index].value);
         decision = null;
     }
 }

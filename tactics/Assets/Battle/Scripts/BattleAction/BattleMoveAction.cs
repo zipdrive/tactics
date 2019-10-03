@@ -124,9 +124,9 @@ public class BattleMoveAction : BattleAction
             Debug.Log(current);
 
             if (grid[current].Height != grid[steps.Peek()].Height)
-                manager.Add(new BattleJump(current, steps.Peek() - current, time - steps.Count));
+                manager.Add(new BattleJump(current, steps.Peek() - current, time - steps.Count - 2));
             else
-                manager.Add(new BattleWalk(current, steps.Peek() - current, time - steps.Count));
+                manager.Add(new BattleWalk(current, steps.Peek() - current, time - steps.Count - 2));
         }
     }
 }

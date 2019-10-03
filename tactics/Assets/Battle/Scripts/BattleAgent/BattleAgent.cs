@@ -14,9 +14,59 @@ public abstract class BattleAgent
     /// The direction that the agent is facing.
     /// </summary>
     public float Direction;
-
+    
     public int HP;
     public int SP;
+
+    public int Attack
+    {
+        get
+        {
+            return BaseCharacter.Attack;
+        }
+    }
+
+    public int Defense
+    {
+        get
+        {
+            return BaseCharacter.Defense;
+        }
+    }
+
+    public int Magic
+    {
+        get
+        {
+            return BaseCharacter.Magic;
+        }
+    }
+
+    public int Speed
+    {
+        get
+        {
+            return BaseCharacter.Speed;
+        }
+    }
+
+    public int Jump
+    {
+        get
+        {
+            return BaseCharacter.Jump;
+        }
+    }
+
+    public int Move
+    {
+        get
+        {
+            return BaseCharacter.Move;
+        }
+    }
+
+    public int CP;
 
     public BattleAgent(Character baseCharacter)
     {

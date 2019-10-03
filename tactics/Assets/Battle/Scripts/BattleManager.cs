@@ -28,13 +28,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        foreach (BattleAgent agent in agents)
-        {
-            Add(new BattleAgentDecision(-agent.BaseCharacter.Speed, agent));
-        }
-
-        m_Current = m_Queue[0];
-        m_Queue.RemoveAt(0);
+        m_Current = new BattleAgentCharge(0);
         m_Current.QStart(this);
     }
 
@@ -45,8 +39,6 @@ public class BattleManager : MonoBehaviour
             m_Current = m_Queue[0];
             m_Queue.RemoveAt(0);
             m_Current.QStart(this);
-
-            Debug.Log(m_Current);
         }
     }
 

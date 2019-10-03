@@ -8,17 +8,30 @@ public class BattleMenuRootSelection : BattleMenuListSelection<BattleMenu>
     {
         m_Agent = agent;
 
-        m_Options.Add(new BattleMenuMoveSelection(m_Agent));
-        m_MenuUI.AddOption(!canMove, "Move");
+        // Move
+        Add(!canMove, 
+            new BattleMenuMoveSelection(agent), 
+            "Move"
+            );
 
+        // Weapon Skills
         BattleMenuWeaponSkillSelection weaponSkills = new BattleMenuWeaponSkillSelection(m_Agent);
-        m_Options.Add(weaponSkills);
-        m_MenuUI.AddOption(!canAct || weaponSkills.Count == 0, "Weapon Skill");
+        Add(!canAct || weaponSkills.Count == 0,
+            weaponSkills,
+            "Weapon Skill"
+            );
+
+        // Magic Skills
+        // Custom Skills
+        // Items
+
+        // End Turn
+        Add(false, null, "End Turn");
     }
 
     public override void Select(BattleManager manager, out BattleMenu next, out BattleAction decision)
     {
-        next = m_Options[m_Index];
-        decision = null;
+        next = m_Options[m_Index].disabled ? null : m_Options[m_Index].value;
+        decision = m_Options[m_Index].value == null ? new BattleEndTurnAction() : null;
     }
 }

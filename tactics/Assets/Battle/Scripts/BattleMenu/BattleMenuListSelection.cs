@@ -6,7 +6,19 @@ public abstract class BattleMenuListSelection<T> : BattleMenu
 {
     protected BattleMenuUI m_MenuUI;
 
-    protected List<T> m_Options;
+    protected struct Option
+    {
+        public readonly bool disabled;
+        public readonly T value;
+
+        public Option(bool disabled, T value)
+        {
+            this.disabled = disabled;
+            this.value = value;
+        }
+    }
+
+    protected List<Option> m_Options;
     protected int m_Index;
 
     public int Count
@@ -29,7 +41,7 @@ public abstract class BattleMenuListSelection<T> : BattleMenu
         m_MenuUI.ClearOptions();
 
         m_Index = 0;
-        m_Options = new List<T>();
+        m_Options = new List<Option>();
 
         m_Coordinates = coordinates;
     }
@@ -65,5 +77,12 @@ public abstract class BattleMenuListSelection<T> : BattleMenu
                 m_MenuUI.ScrollDown();
             }
         }
+    }
+
+
+    public void Add(bool disabled, T value, params string[] labels)
+    {
+        m_Options.Add(new Option(disabled, value));
+        m_MenuUI.Add(disabled, labels);
     }
 }

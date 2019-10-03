@@ -10,7 +10,6 @@ public class PlayerCharacter : Character
     int m_Attack;
     int m_Defense;
     int m_Magic;
-    int m_Speed;
 
     public override int HP
     {
@@ -61,7 +60,7 @@ public class PlayerCharacter : Character
     {
         get
         {
-            return m_Speed;
+            return 5;
         }
     }
 
@@ -147,7 +146,6 @@ public class PlayerCharacter : Character
         m_Attack = int.Parse(statsInfo.GetAttribute("attack"));
         m_Defense = int.Parse(statsInfo.GetAttribute("defense"));
         m_Magic = int.Parse(statsInfo.GetAttribute("magic"));
-        m_Speed = int.Parse(statsInfo.GetAttribute("speed"));
 
         XmlElement skillsInfo = characterInfo["skills"];
         foreach (XmlElement skillClass in skillsInfo)

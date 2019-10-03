@@ -55,6 +55,7 @@
   <ItemGroup>
      <Compile Include="Assets\Battle\Scripts\AssetHolder.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleAction.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAction\BattleEndTurnAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleMoveAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleSkillAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleAgent.cs" />
@@ -71,6 +72,7 @@
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleActor.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject2D.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentCharge.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentDecision.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleJump.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueMember.cs" />

@@ -32,7 +32,28 @@ public class BattleAgentDecision : BattleQueueMember
         if (m_Agent.QUpdate(manager, m_MoveAllowed, m_ActionAllowed, ref decision))
         {
             decision.Execute(manager, time);
-            manager.Add(this);
+
+            if (decision is BattleEndTurnAction)
+            {
+                m_Agent.CP -= 60;
+            }
+            else
+            {
+                if (decision is BattleMoveAction)
+                {
+                    m_MoveAllowed = false;
+                    m_Agent.CP -= 15;
+                }
+                else
+                {
+                    m_ActionAllowed = false;
+                    m_Agent.CP -= 25;
+                }
+
+                --time;
+                manager.Add(this);
+            }
+            
             return true;
         }
 

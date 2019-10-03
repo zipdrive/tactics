@@ -20,7 +20,7 @@ public class BattleMenuUI : MonoBehaviour
             Destroy(trans.gameObject);
     }
 
-    public void AddOption(bool disabled, params string[] label)
+    public void Add(bool disabled, params string[] label)
     {
         Animator anim = Instantiate(optionPrefab, menu);
 
