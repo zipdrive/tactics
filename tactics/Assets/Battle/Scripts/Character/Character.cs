@@ -14,6 +14,7 @@ public abstract class Character
     public abstract int Magic { get; }
     public abstract int Speed { get; }
 
+    public abstract int Jump { get; }
     public abstract int Move { get; }
 
     public abstract List<WeaponSkill> WeaponSkills { get; }

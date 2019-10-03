@@ -45,6 +45,8 @@ public class BattleManager : MonoBehaviour
             m_Current = m_Queue[0];
             m_Queue.RemoveAt(0);
             m_Current.QStart(this);
+
+            Debug.Log(m_Current);
         }
     }
 

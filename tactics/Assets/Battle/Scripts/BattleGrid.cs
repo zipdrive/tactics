@@ -26,12 +26,28 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
     {
         get
         {
-            return m_Tiles[x + (y * m_Width)];
+            if (x >= 0 && x < Width && y >= 0 && y < Height)
+                return m_Tiles[x + (y * m_Width)];
+            return null;
         }
 
         set
         {
-            m_Tiles[x + (y * m_Width)] = value;
+            if (x >= 0 && x < Width && y >= 0 && y < Height)
+                m_Tiles[x + (y * m_Width)] = value;
+        }
+    }
+
+    public BattleTile this[Vector2Int coordinates]
+    {
+        get
+        {
+            return this[coordinates.x, coordinates.y];
+        }
+
+        set
+        {
+            this[coordinates.x, coordinates.y] = value;
         }
     }
 

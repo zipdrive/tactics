@@ -37,7 +37,26 @@ public class BattleTile : MonoBehaviour
     }
 
     public BattleObject Object;
-    public BattleActor Actor;
+
+    private BattleActor m_Actor;
+    public BattleActor Actor
+    {
+        get
+        {
+            return m_Actor;
+        }
+
+        set
+        {
+            m_Actor = value;
+
+            if (m_Actor != null)
+            {
+                m_Actor.transform.SetParent(surface.transform);
+                m_Actor.transform.localPosition = new Vector3(0f, m_Actor.transform.localPosition.y, 0f);
+            }
+        }
+    }
 
     public void Load(XmlElement tileInfo, int x, int y)
     {

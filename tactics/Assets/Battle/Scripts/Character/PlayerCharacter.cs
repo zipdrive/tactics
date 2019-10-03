@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 
 public class PlayerCharacter : Character
@@ -61,6 +62,15 @@ public class PlayerCharacter : Character
         get
         {
             return m_Speed;
+        }
+    }
+
+
+    public override int Jump
+    {
+        get
+        {
+            return 2;
         }
     }
 

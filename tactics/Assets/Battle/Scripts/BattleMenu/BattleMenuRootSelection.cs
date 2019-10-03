@@ -8,7 +8,7 @@ public class BattleMenuRootSelection : BattleMenuListSelection<BattleMenu>
     {
         m_Agent = agent;
 
-        m_Options.Add(new BattleMenuSkillAreaSelection(m_Agent, MoveSkill.Skill));
+        m_Options.Add(new BattleMenuMoveSelection(m_Agent));
         m_MenuUI.AddOption(!canMove, "Move");
 
         BattleMenuWeaponSkillSelection weaponSkills = new BattleMenuWeaponSkillSelection(m_Agent);
