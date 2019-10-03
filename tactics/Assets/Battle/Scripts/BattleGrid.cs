@@ -139,6 +139,8 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
         }
     }
 
+    public BattleAgentUI agentUI;
+
     public string filename;
 
     // Start is called before the first frame update

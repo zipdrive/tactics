@@ -98,6 +98,7 @@
      <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\SkillArea.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillArea\WeaponSkillArea.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\WeaponSkill.cs" />
+     <Compile Include="Assets\Battle\UI\BattleAgentUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleMenuUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleSelectableAreaUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleTargetedAreaUI.cs" />

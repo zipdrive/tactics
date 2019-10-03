@@ -83,6 +83,7 @@ public class PlayerCharacter : Character
     }
     
     List<WeaponSkill> m_WeaponSkills = new List<WeaponSkill>();
+    List<MagicSkill> m_MagicSkills = new List<MagicSkill>();
 
     public override List<WeaponSkill> WeaponSkills
     {
@@ -92,11 +93,11 @@ public class PlayerCharacter : Character
         }
     }
 
-    public override List<Skill> MagicSkills
+    public override List<MagicSkill> MagicSkills
     {
         get
         {
-            return null;
+            return m_MagicSkills;
         }
     }
 

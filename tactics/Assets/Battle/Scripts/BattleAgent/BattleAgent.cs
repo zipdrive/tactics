@@ -15,9 +15,14 @@ public abstract class BattleAgent
     /// </summary>
     public float Direction;
 
+    public int HP;
+    public int SP;
+
     public BattleAgent(Character baseCharacter)
     {
         BaseCharacter = baseCharacter;
+        HP = BaseCharacter.HP;
+        SP = BaseCharacter.SP;
     }
 
     public virtual void QStart(BattleManager manager, bool canMove, bool canAct) { }

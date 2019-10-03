@@ -12,7 +12,20 @@ public class BattleSelector : MonoBehaviour
     public static bool Frozen = false;
 
     public Transform Cursor;
-    public Vector2Int SelectedTile;
+    private Vector2Int m_SelectedTile;
+    public Vector2Int SelectedTile
+    {
+        get
+        {
+            return m_SelectedTile;
+        }
+
+        set
+        {
+            m_SelectedTile = value;
+            m_Grid.agentUI.Agent = m_Grid[value].Actor == null ? null : m_Grid[value].Actor.Agent;
+        }
+    }
     public Vector3 Velocity;
 
     private BattleGrid m_Grid;

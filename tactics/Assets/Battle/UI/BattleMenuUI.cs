@@ -15,9 +15,9 @@ public class BattleMenuUI : MonoBehaviour
 
     public void ClearOptions()
     {
-        foreach (Animator anim in m_Options)
-            Destroy(anim.gameObject);
         m_Options.Clear();
+        foreach (Transform trans in menu)
+            Destroy(trans.gameObject);
     }
 
     public void AddOption(bool disabled, params string[] label)
