@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class BattleWalk : BattleQueueMember
 {
-    public static float WalkSpeed = 10f;
+    public static float WalkSpeed = 20f;
 
     private BattleGrid m_Grid;
     private Transform m_Actor;
@@ -27,12 +27,12 @@ public class BattleWalk : BattleQueueMember
         m_Actor = m_Grid[m_Source.x, m_Source.y].Actor.transform;
 
         // set animation
+        // akdjgnkfjsfd
     }
 
     public override bool QUpdate(BattleManager manager)
     {
         m_Actor.localPosition += (Time.deltaTime * m_Velocity);
-        Debug.Log(m_Direction + " || " + m_Velocity + " || " + m_Actor.localPosition);
 
         if ((m_Actor.localPosition.x > 10 * m_Direction.x && m_Direction.x > 0)
             || (m_Actor.localPosition.x < 10 * m_Direction.x && m_Direction.x < 0)

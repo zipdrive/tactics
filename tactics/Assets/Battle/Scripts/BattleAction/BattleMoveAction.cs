@@ -62,11 +62,11 @@ public class BattleMoveAction : BattleAction
             for (int k = 4; k > 0; --k)
             {
                 Vector2Int neighbor = current + new Vector2Int(dx, dy);
-                if (!closed.Contains(neighbor))
+                if (!closed.Contains(neighbor) && grid[neighbor] != null)
                 {
                     int dh = grid[neighbor].Height - grid[current].Height;
 
-                    if (dh < jumpHeight && dh > -jumpHeight)
+                    if (dh <= jumpHeight && dh >= -jumpHeight)
                     {
                         int d = minimumDistance[current] + (dh == 0 ? 1 : 2);
                         if (!minimumDistance.ContainsKey(neighbor) || d < minimumDistance[neighbor])
@@ -124,7 +124,7 @@ public class BattleMoveAction : BattleAction
             Debug.Log(current);
 
             if (grid[current].Height != grid[steps.Peek()].Height)
-                manager.Add(new BattleJump(time - steps.Count));
+                manager.Add(new BattleJump(current, steps.Peek() - current, time - steps.Count));
             else
                 manager.Add(new BattleWalk(current, steps.Peek() - current, time - steps.Count));
         }
