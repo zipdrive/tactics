@@ -10,7 +10,8 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
     public static float CameraSpeed = 0.05f;
 
     public static float RotationSpeed = 90f;
-    private static Vector3 RotationAxis = new Vector3(0f, 0.5f, -Mathf.Sqrt(0.75f));
+    private static float ViewAngle;
+    private static Vector3 RotationAxis = new Vector3(0f, 1f, -0.5f);
     private static float YAxisScale = Mathf.Sqrt(0.75f);
 
     private Vector2Int m_CenterTile = new Vector2Int(2, 0);
@@ -148,6 +149,11 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
     {
         // Load and render tiles
         datafile = filename;
+
+        // Set angles and shit
+        ViewAngle = transform.rotation.eulerAngles.x;
+        RotationAxis = Quaternion.AngleAxis(ViewAngle, new Vector3(1f, 0f)) * new Vector3(0f, 0f, -1f);
+        YAxisScale = RotationAxis.y;
     }
 
     // Update is called once per frame
@@ -161,28 +167,20 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
 
         if (m_Rotation != 0f)
         {
-            float zr1 = transform.rotation.eulerAngles.z;
+            float zr1 = transform.localRotation.eulerAngles.z;
 
             Vector3 center = new Vector3(m_CenterTile.x, m_CenterTile.y);
             transform.RotateAround(new Vector3(), RotationAxis, m_Rotation * RotationSpeed * Time.deltaTime);
 
-            float zr2 = transform.rotation.eulerAngles.z;
+            float zr2 = transform.localRotation.eulerAngles.z;
             if (m_RotationTrigger)
             {
                 m_RotationTrigger = false; // needs this because otherwise negative rotation immediately halts
             }
-            else if (((int)zr1)/90 != ((int)zr2)/90)
+            else if (Mathf.RoundToInt(zr1)/90 != Mathf.RoundToInt(zr2)/90)
             {
-                Quaternion newRotation = new Quaternion();
-                newRotation.eulerAngles = new Vector3(30f, 0f, Mathf.Round(zr2 / 90f) * 90f);
-
-                transform.SetPositionAndRotation(
-                    new Vector3(
-                        Mathf.Round(transform.position.x), 
-                        Mathf.Round(transform.position.y / YAxisScale) * YAxisScale, 
-                        Mathf.Round(transform.position.z)
-                        ), 
-                    newRotation);
+                transform.localEulerAngles = new Vector3(0f, 0f, Mathf.Round(zr2 / 90f) * 90f);
+                transform.position = transform.rotation * -Selector.Cursor.transform.localPosition;
 
                 m_Rotation = 0f;
             }
@@ -195,7 +193,7 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
 
                 Vector3 v = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0f);
                 Quaternion zrot = new Quaternion();
-                zrot.eulerAngles = new Vector3(0f, 0f, -transform.rotation.eulerAngles.z);
+                zrot.eulerAngles = new Vector3(0f, 0f, -45f - transform.rotation.eulerAngles.z);
                 Selector.Velocity = zrot * v;
 
                 Vector2Int prospectiveTile = Selector.SelectedTile 

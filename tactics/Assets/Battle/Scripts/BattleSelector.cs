@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BattleSelector : MonoBehaviour
 {
-    private static Vector3 m_Position = new Vector3(0f, 0f, -0.75f);
+    private static Vector3 m_Position = new Vector3(0f, 0f, -0.03f);
 
-    public static float SelectionSpeed = 15f;
+    public static float SelectionSpeed = 30f;
     public static bool SelectionSnap = false;
 
     public static bool Frozen = false;
