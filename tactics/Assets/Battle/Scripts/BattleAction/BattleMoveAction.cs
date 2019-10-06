@@ -102,7 +102,7 @@ public class BattleMoveAction : BattleAction
     public override void Execute(BattleManager manager, int time)
     {
         // Find a path using A*
-        Dictionary<Vector2Int, Vector2Int> cameFrom = FindPath(manager.grid, manager.grid[m_Source].Actor.Agent.BaseCharacter.Jump);
+        Dictionary<Vector2Int, Vector2Int> cameFrom = FindPath(manager.grid, manager.grid[m_Source].Actor.Agent.BaseCharacter["Jump"]);
         Stack<Vector2Int> steps = new Stack<Vector2Int>();
 
         if (cameFrom.ContainsKey(m_Destination))
@@ -121,7 +121,6 @@ public class BattleMoveAction : BattleAction
         while (steps.Count > 1)
         {
             Vector2Int current = steps.Pop();
-            Debug.Log(current);
 
             if (grid[current].Height != grid[steps.Peek()].Height)
                 manager.Add(new BattleJump(current, steps.Peek() - current, time - steps.Count - 2));

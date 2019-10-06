@@ -13,7 +13,7 @@ public class BattleMenuSkillAreaSelection : BattleMenu
 
     public override void Construct(BattleManager manager)
     {
-        manager.grid.SelectableZone = skill.Area.SelectableCenters(user);
+        manager.grid.SelectableZone = skill.Range[user];
     }
 
     public override void Destruct(BattleManager manager)

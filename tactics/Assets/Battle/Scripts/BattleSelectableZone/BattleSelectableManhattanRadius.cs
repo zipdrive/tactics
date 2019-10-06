@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BattleSelectableManhattanRadius : BattleSelectableZone
 {
-    Vector2Int Center;
-    int MinRadius;
-    int MaxRadius;
+    public Vector2Int Center;
+    public int MinRadius;
+    public int MaxRadius;
 
     public BattleSelectableManhattanRadius(Vector2Int center, int min, int max)
     {

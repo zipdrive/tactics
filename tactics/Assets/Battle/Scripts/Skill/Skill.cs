@@ -1,42 +1,63 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Xml;
 using UnityEngine;
 
-public abstract class Skill
+public class Skill
 {
     public string Name;
     public string Description;
+    public HashSet<string> Tags = new HashSet<string>();
 
-    public SkillArea Area;
+    public int Cost;
 
-    public Skill() { }
+    public SkillRange Range;
+    public SkillEffectArea EffectArea;
+
+    public List<SkillEffect> Effects = new List<SkillEffect>();
 
     public Skill(XmlElement skillInfo)
     {
         Name = skillInfo.GetAttribute("name");
-        Description = skillInfo.InnerText.Trim();
+        Description = skillInfo["description"].InnerText.Trim();
 
-        Debug.Log(Name);
+        // Tags
+        foreach (XmlElement tag in skillInfo.GetElementsByTagName("tag"))
+            Tags.Add(tag.InnerText.Trim());
 
-        string range = skillInfo.GetAttribute("range");
+        XmlElement effectsInfo = skillInfo["effects"];
+
+        // SP cost
+        if (effectsInfo.HasAttribute("cost"))
+            Cost = int.Parse(effectsInfo.GetAttribute("cost"));
+
+        // Range
+        string range = effectsInfo.GetAttribute("range");
         if (range.CompareTo("weapon") == 0)
-            Area = new WeaponSkillArea();
+            Range = new WeaponSkillRange();
         else
-        {
-            string rangePattern = @"((\d+)\s*\-\s*)?(\d+)\s*;\s*(\d+)";
+            Range = new RadialSkillRange(int.Parse(range));
 
-            Match m = Regex.Match(range, rangePattern);
-            if (m.Success)
-            {
-                int minRange = m.Groups[2].Value.CompareTo("") == 0 ? 0 : int.Parse(m.Groups[2].Value);
-                int maxRange = int.Parse(m.Groups[3].Value);
-                int radius = int.Parse(m.Groups[4].Value);
+        // Effect area
+        string effectArea = effectsInfo.HasAttribute("effect") ? effectsInfo.GetAttribute("effect") : "0";
+        if (effectArea.CompareTo("all") == 0)
+            EffectArea = new RangeSkillEffectArea();
+        else
+            EffectArea = new RadialSkillEffectArea(int.Parse(effectArea));
 
-                Area = new RadialSkillArea(minRange, maxRange, radius);
-            }
-            else throw new System.ArgumentException("[Skill] Unrecognized skill range: \"" + range + "\"");
-        }
+        // Effects
+        foreach (XmlElement effectInfo in effectsInfo.ChildNodes)
+            Effects.Add(SkillEffect.Parse(effectInfo));
     }
 
-    public abstract void Execute(BattleAgent user, BattleAgent target);
+    public void Execute(BattleAgent user, BattleAgent target)
+    {
+        if (user.SP >= Cost)
+        {
+            user.SP -= Cost;
+
+            foreach (SkillEffect effect in Effects)
+                effect.Execute(user, target);
+        }
+    }
 }

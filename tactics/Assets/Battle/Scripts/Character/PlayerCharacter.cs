@@ -4,101 +4,40 @@ using System.Xml;
 
 public class PlayerCharacter : Character
 {
-    int m_HP;
-    int m_SP;
+    private Dictionary<string, int> m_Stats = new Dictionary<string, int>();
 
-    int m_Attack;
-    int m_Defense;
-    int m_Magic;
-
-    public override int HP
+    public override int this[string key]
     {
         get
         {
-            return m_HP;
-        }
-    }
+            switch (key)
+            {
+                case "Attack":
+                    int atk = m_Stats["Attack"];
 
-    public override int SP
-    {
-        get
-        {
-            return m_SP;
-        }
-    }
+                    if (PrimaryWeapon != null) atk += PrimaryWeapon.AttackBonus;
+                    if (SecondaryWeapon != null) atk += SecondaryWeapon.AttackBonus;
 
-    public override int Attack
-    {
-        get
-        {
-            int a = m_Attack;
-
-            if (PrimaryWeapon != null) a += PrimaryWeapon.AttackBonus;
-            if (SecondaryWeapon != null) a += SecondaryWeapon.AttackBonus;
-
-            return a;
-        }
-    }
-
-    public override int Defense
-    {
-        get
-        {
-            return m_Defense;
-        }
-    }
-
-    public override int Magic
-    {
-        get
-        {
-            return m_Magic;
-        }
-    }
-
-    public override int Speed
-    {
-        get
-        {
-            return 5;
+                    return atk;
+                default:
+                    if (m_Stats.ContainsKey(key))
+                        return m_Stats[key];
+                    return 0;
+            }
         }
     }
 
 
-    public override int Jump
+    List<Skill> m_Skills = new List<Skill>();
+
+    public override List<Skill> Skills
     {
         get
         {
-            return 2;
+            return m_Skills;
         }
     }
 
-    public override int Move
-    {
-        get
-        {
-            return 3;
-        }
-    }
-    
-    List<WeaponSkill> m_WeaponSkills = new List<WeaponSkill>();
-    List<MagicSkill> m_MagicSkills = new List<MagicSkill>();
-
-    public override List<WeaponSkill> WeaponSkills
-    {
-        get
-        {
-            return m_WeaponSkills;
-        }
-    }
-
-    public override List<MagicSkill> MagicSkills
-    {
-        get
-        {
-            return m_MagicSkills;
-        }
-    }
 
     Weapon m_Primary;
     Weapon m_Secondary;
@@ -140,26 +79,20 @@ public class PlayerCharacter : Character
 
     public PlayerCharacter(XmlElement characterInfo) : base(characterInfo)
     {
+        m_Stats["Speed"] = 5;
+        m_Stats["Move"] = 3;
+        m_Stats["Jump"] = 2;
+
         XmlElement statsInfo = characterInfo["stats"];
-        m_HP = int.Parse(statsInfo.GetAttribute("hp"));
-        m_SP = int.Parse(statsInfo.GetAttribute("sp"));
-        m_Attack = int.Parse(statsInfo.GetAttribute("attack"));
-        m_Defense = int.Parse(statsInfo.GetAttribute("defense"));
-        m_Magic = int.Parse(statsInfo.GetAttribute("magic"));
+        foreach (XmlElement statInfo in statsInfo)
+        {
+            m_Stats[statInfo.GetAttribute("name")] = int.Parse(statInfo.InnerText.Trim());
+        }
 
         XmlElement skillsInfo = characterInfo["skills"];
-        foreach (XmlElement skillClass in skillsInfo)
+        foreach (XmlElement skillInfo in skillsInfo)
         {
-            switch (skillClass.GetAttribute("type"))
-            {
-                case "weapon":
-                    foreach (XmlElement skillInfo in skillClass)
-                        m_WeaponSkills.Add(AssetHolder.WeaponSkills[skillInfo.GetAttribute("name")]);
-                    break;
-                default:
-                    UnityEngine.Debug.Log("[PlayerCharacter] Unrecognized skill type: \"" + skillClass.GetAttribute("type") + "\"");
-                    break;
-            }
+            m_Skills.Add(AssetHolder.Skills[skillInfo.InnerText.Trim()]);
         }
     }
 }

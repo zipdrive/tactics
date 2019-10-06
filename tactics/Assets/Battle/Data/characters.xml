@@ -3,41 +3,55 @@
 <characters>
   
   <character name="debug" type="player" sprite="debug">
-    <stats hp="50" sp="50" attack="5" defense="5" magic="5" speed="5" />
+    
+    <stats>
+      <stat name="HP">50</stat>
+      <stat name="SP">5</stat>
+      <stat name="Attack">5</stat>
+      <stat name="Magic">5</stat>
+    </stats>
+    
     <skills>
-      <skillclass type="weapon">
-        <skill name="Punch" />
-        <skill name="Debug1" />
-        <skill name="Debug2" />
-        <skill name="Debug3" />
-        <skill name="Debug4" />
-        <skill name="Debug5" />
-        <skill name="Debug6" />
-      </skillclass>
+      <skill>Punch</skill>
     </skills>
+    
   </character>
 
   <character name="Debug 1" title="Human Wizard" type="player" sprite="debug">
-    <stats hp="50" sp="8" attack="4" defense="4" magic="8" speed="5" />
+    
+    <stats>
+      <stat name="HP">50</stat>
+      <stat name="SP">6</stat>
+      <stat name="Attack">4</stat>
+      <stat name="Magic">8</stat>
+    </stats>
+    
     <skills>
-      <skillclass type="weapon">
-        <skill name="Punch" />
-        <skill name="Debug1" />
-        <skill name="Debug2" />
-        <skill name="Debug3" />
-        <skill name="Debug4" />
-        <skill name="Debug5" />
-        <skill name="Debug6" />
-      </skillclass>
+      <skill>Punch</skill>
+      <skill>Slash</skill>
+      <skill>Stab</skill>
+      <skill>Bash</skill>
+      <skill>Shoot</skill>
+      <skill>Fire α</skill>
     </skills>
+    
   </character>
 
   <character name="Debug 2" title="Human Brawler" type="player" sprite="debug">
-    <stats hp="80" sp="3" attack="8" defense="6" magic="4" speed="4" />
+    
+    <stats>
+      <stat name="HP">80</stat>
+      <stat name="SP">3</stat>
+      <stat name="Attack">6</stat>
+      <stat name="Defense">5</stat>
+      <stat name="Magic">3</stat>
+    </stats>
+    
     <skills>
-      <skillclass type="weapon">
-        <skill name="Punch" />
-      </skillclass>
+      <skill>Punch</skill>
+      <skill>Fire α</skill>
+      <skill>Fire β</skill>
+      <skill>Fire ω</skill>
     </skills>
   </character>
   

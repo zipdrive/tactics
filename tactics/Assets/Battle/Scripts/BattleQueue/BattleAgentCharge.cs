@@ -8,12 +8,12 @@ public class BattleAgentCharge : BattleQueueMember
     {
         foreach (BattleAgent agent in manager.agents)
         {
-            agent.CP += agent.Speed;
+            agent.CP += agent["Speed"];
 
             if (agent.CP > 100)
             {
                 agent.CP = 100;
-                manager.Add(new BattleAgentDecision(time - agent.Speed, agent));
+                manager.Add(new BattleAgentDecision(time - agent["Speed"], agent));
             }
         }
     }

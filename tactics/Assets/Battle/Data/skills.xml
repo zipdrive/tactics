@@ -1,51 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <skills>
+    
+  <skill name="Punch">
+    <description>A barehanded punch.</description>
+    <tag>Weapon</tag>
+    <tag>Offense</tag>
+    <tag>Fist</tag>
+    <effects range="weapon">
+      <hit accuracy="0">
+        <damage type="Physical" power="0.37" critical="0.01" />
+      </hit>
+    </effects>
+  </skill>
+    
+  <skill name="Slash">
+    <description>Slash the target with an edged weapon.</description>
+    <tag>Weapon</tag>
+    <tag>Offense</tag>
+    <tag>Axe</tag>
+    <tag>Sword</tag>
+    <effects range="weapon">
+      <hit accuracy="1">
+        <damage type="Physical" power="0.42" critical="0.03" />
+      </hit>
+    </effects>
+  </skill>
+    
+  <skill name="Stab">
+    <description>Stab the target with a sharp weapon.</description>
+    <tag>Weapon</tag>
+    <tag>Offense</tag>
+    <tag>Knife</tag>
+    <tag>Spear</tag>
+    <tag>Sword</tag>
+    <effects range="weapon">
+      <hit accuracy="2">
+        <damage type="Physical" power="0.39" critical="0.1" />
+      </hit>
+    </effects>
+  </skill>
+    
+  <skill name="Bash">
+    <description>Bash the target with a heavy weapon.</description>
+    <tag>Weapon</tag>
+    <tag>Offense</tag>
+    <tag>Hammer</tag>
+    <tag>Shield</tag>
+    <effects range="weapon">
+      <hit accuracy="-1">
+        <damage type="Physical" power="0.55" critical="0.01" />
+      </hit>
+    </effects>
+  </skill>
+    
+  <skill name="Shoot">
+    <description>Shoot the target with a ranged weapon.</description>
+    <tag>Weapon</tag>
+    <tag>Offense</tag>
+    <tag>Bow</tag>
+    <tag>Gun</tag>
+    <effects range="weapon">
+      <hit accuracy="4">
+        <damage type="Physical" power="0.4" critical="0.05" />
+      </hit>
+    </effects>
+  </skill>
+    
+  <skill name="Fire α">
+    <description>Elemental magic that burns the target with fire.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Elemental</tag>
+    <tag>Fire</tag>
+    <effects cost="10" range="3">
+      <damage type="Fire" power="0.35" />
+    </effects>
+  </skill>
   
-  <skillclass type="weapon">
-    <skill name="Punch" types="fist" range="weapon">
-      A barehanded punch.
-    </skill>
-    <skill name="Slash" types="axe, sword" range="weapon">
-      A slashing attack that has both good damage and accuracy.
-    </skill>
-    <skill name="Stab" types="knife, spear, sword" range="weapon">
-      A stabbing attack that does low damage, but has a high chance to critically hit.
-    </skill>
-    <skill name="Bash" types="hammer, shield" range="weapon">
-      A blunt attack that does high damage, but has low accuracy.
-    </skill>
-
-    <skill name="Debug1" types="fist" range="1;1">
-      Description of Debug1.
-    </skill>
-    <skill name="Debug2" types="fist" range="2-3;1">
-      Description of Debug2.
-    </skill>
-    <skill name="Debug3" types="fist" range="2-3;3">
-      Description of Debug3.
-    </skill>
-    <skill name="Debug4" types="fist" range="6;3">
-      Description of Debug4.
-    </skill>
-    <skill name="Debug5" types="fist" range="weapon">
-      Description of Debug5.
-    </skill>
-    <skill name="Debug6" types="fist" range="weapon">
-      Description of Debug6.
-    </skill>
-  </skillclass>
-
-  <skillclass type="magic">
-    <skill name="Fire α" cost="1" range="3;1">
-      Description of Fire α.
-    </skill>
-    <skill name="Fire β" cost="2" range="3;2">
-      Description of Fire β.
-    </skill>
-    <skill name="Fire ω" cost="3" range="3;3">
-      Description of Fire ω.
-    </skill>
-  </skillclass>
+  <skill name="Fire β">
+    <description>Elemental magic that burns the target with fire.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Elemental</tag>
+    <tag>Fire</tag>
+    <effects cost="14" range="3" effect="1">
+      <damage type="Fire" power="0.3" />
+    </effects>
+  </skill>
+  
+  <skill name="Fire ω">
+    <description>Elemental magic that burns the target with fire.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Elemental</tag>
+    <tag>Fire</tag>
+    <effects cost="18" range="3" effect="2">
+      <damage type="Fire" power="0.28" />
+    </effects>
+  </skill>
   
 </skills>

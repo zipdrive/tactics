@@ -22,6 +22,10 @@ public class BattleAgentDecision : BattleQueueMember
 
     public override void QStart(BattleManager manager)
     {
+        if (m_MoveAllowed && m_ActionAllowed)
+            foreach (StatusEffect status in m_Agent.StatusEffects)
+                status.OnBeginTurn(m_Agent);
+
         m_Agent.QStart(manager, m_MoveAllowed, m_ActionAllowed);
     }
 

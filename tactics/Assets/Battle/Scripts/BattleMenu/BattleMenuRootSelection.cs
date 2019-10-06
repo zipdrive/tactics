@@ -22,6 +22,12 @@ public class BattleMenuRootSelection : BattleMenuListSelection<BattleMenu>
             );
 
         // Magic Skills
+        BattleMenuMagicSkillSelection magicSkills = new BattleMenuMagicSkillSelection(m_Agent, false);
+        Add(!canAct || magicSkills.Count == 0,
+            magicSkills,
+            "Magic Skill"
+            );
+
         // Custom Skills
         // Items
 
@@ -32,6 +38,6 @@ public class BattleMenuRootSelection : BattleMenuListSelection<BattleMenu>
     public override void Select(BattleManager manager, out BattleMenu next, out BattleAction decision)
     {
         next = m_Options[m_Index].disabled ? null : m_Options[m_Index].value;
-        decision = m_Options[m_Index].value == null ? new BattleEndTurnAction() : null;
+        decision = m_Options[m_Index].value == null ? new BattleEndTurnAction(m_Agent) : null;
     }
 }

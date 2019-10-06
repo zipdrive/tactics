@@ -43,8 +43,8 @@ public class BattleAgentUI : MonoBehaviour
     {
         if (m_Agent != null)
         {
-            hpLabel.text = m_Agent.HP + "/" + m_Agent.BaseCharacter.HP;
-            spLabel.text = m_Agent.SP + "/" + m_Agent.BaseCharacter.SP;
+            hpLabel.text = m_Agent.HP + "/" + m_Agent.BaseCharacter["HP"];
+            spLabel.text = m_Agent.SP + "/" + m_Agent.BaseCharacter["SP"];
         }
     }
 }

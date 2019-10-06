@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<effects>
+
+  <effect name="Disable Move">
+    <OnTurnBegin disable="move" />
+  </effect>
+
+  <effect name="Disable Skill">
+    <OnTurnBegin disable="skill" />
+  </effect>
+
+  <effect name="Disable Item">
+    <OnTurnBegin disable="item" />
+  </effect>
+
+  <effect name="Damage">
+    <OnTurnEnd damage="0.05" type="Null" />
+  </effect>
+
+  <effect name="Regen">
+    <OnTurnEnd heal="0.05" />
+  </effect>
+  
+</effects>

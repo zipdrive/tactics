@@ -7,12 +7,22 @@ using UnityEngine;
 /// </summary>
 public class ManualBattleAgent : BattleAgent
 {
+    private PlayerCharacter m_BaseCharacter;
+
+    public override Character BaseCharacter
+    {
+        get
+        {
+            return m_BaseCharacter;
+        }
+    }
+
     private Stack<BattleMenu> m_Menus;
     private BattleMenu m_BaseMenu;
 
-    public ManualBattleAgent(Character baseCharacter) : base(baseCharacter)
+    public ManualBattleAgent(PlayerCharacter baseCharacter) : base(baseCharacter)
     {
-        // ???
+        m_BaseCharacter = baseCharacter;
     }
 
     public override void QStart(BattleManager manager, bool canMove, bool canAct)

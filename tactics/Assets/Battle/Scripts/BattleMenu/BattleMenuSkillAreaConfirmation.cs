@@ -17,7 +17,7 @@ public class BattleMenuSkillAreaConfirmation : BattleMenu
     public override void Construct(BattleManager manager)
     {
         //manager.grid.SelectableZone = skill.Area.SelectableCenters(user);
-        manager.grid.TargetedAreas.Set(skill.Area, user, center);
+        manager.grid.TargetedAreas.Set(skill.EffectArea, user, center);
     }
 
     public override void Destruct(BattleManager manager)
@@ -36,10 +36,10 @@ public class BattleMenuSkillAreaConfirmation : BattleMenu
         }
         else
         {
-            if (skill.Area.SelectableCenters(user).IsSelectable(selection.x, selection.y))
+            if (skill.Range[user].IsSelectable(selection.x, selection.y))
             {
                 center = selection;
-                manager.grid.TargetedAreas.Set(skill.Area, user, center);
+                manager.grid.TargetedAreas.Set(skill.EffectArea, user, center);
             }
             
             decision = null;

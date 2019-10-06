@@ -13,8 +13,7 @@ public class AssetHolder : MonoBehaviour
     public static Dictionary<string, Sprite> Tiles = new Dictionary<string, Sprite>();
     public static Dictionary<string, BattleObject> Objects = new Dictionary<string, BattleObject>();
 
-    public static Dictionary<string, WeaponSkill> WeaponSkills = new Dictionary<string, WeaponSkill>();
-    public static Dictionary<string, Skill> MagicSkills = new Dictionary<string, Skill>();
+    public static Dictionary<string, Skill> Skills = new Dictionary<string, Skill>();
     public static Dictionary<string, Item> Items = new Dictionary<string, Item>();
     public static Dictionary<string, Character> Characters = new Dictionary<string, Character>();
 
@@ -107,7 +106,10 @@ public class AssetHolder : MonoBehaviour
                 skillsDoc.Load("Assets/Battle/Data/skills.xml");
                 XmlElement root = skillsDoc["skills"];
 
-                foreach (XmlElement skillClass in root.ChildNodes)
+                foreach (XmlElement skillInfo in root.GetElementsByTagName("skill"))
+                    Skills.Add(skillInfo.GetAttribute("name"), new Skill(skillInfo));
+
+                /*foreach (XmlElement skillClass in root.ChildNodes)
                 {
                     if (skillClass.HasAttribute("type"))
                     {
@@ -126,11 +128,11 @@ public class AssetHolder : MonoBehaviour
                                 break;
                         }
                     }
-                }
+                }*/
             }
-            catch
+            catch (System.Exception e)
             {
-                throw new System.IO.FileLoadException("[AssetHolder] Unable to load skills from file.");
+                throw new System.IO.FileLoadException("[AssetHolder] Unable to load skills from file: " + e);
             }
 
             // Characters

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BattleAgent
 {
-    public Character BaseCharacter;
+    public abstract Character BaseCharacter { get; }
 
     /// <summary>
     /// The coordinates of the agent.
@@ -14,65 +14,31 @@ public abstract class BattleAgent
     /// The direction that the agent is facing.
     /// </summary>
     public float Direction;
-    
+
     public int HP;
     public int SP;
-
-    public int Attack
-    {
-        get
-        {
-            return BaseCharacter.Attack;
-        }
-    }
-
-    public int Defense
-    {
-        get
-        {
-            return BaseCharacter.Defense;
-        }
-    }
-
-    public int Magic
-    {
-        get
-        {
-            return BaseCharacter.Magic;
-        }
-    }
-
-    public int Speed
-    {
-        get
-        {
-            return BaseCharacter.Speed;
-        }
-    }
-
-    public int Jump
-    {
-        get
-        {
-            return BaseCharacter.Jump;
-        }
-    }
-
-    public int Move
-    {
-        get
-        {
-            return BaseCharacter.Move;
-        }
-    }
-
     public int CP;
+
+    public int this[string key]
+    {
+        get
+        {
+            int s = BaseCharacter[key];
+
+            foreach (StatusEffect status in StatusEffects)
+                s += status[key];
+
+            return s < 0 ? 0 : s;
+        }
+    }
+
+    public HashSet<StatusEffect> StatusEffects = new HashSet<StatusEffect>();
+
 
     public BattleAgent(Character baseCharacter)
     {
-        BaseCharacter = baseCharacter;
-        HP = BaseCharacter.HP;
-        SP = BaseCharacter.SP;
+        HP = baseCharacter["HP"];
+        SP = baseCharacter["SP"];
     }
 
     public virtual void QStart(BattleManager manager, bool canMove, bool canAct) { }
@@ -86,4 +52,10 @@ public abstract class BattleAgent
     /// <param name="decision"></param>
     /// <returns>Returns false if decision still in progress, true if a decision was made.</returns>
     public abstract bool QUpdate(BattleManager manager, bool canMove, bool canAct, ref BattleAction decision);
+
+    public void Damage(int damage, DamageType type)
+    {
+        HP = damage > HP ? 0 : HP - damage;
+        Debug.Log("Agent " + BaseCharacter.Name + " took " + damage + " damage!");
+    }
 }

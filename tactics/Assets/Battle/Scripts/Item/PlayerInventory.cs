@@ -2,7 +2,7 @@
 
 public class PlayerInventory
 {
-    private static Dictionary<Item, int> m_Items;
+    private static Dictionary<Item, int> m_Items = new Dictionary<Item, int>();
 
     public static int Count(Item item)
     {
@@ -27,11 +27,12 @@ public class PlayerInventory
 
     public static IEnumerator<T> Iterate<T>() where T : Item
     {
-        // TODO sort by name or whatever
+        List<Item> items = new List<Item>(m_Items.Keys);
+        items.Sort();
 
-        foreach (KeyValuePair<Item, int> pair in m_Items)
-            if (pair.Key is T)
-                yield return (T)pair.Key;
+        foreach (Item item in items)
+            if (item is T)
+                yield return (T)item;
         yield return null;
     }
 }

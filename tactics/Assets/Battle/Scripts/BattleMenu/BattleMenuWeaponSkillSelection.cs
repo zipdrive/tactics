@@ -2,29 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleMenuWeaponSkillSelection : BattleMenuListSelection<WeaponSkill>
+public class BattleMenuWeaponSkillSelection : BattleMenuSkillSelection
 {
-    private BattleAgent m_User;
-
-    public BattleMenuWeaponSkillSelection(BattleAgent user) : base("Weapon Skill Battle Menu UI", user.Coordinates)
+    public BattleMenuWeaponSkillSelection(BattleAgent user) : base("Weapon Skill Battle Menu UI", user)
     {
-        m_User = user;
+        string tag1 = (m_User.BaseCharacter.PrimaryWeapon == null ? WeaponType.Fist : m_User.BaseCharacter.PrimaryWeapon.Type).ToString();
+        string tag2 = (m_User.BaseCharacter.SecondaryWeapon == null ? WeaponType.Fist : m_User.BaseCharacter.SecondaryWeapon.Type).ToString();
 
-        foreach (WeaponSkill skill in m_User.BaseCharacter.WeaponSkills)
+        foreach (Skill skill in m_User.BaseCharacter.Skills)
         {
-            WeaponType type1 = m_User.BaseCharacter.PrimaryWeapon == null ? WeaponType.Fist : m_User.BaseCharacter.PrimaryWeapon.Type;
-            WeaponType type2 = m_User.BaseCharacter.SecondaryWeapon == null ? WeaponType.Fist : m_User.BaseCharacter.SecondaryWeapon.Type;
-
-            if (skill.Types.Contains(type1) || skill.Types.Contains(type2))
+            if (skill.Tags.Contains("Weapon") && (skill.Tags.Contains(tag1) || skill.Tags.Contains(tag2)))
             {
                 Add(false, skill, skill.Name);
             }
         }
-    }
-
-    public override void Select(BattleManager manager, out BattleMenu next, out BattleAction decision)
-    {
-        next = new BattleMenuSkillAreaSelection(m_User, m_Options[m_Index].value);
-        decision = null;
     }
 }
