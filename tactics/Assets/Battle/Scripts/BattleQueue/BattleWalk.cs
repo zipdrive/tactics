@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class BattleWalk : BattleQueueMember
 {
-    public static float WalkSpeed = 20f;
+    public static float WalkSpeed = 40f;
 
     private BattleGrid m_Grid;
     private Transform m_Actor;
@@ -24,10 +24,13 @@ public class BattleWalk : BattleQueueMember
     public override void QStart(BattleManager manager)
     {
         m_Grid = manager.grid;
-        m_Actor = m_Grid[m_Source.x, m_Source.y].Actor.transform;
+        BattleActor actor = m_Grid[m_Source.x, m_Source.y].Actor;
+        m_Actor = actor.transform;
 
         // set animation
-        // akdjgnkfjsfd
+        Debug.Log("Direction: " + actor.Agent.Direction);
+        actor.Agent.Direction = Mathf.Atan2(-m_Direction.x, -m_Direction.y) * 180f / Mathf.PI;
+        //actor.Sprite.Animation = "walk";
     }
 
     public override bool QUpdate(BattleManager manager)

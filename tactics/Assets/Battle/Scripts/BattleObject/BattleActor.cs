@@ -4,23 +4,28 @@ public class BattleActor : BattleObject2D
 {
     public BattleAgent Agent;
 
+    private Transform m_GridTransform;
     private MeshRenderer m_Renderer;
-    private BattleSprite m_Sprite;
+
+    public BattleSprite Sprite;
 
     void Start()
     {
+        m_GridTransform = GameObject.FindObjectOfType<BattleGrid>().transform;
         m_Renderer = GetComponent<MeshRenderer>();
-        m_Sprite = Agent.BaseCharacter.Sprite;
+        Sprite = Agent.BaseCharacter.Sprite;
     }
 
     protected override void Update()
     {
         base.Update();
+        
+        Sprite.Direction = (Direction)(90 * Mathf.RoundToInt((Agent.Direction - m_GridTransform.localEulerAngles.z) / 90f));
 
-        m_Sprite.Update(Time.deltaTime);
-        m_Renderer.sharedMaterial = m_Sprite.Image;
+        Sprite.Update(Time.deltaTime);
+        m_Renderer.sharedMaterial = Sprite.Image;
 
         transform.rotation = BillboardRotation;
-        transform.localScale = new Vector3(m_Sprite.Direction == Direction.Left ? -1f : 1f, 1f, 2.5f);
+        transform.localScale = new Vector3((int)Sprite.Direction % 180 == 0 ? -1f : 1f, 1f, 2.5f);
     }
 }

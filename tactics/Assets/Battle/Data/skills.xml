@@ -99,5 +99,13 @@
       <damage type="Fire" power="0.28" />
     </effects>
   </skill>
+
+  <skill name="Report">
+    <description>Observe the details of the target.</description>
+    <tag>Journalism</tag>
+    <effects range="999">
+      <report />
+    </effects>
+  </skill>
   
 </skills>

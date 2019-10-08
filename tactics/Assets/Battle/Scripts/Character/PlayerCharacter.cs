@@ -77,12 +77,33 @@ public class PlayerCharacter : Character
     }
 
 
+    private List<BattleCommand> m_Commands = new List<BattleCommand>();
+
+    public List<BattleCommand> Commands
+    {
+        get
+        {
+            return m_Commands;
+        }
+    }
+
+
     public PlayerCharacter(XmlElement characterInfo) : base(characterInfo)
     {
+        // Fill in default stats
+        m_Stats["HP"] = 1;
+        m_Stats["SP"] = 0;
+        m_Stats["Attack"] = 0;
+        m_Stats["Magic"] = 0;
         m_Stats["Speed"] = 5;
         m_Stats["Move"] = 3;
         m_Stats["Jump"] = 2;
 
+        foreach (Element element in Enum.GetValues(typeof(Element)))
+            if (element != Element.Null)
+                m_Stats["Resist " + element] = 0;
+
+        // Load stats, skills, and commands from XML
         XmlElement statsInfo = characterInfo["stats"];
         foreach (XmlElement statInfo in statsInfo)
         {
@@ -93,6 +114,26 @@ public class PlayerCharacter : Character
         foreach (XmlElement skillInfo in skillsInfo)
         {
             m_Skills.Add(AssetHolder.Skills[skillInfo.InnerText.Trim()]);
+        }
+
+        XmlElement commandsInfo = characterInfo["commands"];
+        foreach (XmlElement commandInfo in commandsInfo)
+        {
+            switch (commandInfo.InnerText.Trim())
+            {
+                case "Move":
+                    m_Commands.Add(new BattleCommandMove());
+                    break;
+                case "Weapon Skill":
+                    m_Commands.Add(new BattleCommandSkillSelection("Weapon Skill", new BattleSkillWeaponFilter()));
+                    break;
+                case "Magic Skill":
+                    m_Commands.Add(new BattleCommandSkillSelection("Magic Skill", new BattleSkillSimpleTagFilter("Magic")));
+                    break;
+                case "Report":
+                    m_Commands.Add(new BattleCommandSkillAreaSelection(AssetHolder.Skills["Report"]));
+                    break;
+            }
         }
     }
 }

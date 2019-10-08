@@ -3,10 +3,12 @@
 public class BattleMenuSkillSelection : BattleMenuListSelection<Skill>
 {
     protected BattleAgent m_User;
+    protected bool m_Overdrive;
 
-    public BattleMenuSkillSelection(string uiName, BattleAgent user) : base(uiName, user.Coordinates)
+    public BattleMenuSkillSelection(string uiName, BattleAgent user, bool overdrive = false) : base(uiName, user.Coordinates)
     {
         m_User = user;
+        m_Overdrive = overdrive; // TODO something with this
     }
 
     public override void Select(BattleManager manager, out BattleMenu next, out BattleAction decision)

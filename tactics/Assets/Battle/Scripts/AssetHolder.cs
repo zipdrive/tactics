@@ -25,7 +25,7 @@ public class AssetHolder : MonoBehaviour
             XmlDocument spritesDoc = new XmlDocument();
             spritesDoc.PreserveWhitespace = false;
 
-            //try
+            try
             {
                 spritesDoc.Load("Assets/Battle/Data/sprites.xml");
                 XmlElement root = spritesDoc["sprites"];
@@ -52,23 +52,20 @@ public class AssetHolder : MonoBehaviour
                         foreach (XmlElement frameInfo in animationInfo.ChildNodes)
                             animation.Add(images[frameInfo.InnerText.Trim()], float.Parse(frameInfo.GetAttribute("duration")));
 
-                        Direction dir;
-                        if (System.Enum.TryParse(
-                            animationInfo.GetAttribute("direction").Substring(0, 1).ToUpper() 
-                            + animationInfo.GetAttribute("direction").Substring(1).ToLower(),
-                            out dir))
-                        {
-                            sprite.Add(dir, animationInfo.GetAttribute("name"), animation);
-                        }
+                        sprite.Add(
+                            animationInfo.GetAttribute("direction").CompareTo("front") == 0, 
+                            animationInfo.GetAttribute("name"), 
+                            animation
+                            );
                     }
 
                     Sprites.Add(spriteName, sprite);
                 }
             }
-            /*catch
+            catch (System.Exception e)
             {
-                throw new System.IO.FileLoadException("[AssetHolder] Unable to load sprites from file.");
-            }*/
+                throw new System.IO.FileLoadException("\n[AssetHolder] Unable to load sprites from file:\n" + e);
+            }
 
             // Tiles
             string[] spriteGUIDs = AssetDatabase.FindAssets("t:Sprite");
@@ -108,31 +105,10 @@ public class AssetHolder : MonoBehaviour
 
                 foreach (XmlElement skillInfo in root.GetElementsByTagName("skill"))
                     Skills.Add(skillInfo.GetAttribute("name"), new Skill(skillInfo));
-
-                /*foreach (XmlElement skillClass in root.ChildNodes)
-                {
-                    if (skillClass.HasAttribute("type"))
-                    {
-                        switch (skillClass.GetAttribute("type"))
-                        {
-                            case "weapon":
-                                foreach (XmlElement weaponSkillInfo in skillClass)
-                                    WeaponSkills[weaponSkillInfo.GetAttribute("name")] = new WeaponSkill(weaponSkillInfo);
-                                break;
-                            case "magic":
-                                foreach (XmlElement magicSkillInfo in skillClass)
-                                    MagicSkills[magicSkillInfo.GetAttribute("name")] = new MagicSkill(magicSkillInfo);
-                                break;
-                            default:
-                                Debug.Log("Unrecognized skill class: \"" + skillClass.GetAttribute("type") + "\"");
-                                break;
-                        }
-                    }
-                }*/
             }
             catch (System.Exception e)
             {
-                throw new System.IO.FileLoadException("[AssetHolder] Unable to load skills from file: " + e);
+                throw new System.IO.FileLoadException("\n[AssetHolder] Unable to load skills from file:\n" + e);
             }
 
             // Characters
@@ -160,9 +136,9 @@ public class AssetHolder : MonoBehaviour
                     }
                 }
             }
-            catch
+            catch (System.Exception e)
             {
-                throw new System.IO.FileLoadException("[AssetHolder] Unable to load characters from file.");
+                throw new System.IO.FileLoadException("\n[AssetHolder] Unable to load characters from file:\n" + e);
             }
         }
     }

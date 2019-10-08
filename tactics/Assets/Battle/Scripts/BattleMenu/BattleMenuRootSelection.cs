@@ -1,43 +1,32 @@
 ﻿using System;
 
-public class BattleMenuRootSelection : BattleMenuListSelection<BattleMenu>
+public class BattleMenuRootSelection : BattleMenuListSelection<BattleCommand>
 {
     private BattleAgent m_Agent;
 
-    public BattleMenuRootSelection(BattleAgent agent, bool canMove, bool canAct) : base("Root Battle Menu UI", agent.Coordinates)
+    public BattleMenuRootSelection(ManualBattleAgent agent, bool canMove, bool canAct) : base("Root Battle Menu UI", agent.Coordinates)
     {
         m_Agent = agent;
 
-        // Move
-        Add(!canMove, 
-            new BattleMenuMoveSelection(agent), 
-            "Move"
-            );
-
-        // Weapon Skills
-        BattleMenuWeaponSkillSelection weaponSkills = new BattleMenuWeaponSkillSelection(m_Agent);
-        Add(!canAct || weaponSkills.Count == 0,
-            weaponSkills,
-            "Weapon Skill"
-            );
-
-        // Magic Skills
-        BattleMenuMagicSkillSelection magicSkills = new BattleMenuMagicSkillSelection(m_Agent, false);
-        Add(!canAct || magicSkills.Count == 0,
-            magicSkills,
-            "Magic Skill"
-            );
-
-        // Custom Skills
-        // Items
+        foreach (BattleCommand command in agent.BasePlayerCharacter.Commands)
+        {
+            Add(command.Disabled(agent, canMove, canAct), command, command.Label);
+        }
 
         // End Turn
-        Add(false, null, "End Turn");
+        Add(false, new BattleCommandEndTurn(), "End Turn");
     }
 
     public override void Select(BattleManager manager, out BattleMenu next, out BattleAction decision)
     {
-        next = m_Options[m_Index].disabled ? null : m_Options[m_Index].value;
-        decision = m_Options[m_Index].value == null ? new BattleEndTurnAction(m_Agent) : null;
+        if (!m_Options[m_Index].disabled)
+        {
+            m_Options[m_Index].value.Select(m_Agent, out next, out decision);
+        }
+        else
+        {
+            next = null;
+            decision = null;
+        }
     }
 }

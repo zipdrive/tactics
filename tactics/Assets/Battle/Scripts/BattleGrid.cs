@@ -95,9 +95,9 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
                     }
                 }
             }
-            catch
+            catch (System.Exception e)
             {
-                throw new FileLoadException("[BattleGrid] Could not load map from file \"" + value + "\"");
+                throw new FileLoadException("\n[BattleGrid] Could not load map from file \"" + value + "\":\n" + e);
             }
 
             // Clean up: destroy tile sides that won't ever be seen

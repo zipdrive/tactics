@@ -4,25 +4,13 @@ using UnityEngine;
 
 public class BattleSprite
 {
-    private Dictionary<Direction, Dictionary<string, BattleSpriteAnimation>> m_Animations = new Dictionary<Direction, Dictionary<string, BattleSpriteAnimation>>();
+    private Dictionary<bool, Dictionary<string, BattleSpriteAnimation>> m_Animations = new Dictionary<bool, Dictionary<string, BattleSpriteAnimation>>();
 
-    private Direction m_Direction = Direction.Forward;
+    //private Direction m_Direction = Direction.FrontRight;
     private string m_Animation = "idle";
     private float m_Time;
 
-    public Direction Direction
-    {
-        get
-        {
-            return m_Direction;
-        }
-
-        set
-        {
-            m_Direction = value;
-            m_Time = 0f;
-        }
-    }
+    public Direction Direction;
 
     public string Animation
     {
@@ -42,20 +30,19 @@ public class BattleSprite
     {
         get
         {
-            return m_Animations[m_Direction == Direction.Left ? Direction.Right : m_Direction][m_Animation][m_Time];
+            return m_Animations[(int)Direction <= 90][m_Animation][m_Time];
         }
     }
 
     public BattleSprite()
     {
-        m_Animations[Direction.Forward] = new Dictionary<string, BattleSpriteAnimation>();
-        m_Animations[Direction.Back] = new Dictionary<string, BattleSpriteAnimation>();
-        m_Animations[Direction.Right] = new Dictionary<string, BattleSpriteAnimation>();
+        m_Animations[true] = new Dictionary<string, BattleSpriteAnimation>();
+        m_Animations[false] = new Dictionary<string, BattleSpriteAnimation>();
     }
 
-    public void Add(Direction dir, string name, BattleSpriteAnimation animation)
+    public void Add(bool front, string name, BattleSpriteAnimation animation)
     {
-        m_Animations[dir].Add(name, animation);
+        m_Animations[front].Add(name, animation);
     }
 
     public void Update(float deltaTime)

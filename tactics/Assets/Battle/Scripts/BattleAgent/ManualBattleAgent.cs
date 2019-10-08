@@ -17,6 +17,15 @@ public class ManualBattleAgent : BattleAgent
         }
     }
 
+    public PlayerCharacter BasePlayerCharacter
+    {
+        get
+        {
+            return m_BaseCharacter;
+        }
+    }
+
+
     private Stack<BattleMenu> m_Menus;
     private BattleMenu m_BaseMenu;
 

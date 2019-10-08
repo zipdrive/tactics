@@ -25,10 +25,7 @@ public class BattleMenuUI : MonoBehaviour
         Animator anim = Instantiate(optionPrefab, menu);
 
         if (m_Options.Count == 0)
-        {
-            anim.SetBool("Highlighted", true);
             m_Index = 0;
-        }
 
         m_Options.Add(anim);
 

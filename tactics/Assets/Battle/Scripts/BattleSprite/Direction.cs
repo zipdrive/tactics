@@ -1,7 +1,7 @@
 ﻿public enum Direction
 {
-    Forward,
-    Left,
-    Right,
-    Back
+    FrontRight = 0,
+    FrontLeft = 90,
+    BackLeft = 180,
+    BackRight = 270
 }

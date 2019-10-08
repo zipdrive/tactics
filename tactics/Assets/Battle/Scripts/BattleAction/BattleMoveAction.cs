@@ -62,7 +62,7 @@ public class BattleMoveAction : BattleAction
             for (int k = 4; k > 0; --k)
             {
                 Vector2Int neighbor = current + new Vector2Int(dx, dy);
-                if (!closed.Contains(neighbor) && grid[neighbor] != null)
+                if (!closed.Contains(neighbor) && grid[neighbor] != null && grid[neighbor].Actor == null)
                 {
                     int dh = grid[neighbor].Height - grid[current].Height;
 

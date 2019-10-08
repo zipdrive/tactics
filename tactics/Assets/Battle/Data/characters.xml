@@ -3,6 +3,13 @@
 <characters>
   
   <character name="debug" type="player" sprite="debug">
+
+    <profile>
+      <description>The OG worthless nobody.</description>
+      <name>Debug</name>
+      <species>????????</species>
+      <occupation>Waste of memory</occupation>
+    </profile>
     
     <stats>
       <stat name="HP">50</stat>
@@ -14,10 +21,23 @@
     <skills>
       <skill>Punch</skill>
     </skills>
+
+    <commands>
+      <command>Move</command>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+    </commands>
     
   </character>
 
   <character name="Debug 1" title="Human Wizard" type="player" sprite="debug">
+
+    <profile>
+      <description>Worthless nobody #1.</description>
+      <name>Debug 1, Human Wizard</name>
+      <species>Human?</species>
+      <occupation>Wizard</occupation>
+    </profile>
     
     <stats>
       <stat name="HP">50</stat>
@@ -34,10 +54,23 @@
       <skill>Shoot</skill>
       <skill>Fire α</skill>
     </skills>
+
+    <commands>
+      <command>Move</command>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+    </commands>
     
   </character>
 
   <character name="Debug 2" title="Human Brawler" type="player" sprite="debug">
+
+    <profile>
+      <description>Worthless nobody #2.</description>
+      <name>Debug 2, Human Brawler</name>
+      <species>Human??</species>
+      <occupation>Brawler</occupation>
+    </profile>
     
     <stats>
       <stat name="HP">80</stat>
@@ -45,6 +78,7 @@
       <stat name="Attack">6</stat>
       <stat name="Defense">5</stat>
       <stat name="Magic">3</stat>
+      <stat name="Resist Fire">60</stat>
     </stats>
     
     <skills>
@@ -53,6 +87,42 @@
       <skill>Fire β</skill>
       <skill>Fire ω</skill>
     </skills>
+
+    <commands>
+      <command>Move</command>
+      <command>Weapon Skill</command>
+    </commands>
+    
+  </character>
+
+  <character name="Phil" title="Independent Journalist" type="player" sprite="phil" portrait="phil">
+
+    <profile>
+      <description>An incredibly intelligent and beautiful journalist with a knack for </description>
+      <name>Philharmonica Phonetical Phreneticism</name>
+      <species>Gnome</species>
+      <occupation>Independent Journalist</occupation>
+    </profile>
+    
+    <stats>
+      <stat name="HP">42</stat>
+      <stat name="SP">37</stat>
+      <stat name="Attack">6</stat>
+      <stat name="Magic">5</stat>
+      <stat name="Speed">7</stat>
+    </stats>
+
+    <skills>
+      <skill>Shoot</skill>
+    </skills>
+
+    <commands>
+      <command>Move</command>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+      <command>Report</command>
+    </commands>
+  
   </character>
   
 </characters>

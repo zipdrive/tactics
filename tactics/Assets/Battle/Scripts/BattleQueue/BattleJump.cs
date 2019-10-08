@@ -32,7 +32,8 @@ public class BattleJump : BattleQueueMember
     public override void QStart(BattleManager manager)
     {
         m_Grid = manager.grid;
-        m_Actor = m_Grid[m_Source.x, m_Source.y].Actor.transform;
+        BattleActor actor = m_Grid[m_Source.x, m_Source.y].Actor;
+        m_Actor = actor.transform;
 
         float h1 = m_Grid[m_Source].Height;
         float h2 = m_Grid[m_Source + m_Direction].Height;
@@ -41,6 +42,9 @@ public class BattleJump : BattleQueueMember
         a = -m_Actor.localPosition.y + JumpGravity * Mathf.Pow(b, 2f);
 
         // set animation
+        Debug.Log("Direction: " + actor.Agent.Direction);
+        actor.Agent.Direction = Mathf.Atan2(-m_Direction.x, -m_Direction.y) * 180f / Mathf.PI;
+        //actor.Sprite.Animation = "jump";
     }
 
     public override bool QUpdate(BattleManager manager)
@@ -51,7 +55,6 @@ public class BattleJump : BattleQueueMember
             GetHeight(),
             m_Actor.localPosition.z + (Time.deltaTime * m_Velocity.z)
             );
-        Debug.Log(t + " -> " + GetHeight());
 
         if (t > 10f / JumpSpeed)
         {

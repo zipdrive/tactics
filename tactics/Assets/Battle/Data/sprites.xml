@@ -10,16 +10,30 @@
     </images>
 
     <animations>
-      <animation name="idle" direction="forward">
-        <frame duration="1">standing</frame>
-      </animation>
-
-      <animation name="idle" direction="right">
+      <animation name="idle" direction="front">
         <frame duration="1">standing</frame>
       </animation>
 
       <animation name="idle" direction="back">
         <frame duration="1">standing</frame>
+      </animation>
+    </animations>
+    
+  </sprite>
+
+  <sprite name="phil">
+
+    <images>
+      <image name="standing front" />
+    </images>
+
+    <animations>
+      <animation name="idle" direction="front">
+        <frame duration="1">standing front</frame>
+      </animation>
+
+      <animation name="idle" direction="back">
+        <frame duration="1">standing front</frame>
       </animation>
     </animations>
     
