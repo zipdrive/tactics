@@ -69,10 +69,8 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
                 m_Width = int.Parse(root.Attributes["width"].Value);
                 m_Tiles = new BattleTile[m_Width * int.Parse(root.Attributes["height"].Value)];
 
-                foreach (XmlNode tilesNode in root.ChildNodes)
+                foreach (XmlElement tiles in root.SelectNodes("tiles"))
                 {
-                    XmlElement tiles = (XmlElement)tilesNode;
-
                     int x = int.Parse(tiles.GetAttribute("x"));
                     int y = int.Parse(tiles.GetAttribute("y"));
                     int w = tiles.HasAttribute("width") ? int.Parse(tiles.GetAttribute("width")) - 1 : 0;
@@ -106,14 +104,24 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
                 for (int j = Height - 1; j >= 0; --j)
                 {
                     int h = this[i, j].Height;
-                    if (j > 0 && this[i, j - 1].Height >= h)
+
+                    /*if (j > 0 && this[i, j - 1].Height >= h)
                         Destroy(this[i, j].sides[0].gameObject);
                     if (i > 0 && this[i - 1, j].Height >= h)
                         Destroy(this[i, j].sides[1].gameObject);
                     if (j < Height - 1 && this[i, j + 1].Height >= h)
                         Destroy(this[i, j].sides[2].gameObject);
                     if (i < Width - 1 && this[i + 1, j].Height >= h)
-                        Destroy(this[i, j].sides[3].gameObject);
+                        Destroy(this[i, j].sides[3].gameObject);*/
+
+                    if (j > 0 && this[i, j - 1].Height >= h)
+                        this[i, j].sides[0].gameObject.SetActive(false);
+                    if (i > 0 && this[i - 1, j].Height >= h)
+                        this[i, j].sides[1].gameObject.SetActive(false);
+                    if (j < Height - 1 && this[i, j + 1].Height >= h)
+                        this[i, j].sides[2].gameObject.SetActive(false);
+                    if (i < Width - 1 && this[i + 1, j].Height >= h)
+                        this[i, j].sides[3].gameObject.SetActive(false);
                 }
             }
         }

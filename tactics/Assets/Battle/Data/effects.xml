@@ -30,7 +30,7 @@
   </effect>
   
   <!-- Deals high HP damage over a medium period of time. -->
-  <effect name="Acid" element="Corrosion" power="1.0" resist="false">
+  <effect name="Acid" element="Corrosion" resist="false">
     <tick>
       <random probability="0.5" resist="true">
         <damage element="Corrosion" to="HP" />
@@ -39,7 +39,7 @@
   </effect>
 
   <!-- Deals low SP damage over a long period of time. -->
-  <effect name="Radiation" element="Corrosion" power="3.25" resist="false">
+  <effect name="Radiation" element="Corrosion" resist="false">
     <tick>
       <random probability="0.22" resist="true">
         <damage element="Corrosion" to="SP" />

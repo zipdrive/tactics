@@ -2300,7 +2300,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1789d05b6e436994cbdb2b3c5c37df72, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 388d5edf72601994aa9a6954116c066c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3632,7 +3632,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6c69e3c715a632c4cb30fe5a5719532e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b9e7a4eedb1f02a4f8cb0ebb74e4ad86, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4793,7 +4793,7 @@ GameObject:
   - component: {fileID: 1213508816}
   - component: {fileID: 1213508815}
   m_Layer: 5
-  m_Name: Resist Earth
+  m_Name: Resist Air
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8735,7 +8735,7 @@ GameObject:
   - component: {fileID: 2078283560}
   - component: {fileID: 2078283559}
   m_Layer: 5
-  m_Name: Resist Water
+  m_Name: Resist Corrosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

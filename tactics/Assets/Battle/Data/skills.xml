@@ -73,40 +73,106 @@
   </skill>
     
   <skill name="Flame">
-    <description>Offensive magic that deals fire damage.</description>
+    <description>Offensive magic that surrounds a single target in flames, dealing fire damage.</description>
     <tag>Magic</tag>
     <tag>Offense</tag>
     <tag>Element:Fire</tag>
     <tag>Target:Single</tag>
-    <effects cost="10" range="2">
+    <effects cost="11" range="2">
       <damage element="Fire" power="0.35" />
+    </effects>
+  </skill>
+    
+  <skill name="Fireball">
+    <description>Offensive magic that calls up a great ball of fire, dealing fire damage to those nearby.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Fire</tag>
+    <tag>Target:Area</tag>
+    <effects cost="14" range="2" effect="1">
+      <damage element="Fire" power="0.3" />
+    </effects>
+  </skill>
+    
+  <skill name="Inferno">
+    <description>Offensive magic that summons a massive pillar of flame, dealing fire damage to everyone within range.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Fire</tag>
+    <tag>Target:All</tag>
+    <effects cost="18" range="2" effect="all">
+      <damage element="Fire" power="0.28" />
     </effects>
   </skill>
   
   <skill name="Frost">
-    <description>Offensive magic that deals ice damage.</description>
+    <description>Offensive magic that surrounds a single target with cold vapors, dealing ice damage.</description>
     <tag>Magic</tag>
     <tag>Offense</tag>
     <tag>Element:Ice</tag>
     <tag>Target:Single</tag>
-    <effects cost="10" range="2">
+    <effects cost="11" range="2">
       <damage element="Ice" power="0.35" />
     </effects>
   </skill>
   
+  <skill name="Blizzard">
+    <description>Offensive magic that summons a whirlwind of ice and snow, dealing ice damage to those nearby.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Ice</tag>
+    <tag>Target:Area</tag>
+    <effects cost="14" range="2" effect="1">
+      <damage element="Ice" power="0.3" />
+    </effects>
+  </skill>
+  
+  <skill name="Niflheim">
+    <description>Offensive magic that calls forth , dealing ice damage to everyone within range.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Ice</tag>
+    <tag>Target:All</tag>
+    <effects cost="18" range="2" effect="all">
+      <damage element="Ice" power="0.28" />
+    </effects>
+  </skill>
+  
   <skill name="Thunder">
-    <description>Offensive magic that deals lightning damage.</description>
+    <description>Offensive magic that electrocutes a single target, dealing lightning damage.</description>
     <tag>Magic</tag>
     <tag>Offense</tag>
     <tag>Element:Lightning</tag>
     <tag>Target:Single</tag>
-    <effects cost="10" range="2">
+    <effects cost="11" range="2">
       <damage element="Lightning" power="0.35" />
     </effects>
   </skill>
   
+  <skill name="Storm">
+    <description>Offensive magic that electrically charges the ground, dealing lightning damage to those nearby.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Lightning</tag>
+    <tag>Target:Area</tag>
+    <effects cost="11" range="2" effect="1">
+      <damage element="Lightning" power="0.3" />
+    </effects>
+  </skill>
+  
+  <skill name="Tempest">
+    <description>Offensive magic that summons a massive thunderstorm, dealing lightning damage to everyone within range.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Lightning</tag>
+    <tag>Target:All</tag>
+    <effects cost="11" range="2" effect="all">
+      <damage element="Lightning" power="0.28" />
+    </effects>
+  </skill>
+  
   <skill name="Whirlwind">
-    <description>Offensive magic that disorients and deals light physical damage.</description>
+    <description>Offensive magic that spins a single target around with strong winds, disorienting them and dealing light physical damage.</description>
     <tag>Magic</tag>
     <tag>Offense</tag>
     <tag>Element:Air</tag>
@@ -118,13 +184,57 @@
   </skill>
   
   <skill name="Acid">
-    <description>Offensive magic that deals corrosion damage over time.</description>
+    <description>Offensive magic that splashes a single target with acid, dealing corrosion damage over time.</description>
     <tag>Magic</tag>
     <tag>Offense</tag>
     <tag>Element:Corrosion</tag>
     <tag>Target:Single</tag>
     <effects cost="8" range="2">
       <inflict status="Acid" power="1.0" />
+    </effects>
+  </skill>
+  
+  <skill name="Radiation">
+    <description>Offensive magic that irradiates a single target, slowly reducing their SP over time.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Corrosion</tag>
+    <tag>Target:Single</tag>
+    <effects cost="8" range="2">
+      <inflict status="Radiation" power="3.25" />
+    </effects>
+  </skill>
+  
+  <skill name="Adhesive">
+    <description>Offensive magic that coats a single target with a sticky glue, making it harder for them to move and dodge.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Corrosion</tag>
+    <tag>Target:Single</tag>
+    <effects cost="8" range="2">
+      <inflict status="Adhesive" power="1.0" />
+    </effects>
+  </skill>
+  
+  <skill name="Corrode">
+    <description>Offensive magic that corrodes the defenses of a single target, making them more vulnerable to physical damage.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Corrosion</tag>
+    <tag>Target:Single</tag>
+    <effects cost="8" range="2">
+      <inflict status="Corrode" power="1.25" />
+    </effects>
+  </skill>
+  
+  <skill name="Breach">
+    <description>Offensive magic that ???, making them more vulnerable to elemental damage.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Corrosion</tag>
+    <tag>Target:Single</tag>
+    <effects cost="8" range="2">
+      <inflict status="breach" power="1.25" />
     </effects>
   </skill>
     
@@ -172,7 +282,7 @@
     </effects>
   </skill>
 
-  <skill name="Command:Report">
+  <skill name="Report">
     <description>Observe the details of the target.</description>
     <tag>Journalism</tag>
     <effects range="999">

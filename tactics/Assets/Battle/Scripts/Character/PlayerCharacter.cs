@@ -147,7 +147,7 @@ public class PlayerCharacter : Character
                     m_Commands.Add(new BattleCommandSkillSelection("Overdrive", "Supercharge your runic patterns to cast from HP instead of SP.", new BattleSkillSimpleTagFilter("Magic"), true));
                     break;
                 case "Report":
-                    m_Commands.Add(new BattleCommandSkillAreaSelection(AssetHolder.Skills["Command:Report"]));
+                    m_Commands.Add(new BattleCommandSkillAreaSelection(AssetHolder.Skills["Report"]));
                     break;
             }
         }

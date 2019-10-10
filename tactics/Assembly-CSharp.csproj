@@ -83,8 +83,11 @@
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuSkillSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuWeaponSkillSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleActor.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleGroundTerrain.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject2D.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleSurfaceTerrain.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleObject\BattleTerrain.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentCharge.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentDecision.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleJump.cs" />

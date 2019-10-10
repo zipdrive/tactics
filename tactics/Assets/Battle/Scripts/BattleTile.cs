@@ -4,35 +4,8 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-public class BattleTile : MonoBehaviour
+public class BattleTile : BattleGroundTerrain
 {
-    public MeshRenderer surface;
-    public MeshRenderer[] sides;
-
-    private int m_Height = 1;
-    public int Height
-    {
-        get
-        {
-            return m_Height;
-        }
-
-        set
-        {
-            m_Height = value;
-
-            surface.transform.localPosition = new Vector3(surface.transform.localPosition.x, surface.transform.localPosition.y, -0.5f * value);
-
-            foreach (MeshRenderer side in sides)
-            {
-                side.transform.localPosition = new Vector3(side.transform.localPosition.x, side.transform.localPosition.y, -0.25f * value);
-                side.transform.localScale = new Vector3(0.1f, 1f, 0.05f * value);
-            }
-        }
-    }
-
-    public BattleObject Object;
-
     private BattleActor m_Actor;
     public BattleActor Actor
     {
@@ -47,7 +20,7 @@ public class BattleTile : MonoBehaviour
 
             if (m_Actor != null)
             {
-                m_Actor.transform.SetParent(surface.transform);
+                m_Actor.transform.SetParent(ground.transform);
                 m_Actor.transform.localPosition = new Vector3(0f, m_Actor.transform.localPosition.y, 0f);
             }
         }
@@ -58,18 +31,28 @@ public class BattleTile : MonoBehaviour
         // TODO texture attribute
         Height = int.Parse(tileInfo.GetAttribute("height"));
 
-        if (tileInfo.HasAttribute("object"))
+        XmlElement terrainInfo = tileInfo.SelectSingleNode("terrain") as XmlElement;
+        if (terrainInfo != null)
         {
-            Object = Instantiate(AssetHolder.Objects[tileInfo.GetAttribute("object")], surface.transform);
+            surface = Instantiate((BattleSurfaceTerrain)AssetHolder.Objects["terrain " + terrainInfo.GetAttribute("name")], ground.transform);
         }
 
-        if (tileInfo.HasAttribute("character"))
+        XmlElement characterInfo = tileInfo.SelectSingleNode("character") as XmlElement;
+        if (characterInfo != null)
         {
-            Actor = Instantiate((BattleActor)AssetHolder.Objects["actor"], surface.transform);
+            Actor = Instantiate((BattleActor)AssetHolder.Objects["actor"], ground.transform);
 
-            Character character = AssetHolder.Characters[tileInfo.GetAttribute("character")];
-            if (character is PlayerCharacter)
-                Actor.Agent = new ManualBattleAgent(character as PlayerCharacter);
+            Character character = AssetHolder.Characters[characterInfo.GetAttribute("name")];
+            
+            if (characterInfo.HasAttribute("agent"))
+            {
+                switch (characterInfo.GetAttribute("agent"))
+                {
+                    case "manual":
+                        Actor.Agent = new ManualBattleAgent(character as PlayerCharacter);
+                        break;
+                }
+            }
 
             Actor.Agent.Coordinates = new Vector2Int(x, y);
         }
