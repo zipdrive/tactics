@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class ManualBattleAgent : BattleAgent
 {
+    protected override int MaximumStat { get { return 100; } }
+
     private PlayerCharacter m_BaseCharacter;
 
     public override Character BaseCharacter

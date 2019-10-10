@@ -2,6 +2,15 @@
 
 public class BattleCommandEndTurn : BattleCommand
 {
+    public override string Description
+    {
+        get
+        {
+            return "End your turn.";
+        }
+    }
+
+
     public BattleCommandEndTurn() : base("End Turn") { }
 
     public override bool Disabled(BattleAgent agent, bool canMove, bool canAct)

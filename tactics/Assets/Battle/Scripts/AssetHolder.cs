@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
@@ -13,9 +13,12 @@ public class AssetHolder : MonoBehaviour
     public static Dictionary<string, Sprite> Tiles = new Dictionary<string, Sprite>();
     public static Dictionary<string, BattleObject> Objects = new Dictionary<string, BattleObject>();
 
+    public static Dictionary<string, Status> Effects = new Dictionary<string, Status>();
     public static Dictionary<string, Skill> Skills = new Dictionary<string, Skill>();
     public static Dictionary<string, Item> Items = new Dictionary<string, Item>();
     public static Dictionary<string, Character> Characters = new Dictionary<string, Character>();
+
+    public static Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
 
     void Start()
     {
@@ -32,39 +35,47 @@ public class AssetHolder : MonoBehaviour
 
                 foreach (XmlElement spriteInfo in root.ChildNodes)
                 {
-                    string spriteName = spriteInfo.GetAttribute("name");
-                    Dictionary<string, Material> images = new Dictionary<string, Material>();
-
-                    foreach (XmlElement imageInfo in spriteInfo["images"].ChildNodes)
-                        images[imageInfo.GetAttribute("name")] = AssetDatabase.LoadAssetAtPath<Material>(
-                            "Assets/Battle/Objects/2D/Sprites/Materials/"
-                            + spriteName + " "
-                            + imageInfo.GetAttribute("name")
-                            + ".mat"
-                            );
-
-                    BattleSprite sprite = new BattleSprite();
-
-                    foreach (XmlElement animationInfo in spriteInfo["animations"].ChildNodes)
+                    try
                     {
-                        BattleSpriteAnimation animation = new BattleSpriteAnimation();
+                        string spriteName = spriteInfo.GetAttribute("name");
+                        Dictionary<string, Material> images = new Dictionary<string, Material>();
 
-                        foreach (XmlElement frameInfo in animationInfo.ChildNodes)
-                            animation.Add(images[frameInfo.InnerText.Trim()], float.Parse(frameInfo.GetAttribute("duration")));
+                        foreach (XmlElement imageInfo in spriteInfo["images"].ChildNodes)
+                            images[imageInfo.GetAttribute("name")] = AssetDatabase.LoadAssetAtPath<Material>(
+                                "Assets/Battle/Objects/2D/Sprites/Materials/"
+                                + spriteName + " "
+                                + imageInfo.GetAttribute("name")
+                                + ".mat"
+                                );
 
-                        sprite.Add(
-                            animationInfo.GetAttribute("direction").CompareTo("front") == 0, 
-                            animationInfo.GetAttribute("name"), 
-                            animation
-                            );
+                        BattleSprite sprite = new BattleSprite();
+
+                        foreach (XmlElement animationInfo in spriteInfo["animations"].ChildNodes)
+                        {
+                            BattleSpriteAnimation animation = new BattleSpriteAnimation();
+
+                            foreach (XmlElement frameInfo in animationInfo.ChildNodes)
+                                animation.Add(images[frameInfo.InnerText.Trim()], float.Parse(frameInfo.GetAttribute("duration")));
+
+                            sprite.Add(
+                                animationInfo.GetAttribute("direction").CompareTo("front") == 0, 
+                                animationInfo.GetAttribute("name"), 
+                                animation
+                                );
+                        }
+
+                        Sprites.Add(spriteName, sprite);
                     }
-
-                    Sprites.Add(spriteName, sprite);
+                    catch (Exception e)
+                    {
+                        string id = spriteInfo.HasAttribute("name") ? spriteInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                        Error("[AssetHolder] Unable to load sprite \"" + id + "\".\n" + e);
+                    }
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                throw new System.IO.FileLoadException("\n[AssetHolder] Unable to load sprites from file:\n" + e);
+                Error("[AssetHolder] Unable to load sprites from \"Assets/Battle/Data/sprites.xml\".\n" + e);
             }
 
             // Tiles
@@ -94,6 +105,33 @@ public class AssetHolder : MonoBehaviour
                 }
             }
 
+            // Status effects
+            XmlDocument effectsDoc = new XmlDocument();
+            effectsDoc.PreserveWhitespace = false;
+
+            try
+            {
+                effectsDoc.Load("Assets/Battle/Data/effects.xml");
+                XmlElement root = effectsDoc["effects"];
+
+                foreach (XmlElement statusInfo in root.GetElementsByTagName("effect"))
+                {
+                    try
+                    {
+                        Effects.Add(statusInfo.GetAttribute("name"), new Status(statusInfo));
+                    }
+                    catch (Exception e)
+                    {
+                        string id = statusInfo.HasAttribute("name") ? statusInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                        Error("[AssetHolder] Unable to load status effect \"" + id + "\".\n" + e);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Error("[AssetHolder] Unable to load status effects from \"Assets/Battle/Data/effects.xml\".\n" + e);
+            }
+
             // Skills
             XmlDocument skillsDoc = new XmlDocument();
             skillsDoc.PreserveWhitespace = false;
@@ -104,11 +142,75 @@ public class AssetHolder : MonoBehaviour
                 XmlElement root = skillsDoc["skills"];
 
                 foreach (XmlElement skillInfo in root.GetElementsByTagName("skill"))
-                    Skills.Add(skillInfo.GetAttribute("name"), new Skill(skillInfo));
+                {
+                    try
+                    {
+                        Skills.Add(skillInfo.GetAttribute("name"), new Skill(skillInfo));
+                    }
+                    catch (Exception e)
+                    {
+                        string id = skillInfo.HasAttribute("name") ? skillInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                        Error("[AssetHolder] Unable to load skill \"" + id + "\".\n" + e);
+                    }
+                }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                throw new System.IO.FileLoadException("\n[AssetHolder] Unable to load skills from file:\n" + e);
+                Error("[AssetHolder] Unable to load skills from \"Assets/Battle/Data/skills.xml\".\n" + e);
+            }
+
+            // Items
+            XmlDocument itemsDoc = new XmlDocument();
+            itemsDoc.PreserveWhitespace = false;
+
+            try
+            {
+                itemsDoc.Load("Assets/Battle/Data/items.xml");
+                XmlElement root = itemsDoc["items"];
+
+                XmlElement weaponsInfo = root.SelectSingleNode("weapons") as XmlElement;
+                if (weaponsInfo != null)
+                {
+                    Debug.Log("[AssetHolder] Loading weapons...");
+
+                    foreach (XmlElement weaponInfo in weaponsInfo.SelectNodes("weapon"))
+                    {
+                        try
+                        {
+                            string name = weaponInfo.GetAttribute("name");
+                            Weapons[name] = new Weapon(weaponInfo);
+                        }
+                        catch (Exception e)
+                        {
+                            string id = weaponInfo.HasAttribute("name") ? weaponInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                            Error("[AssetHolder] Unable to load weapon \"" + id + "\".\n" + e);
+                        }
+                    }
+                }
+
+                XmlElement bodyInfo = root.SelectSingleNode("body") as XmlElement;
+                if (bodyInfo != null)
+                {
+                    Debug.Log("[AssetHolder] Loading armor...");
+
+                    foreach (XmlElement weaponInfo in weaponsInfo.SelectNodes("armor"))
+                    {
+                        try
+                        {
+                            string name = weaponInfo.GetAttribute("name");
+                            //Weapons[name] = new Weapon(weaponInfo);
+                        }
+                        catch (Exception e)
+                        {
+                            string id = weaponInfo.HasAttribute("name") ? weaponInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                            Error("[AssetHolder] Unable to load armor \"" + id + "\".\n" + e);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Error("[AssetHolder] Unable to load items from \"Assets/Battle/Data/items.xml\".\n" + e);
             }
 
             // Characters
@@ -122,24 +224,26 @@ public class AssetHolder : MonoBehaviour
 
                 foreach (XmlElement characterInfo in root.ChildNodes)
                 {
-                    string name = characterInfo.GetAttribute("name");
-                    Debug.Log("name: \"" + name + "\"");
-
-                    switch (characterInfo.GetAttribute("type"))
+                    try
                     {
-                        case "player":
-                            Characters[name] = new PlayerCharacter(characterInfo);
-                            break;
-                        default:
-                            Debug.Log("Unrecognized character type.");
-                            break;
+                        Characters[characterInfo.GetAttribute("name")] = Character.Parse(characterInfo);
+                    }
+                    catch (Exception e)
+                    {
+                        string id = characterInfo.HasAttribute("name") ? characterInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                        Error("[AssetHolder] Unable to load character \"" + id + "\".\n" + e);
                     }
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                throw new System.IO.FileLoadException("\n[AssetHolder] Unable to load characters from file:\n" + e);
+                Error("\n[AssetHolder] Unable to load characters from \"Assets/Battle/Data/characters.xml\".\n" + e);
             }
         }
+    }
+
+    private void Error(string message)
+    {
+        Debug.Log(message);
     }
 }

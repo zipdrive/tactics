@@ -4,6 +4,15 @@ public class BattleCommandSkillAreaSelection : BattleCommand
 {
     private Skill m_Skill;
 
+    public override string Description
+    {
+        get
+        {
+            return m_Skill.Description;
+        }
+    }
+
+
     public BattleCommandSkillAreaSelection(Skill skill) : base(skill.Name)
     {
         m_Skill = skill;

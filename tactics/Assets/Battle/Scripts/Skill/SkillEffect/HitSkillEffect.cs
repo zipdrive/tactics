@@ -32,13 +32,13 @@ public class HitSkillEffect : SkillEffect
     private float Accuracy = 1f;
     private List<SkillEffect> Effects = new List<SkillEffect>();
 
-    public HitSkillEffect(XmlElement effectInfo)
+    public HitSkillEffect(XmlElement effectInfo, string stat)
     {
         if (effectInfo.HasAttribute("accuracy"))
             Accuracy = float.Parse(effectInfo.GetAttribute("accuracy"));
 
         foreach (XmlElement subEffectInfo in effectInfo.ChildNodes)
-            Effects.Add(SkillEffect.Parse(subEffectInfo));
+            Effects.Add(SkillEffect.Parse(subEffectInfo, stat));
     }
 
     public override void Execute(BattleAgent user, BattleAgent target)

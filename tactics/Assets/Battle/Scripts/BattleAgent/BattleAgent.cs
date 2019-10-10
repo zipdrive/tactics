@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class BattleAgent
 {
+    protected abstract int MaximumStat { get; }
+
     public abstract Character BaseCharacter { get; }
 
     /// <summary>
@@ -19,26 +21,44 @@ public abstract class BattleAgent
     public int SP;
     public int CP;
 
-    public int this[string key]
+    public int this[string stat]
     {
         get
         {
-            int s = BaseCharacter[key];
+            int s = BaseCharacter[stat];
 
-            foreach (StatusEffect status in StatusEffects)
-                s += status[key];
+            foreach (StatusInstance status in StatusEffects.Values)
+                s += status[stat];
 
-            return s < 0 ? 0 : s;
+            s = s > MaximumStat ? MaximumStat : s;
+
+            if (stat.StartsWith("Resist"))
+                return s < -100 ? -100 : s;
+            else 
+                return s < 0 ? 0 : s;
         }
     }
 
-    public HashSet<StatusEffect> StatusEffects = new HashSet<StatusEffect>();
+    public Dictionary<Status, StatusInstance> StatusEffects = new Dictionary<Status, StatusInstance>();
 
 
     public BattleAgent(Character baseCharacter)
     {
+        // TODO fix later
         HP = baseCharacter["HP"];
         SP = baseCharacter["SP"];
+    }
+
+    public void Damage(int damage, Element element = Element.Null)
+    {
+        if (HP - damage > this["HP"])
+            HP = this["HP"];
+        else if (HP - damage < 0)
+            HP = 0;
+        else
+            HP -= damage;
+        
+        Debug.Log("[BattleAgent] " + BaseCharacter.Name + " took " + damage + " " + element.ToString().ToLower() + " damage!");
     }
 
     public virtual void QStart(BattleManager manager, bool canMove, bool canAct) { }
@@ -52,10 +72,4 @@ public abstract class BattleAgent
     /// <param name="decision"></param>
     /// <returns>Returns false if decision still in progress, true if a decision was made.</returns>
     public abstract bool QUpdate(BattleManager manager, bool canMove, bool canAct, ref BattleAction decision);
-
-    public void Damage(int damage, DamageType type)
-    {
-        HP = damage > HP ? 0 : HP - damage;
-        Debug.Log("Agent " + BaseCharacter.Name + " took " + damage + " damage!");
-    }
 }

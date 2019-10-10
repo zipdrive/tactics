@@ -46,8 +46,22 @@ public class Skill
             EffectArea = new RadialSkillEffectArea(int.Parse(effectArea));
 
         // Effects
+        string stat = "";
+        if (effectsInfo.HasAttribute("stat"))
+        {
+            stat = effectsInfo.GetAttribute("stat");
+        }
+        else if (Tags.Contains("Weapon"))
+        {
+            stat = "Attack";
+        }
+        else if (Tags.Contains("Magic"))
+        {
+            stat = "Magic";
+        }
+
         foreach (XmlElement effectInfo in effectsInfo.ChildNodes)
-            Effects.Add(SkillEffect.Parse(effectInfo));
+            Effects.Add(SkillEffect.Parse(effectInfo, stat));
     }
 
     public void Execute(BattleAgent user, BattleAgent target)

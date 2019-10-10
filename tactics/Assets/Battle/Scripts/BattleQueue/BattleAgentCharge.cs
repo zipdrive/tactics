@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 public class BattleAgentCharge : BattleQueueMember
 {
@@ -8,6 +8,9 @@ public class BattleAgentCharge : BattleQueueMember
     {
         foreach (BattleAgent agent in manager.agents)
         {
+            foreach (Status status in new List<Status>(agent.StatusEffects.Keys))
+                status.OnTick(agent, agent.StatusEffects[status]);
+
             agent.CP += agent["Speed"];
 
             if (agent.CP > 100)

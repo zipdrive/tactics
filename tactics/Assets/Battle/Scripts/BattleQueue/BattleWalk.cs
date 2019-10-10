@@ -28,7 +28,6 @@ public class BattleWalk : BattleQueueMember
         m_Actor = actor.transform;
 
         // set animation
-        Debug.Log("Direction: " + actor.Agent.Direction);
         actor.Agent.Direction = Mathf.Atan2(-m_Direction.x, -m_Direction.y) * 180f / Mathf.PI;
         //actor.Sprite.Animation = "walk";
     }

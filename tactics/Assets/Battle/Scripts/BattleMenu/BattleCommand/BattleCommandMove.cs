@@ -2,6 +2,15 @@
 
 public class BattleCommandMove : BattleCommand
 {
+    public override string Description
+    {
+        get
+        {
+            return "Move to a new tile on the field.";
+        }
+    }
+
+
     public BattleCommandMove() : base("Move") { }
 
 

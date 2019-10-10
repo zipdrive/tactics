@@ -42,7 +42,6 @@ public class BattleJump : BattleQueueMember
         a = -m_Actor.localPosition.y + JumpGravity * Mathf.Pow(b, 2f);
 
         // set animation
-        Debug.Log("Direction: " + actor.Agent.Direction);
         actor.Agent.Direction = Mathf.Atan2(-m_Direction.x, -m_Direction.y) * 180f / Mathf.PI;
         //actor.Sprite.Animation = "jump";
     }

@@ -1,1 +1,30 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<items>
+
+  <weapons>
+    <weapon name="Wrench" type="Hammer" />
+    <weapon name="Crossbow" type="Bow" />
+
+    <weapon name="Warhammer of Zillyhoo" type="Hammer">
+      <stat name="Attack">99</stat>
+    </weapon>
+  </weapons>
+
+  <body>
+    <armor name="Clothes" slots="1" />
+    <armor name="Uniform" slots="1" />
+
+    <armor name="Divine Pantaloons" slots="4">
+      <stat name="Resist Physical">99</stat>
+      <stat name="Resist Fire">99</stat>
+      <stat name="Resist Ice">99</stat>
+      <stat name="Resist Lightning">99</stat>
+      <stat name="Resist Air">99</stat>
+      <stat name="Resist Corrosion">99</stat>
+      <stat name="Resist Bio">99</stat>
+      <stat name="Resist Anima">99</stat>
+    </armor>
+  </body>
+  
+</items>

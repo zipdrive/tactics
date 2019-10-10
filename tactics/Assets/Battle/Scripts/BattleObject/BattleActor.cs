@@ -20,7 +20,7 @@ public class BattleActor : BattleObject2D
     {
         base.Update();
         
-        Sprite.Direction = (Direction)(90 * Mathf.RoundToInt((Agent.Direction - m_GridTransform.localEulerAngles.z) / 90f));
+        Sprite.Direction = (Direction)(((90 * Mathf.RoundToInt((Agent.Direction - m_GridTransform.localEulerAngles.z) / 90f)) + 360) % 360);
 
         Sprite.Update(Time.deltaTime);
         m_Renderer.sharedMaterial = Sprite.Image;

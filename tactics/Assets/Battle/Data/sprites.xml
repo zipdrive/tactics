@@ -25,6 +25,7 @@
 
     <images>
       <image name="standing front" />
+      <image name="standing back" />
     </images>
 
     <animations>
@@ -33,7 +34,7 @@
       </animation>
 
       <animation name="idle" direction="back">
-        <frame duration="1">standing front</frame>
+        <frame duration="1">standing back</frame>
       </animation>
     </animations>
     

@@ -1,9 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <grid width="10" height="10">
+
+  <tiles x="1" y="1">
+    <tile texture="sample" height="2" character="Reds" />
+  </tiles>
+
+  <tiles x="2" y="1">
+    <tile texture="sample" height="3" character="Debug 2" />
+  </tiles>
+
+  <tiles x="0" y="0" width="3" height="3">
+    <tile texture="sample" height="2" />
+  </tiles>
   
   <tiles x="6" y="6">
     <tile texture="sample" height="4" character="Phil" />
+  </tiles>
+
+  <tiles x="7" y="5">
+    <tile texture="sample" height="3" character="Debug 1" />
   </tiles>
   
   <tiles x="5" y="5" width="4" height="3">

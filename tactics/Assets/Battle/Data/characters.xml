@@ -40,19 +40,19 @@
     </profile>
     
     <stats>
-      <stat name="HP">50</stat>
-      <stat name="SP">6</stat>
-      <stat name="Attack">4</stat>
-      <stat name="Magic">8</stat>
+      <stat name="HP">42</stat>
+      <stat name="SP">45</stat>
+      <stat name="Attack">5</stat>
+      <stat name="Magic">7</stat>
     </stats>
     
     <skills>
       <skill>Punch</skill>
-      <skill>Slash</skill>
-      <skill>Stab</skill>
-      <skill>Bash</skill>
-      <skill>Shoot</skill>
-      <skill>Fire α</skill>
+      <skill>Flame</skill>
+      <skill>Frost</skill>
+      <skill>Thunder</skill>
+      <skill>Acid</skill>
+      <skill>Heal</skill>
     </skills>
 
     <commands>
@@ -74,25 +74,74 @@
     
     <stats>
       <stat name="HP">80</stat>
-      <stat name="SP">3</stat>
+      <stat name="SP">35</stat>
       <stat name="Attack">6</stat>
-      <stat name="Defense">5</stat>
       <stat name="Magic">3</stat>
-      <stat name="Resist Fire">60</stat>
     </stats>
     
     <skills>
       <skill>Punch</skill>
-      <skill>Fire α</skill>
-      <skill>Fire β</skill>
-      <skill>Fire ω</skill>
+      <skill>Slash</skill>
+      <skill>Stab</skill>
+      <skill>Bash</skill>
+      <skill>Shoot</skill>
+      <skill>Flame</skill>
     </skills>
+
+    <equipment>
+      <weapons>
+        <primary>Warhammer of Zillyhoo</primary>
+      </weapons>
+      <body>Divine Pantaloons</body>
+    </equipment>
+    
+    <commands>
+      <command>Move</command>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+    </commands>
+    
+  </character>
+  
+  <character name="Reds" title="Rune Robot" type="player" sprite="debug" portrait="debug">
+    
+    <profile>
+      <description></description>
+      <name>KTHN-73 "Reds"</name>
+      <species>Robot</species>
+      <occupation>Sewage System Maintenance</occupation>
+    </profile>
+
+    <stats>
+      <stat name="HP">60</stat>
+      <stat name="SP">35</stat>
+      <stat name="Attack">8</stat>
+      <stat name="Magic">7</stat>
+      <stat name="Speed">4</stat>
+      <stat name="Resist Physical">10</stat>
+      <stat name="Resist Lightning">-100</stat>
+      <stat name="Resist Air">100</stat>
+      <stat name="Resist Corrosion">-100</stat>
+      <stat name="Resist Bio">100</stat>
+      <stat name="Resist Anima">25</stat>
+    </stats>
+
+    <skills>
+      <skill>Punch</skill>
+      <skill>Heal</skill>
+    </skills>
+
+    <equipment>
+      <body>Uniform</body>
+    </equipment>
 
     <commands>
       <command>Move</command>
       <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+      <command>Overdrive</command>
     </commands>
-    
+  
   </character>
 
   <character name="Phil" title="Independent Journalist" type="player" sprite="phil" portrait="phil">
@@ -107,14 +156,21 @@
     <stats>
       <stat name="HP">42</stat>
       <stat name="SP">37</stat>
-      <stat name="Attack">6</stat>
+      <stat name="Attack">5</stat>
       <stat name="Magic">5</stat>
       <stat name="Speed">7</stat>
     </stats>
 
     <skills>
+      <skill>Punch</skill>
       <skill>Shoot</skill>
     </skills>
+
+    <equipment>
+      <weapons>
+        <primary>Crossbow</primary>
+      </weapons>
+    </equipment>
 
     <commands>
       <command>Move</command>

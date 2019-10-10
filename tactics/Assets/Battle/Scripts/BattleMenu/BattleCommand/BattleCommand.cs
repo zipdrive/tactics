@@ -2,6 +2,9 @@
 {
     public readonly string Label;
 
+    public abstract string Description { get; }
+
+
     public BattleCommand(string label)
     {
         Label = label;

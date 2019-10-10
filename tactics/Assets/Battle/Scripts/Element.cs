@@ -5,8 +5,8 @@
     Fire,
     Ice,
     Lightning,
-    Earth,
-    Water,
+    Air,
+    Corrosion,
     Bio,
     Anima
 }

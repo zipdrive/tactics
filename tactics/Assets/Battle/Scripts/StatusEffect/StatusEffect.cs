@@ -1,29 +1,69 @@
-﻿public abstract class StatusEffect
+﻿using System.Collections.Generic;
+using System.Xml;
+
+public class Status
 {
-    public abstract int this[string key] { get; }
+    public readonly Element Element;
+    public readonly bool Resistible;
 
+    private Dictionary<string, StatusEffectExecutor> m_Triggers = new Dictionary<string, StatusEffectExecutor>();
 
-    private int m_Duration;
-
-    public StatusEffect()
+    public Status(XmlElement statusInfo)
     {
-        m_Duration = int.MaxValue;
+        if (!statusInfo.HasAttribute("element") ||
+            !System.Enum.TryParse(statusInfo.GetAttribute("element"), out Element))
+            Element = Element.Null;
+
+        if (!statusInfo.HasAttribute("resist") ||
+            !bool.TryParse(statusInfo.GetAttribute("resist"), out Resistible))
+            Resistible = true;
+
+        if (statusInfo.SelectSingleNode("tick") == null)
+            statusInfo.InnerXml += "<tick></tick>";
+        if (statusInfo.SelectSingleNode("tick/duration") == null)
+            statusInfo["tick"].InnerXml += "<duration>-1</duration>";
+
+        foreach (XmlElement effectInfo in statusInfo.ChildNodes)
+        {
+            string name = effectInfo.Name;
+
+            if (!m_Triggers.ContainsKey(name))
+            {
+                m_Triggers[name] = new StatusEffectExecutor(effectInfo);
+            }
+        }
     }
 
-    public StatusEffect(int duration)
+    public void OnBegin(BattleAgent target, StatusInstance status)
     {
-        m_Duration = duration;
+        if (m_Triggers.ContainsKey("begin"))
+        {
+            m_Triggers["begin"].Execute(target, status);
+            Exhaust(target, status);
+        }
     }
 
-    public virtual void OnBeginTurn(BattleAgent agent)
+    public void OnTick(BattleAgent target, StatusInstance status)
     {
-        --m_Duration;
-
-        if (m_Duration == 0)
-            agent.StatusEffects.Remove(this);
+        if (m_Triggers.ContainsKey("tick"))
+        {
+            m_Triggers["tick"].Execute(target, status);
+            Exhaust(target, status);
+        }
     }
 
-    public StatusEffectExecution OnTakeDamage;
-    public StatusEffectExecution OnTakePhysicalDamage;
-    public StatusEffectExecution OnEndTurn;
+    public void OnTurn(BattleAgent target, StatusInstance status)
+    {
+        if (m_Triggers.ContainsKey("turn"))
+        {
+            m_Triggers["turn"].Execute(target, status);
+            Exhaust(target, status);
+        }
+    }
+
+    private void Exhaust(BattleAgent target, StatusInstance status)
+    {
+        if (status.Duration == 0)
+            target.StatusEffects.Remove(this);
+    }
 }

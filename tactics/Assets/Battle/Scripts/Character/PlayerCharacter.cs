@@ -6,24 +6,16 @@ public class PlayerCharacter : Character
 {
     private Dictionary<string, int> m_Stats = new Dictionary<string, int>();
 
-    public override int this[string key]
+    public override int this[string stat]
     {
         get
         {
-            switch (key)
-            {
-                case "Attack":
-                    int atk = m_Stats["Attack"];
+            int s = m_Stats.ContainsKey(stat) ? m_Stats[stat] : 0;
 
-                    if (PrimaryWeapon != null) atk += PrimaryWeapon.AttackBonus;
-                    if (SecondaryWeapon != null) atk += SecondaryWeapon.AttackBonus;
+            if (PrimaryWeapon != null) s += PrimaryWeapon[stat];
+            if (SecondaryWeapon != null) s += SecondaryWeapon[stat];
 
-                    return atk;
-                default:
-                    if (m_Stats.ContainsKey(key))
-                        return m_Stats[key];
-                    return 0;
-            }
+            return s;
         }
     }
 
@@ -103,35 +95,59 @@ public class PlayerCharacter : Character
             if (element != Element.Null)
                 m_Stats["Resist " + element] = 0;
 
-        // Load stats, skills, and commands from XML
+        // Load stats
         XmlElement statsInfo = characterInfo["stats"];
-        foreach (XmlElement statInfo in statsInfo)
+        foreach (XmlElement statInfo in statsInfo.SelectNodes("stat"))
         {
             m_Stats[statInfo.GetAttribute("name")] = int.Parse(statInfo.InnerText.Trim());
         }
 
+        // Load skills
         XmlElement skillsInfo = characterInfo["skills"];
-        foreach (XmlElement skillInfo in skillsInfo)
+        foreach (XmlElement skillInfo in skillsInfo.SelectNodes("skill"))
         {
             m_Skills.Add(AssetHolder.Skills[skillInfo.InnerText.Trim()]);
         }
 
+        // Load equipment
+        XmlElement equipmentInfo = characterInfo["equipment"];
+        if (equipmentInfo != null)
+        {
+            XmlNode weaponsInfo;
+            if ((weaponsInfo = equipmentInfo.SelectSingleNode("weapons")) != null)
+            {
+                XmlNode primaryInfo;
+                if ((primaryInfo = weaponsInfo.SelectSingleNode("primary")) != null)
+                    m_Primary = AssetHolder.Weapons[primaryInfo.InnerText.Trim()];
+                XmlNode secondaryInfo;
+                if ((secondaryInfo = weaponsInfo.SelectSingleNode("secondary")) != null)
+                    m_Secondary = AssetHolder.Weapons[secondaryInfo.InnerText.Trim()];
+            }
+        }
+        
+        // Load commands
         XmlElement commandsInfo = characterInfo["commands"];
-        foreach (XmlElement commandInfo in commandsInfo)
+        foreach (XmlElement commandInfo in commandsInfo.SelectNodes("command"))
         {
             switch (commandInfo.InnerText.Trim())
             {
+                // Standard commands
                 case "Move":
                     m_Commands.Add(new BattleCommandMove());
                     break;
                 case "Weapon Skill":
-                    m_Commands.Add(new BattleCommandSkillSelection("Weapon Skill", new BattleSkillWeaponFilter()));
+                    m_Commands.Add(new BattleCommandSkillSelection("Weapon Skill", "Use a weapon skill.", new BattleSkillWeaponFilter()));
                     break;
                 case "Magic Skill":
-                    m_Commands.Add(new BattleCommandSkillSelection("Magic Skill", new BattleSkillSimpleTagFilter("Magic")));
+                    m_Commands.Add(new BattleCommandSkillSelection("Magic Skill", "Use a magic skill.", new BattleSkillSimpleTagFilter("Magic")));
+                    break;
+
+                // Individual commands
+                case "Overdrive":
+                    m_Commands.Add(new BattleCommandSkillSelection("Overdrive", "Supercharge your runic patterns to cast from HP instead of SP.", new BattleSkillSimpleTagFilter("Magic"), true));
                     break;
                 case "Report":
-                    m_Commands.Add(new BattleCommandSkillAreaSelection(AssetHolder.Skills["Report"]));
+                    m_Commands.Add(new BattleCommandSkillAreaSelection(AssetHolder.Skills["Command:Report"]));
                     break;
             }
         }

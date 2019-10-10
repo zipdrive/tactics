@@ -65,6 +65,7 @@
      <Compile Include="Assets\Battle\Scripts\BattleManager.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleCommand.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleCommandEndTurn.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleCommandMagicSkill.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleCommandMove.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleCommandSkillAreaSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleCommandSkillSelection.cs" />
@@ -72,6 +73,7 @@
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleSkillSimpleTagFilter.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleSkillWeaponFilter.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenu.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuCommandSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuListSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuMagicSkillSelection.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleMenuMoveSelection.cs" />
@@ -109,6 +111,7 @@
      <Compile Include="Assets\Battle\Scripts\Skill\Skill.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillEffect\DamageSkillEffect.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillEffect\HitSkillEffect.cs" />
+     <Compile Include="Assets\Battle\Scripts\Skill\SkillEffect\InflictSkillEffect.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillEffect\ReportSkillEffect.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillEffect\SkillEffect.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillEffectArea\RadialSkillEffectArea.cs" />
@@ -117,9 +120,16 @@
      <Compile Include="Assets\Battle\Scripts\Skill\SkillRange\RadialSkillRange.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillRange\SkillRange.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\SkillRange\WeaponSkillRange.cs" />
-     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatAlterationStatusEffect.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\BonusStatusEffect.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\DamageStatusEffect.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\DurationStatusEffect.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\ProbabilisticStatusEffect.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\StatusEffect.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffectDuration\StatusEffectDuration.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffectExecution.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffectExecutor.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusInstance.cs" />
      <Compile Include="Assets\Battle\UI\BattleAgentReportUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleAgentUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleMenuUI.cs" />

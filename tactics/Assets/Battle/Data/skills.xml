@@ -6,10 +6,11 @@
     <description>A barehanded punch.</description>
     <tag>Weapon</tag>
     <tag>Offense</tag>
+    <tag>Element:Physical</tag>
     <tag>Fist</tag>
     <effects range="weapon">
       <hit accuracy="0">
-        <damage type="Physical" power="0.37" critical="0.01" />
+        <damage element="Physical" power="0.37" critical="0.01" />
       </hit>
     </effects>
   </skill>
@@ -18,11 +19,12 @@
     <description>Slash the target with an edged weapon.</description>
     <tag>Weapon</tag>
     <tag>Offense</tag>
+    <tag>Element:Physical</tag>
     <tag>Axe</tag>
     <tag>Sword</tag>
     <effects range="weapon">
       <hit accuracy="1">
-        <damage type="Physical" power="0.42" critical="0.03" />
+        <damage element="Physical" power="0.42" critical="0.03" />
       </hit>
     </effects>
   </skill>
@@ -31,12 +33,13 @@
     <description>Stab the target with a sharp weapon.</description>
     <tag>Weapon</tag>
     <tag>Offense</tag>
+    <tag>Element:Physical</tag>
     <tag>Knife</tag>
     <tag>Spear</tag>
     <tag>Sword</tag>
     <effects range="weapon">
       <hit accuracy="2">
-        <damage type="Physical" power="0.39" critical="0.1" />
+        <damage element="Physical" power="0.39" critical="0.1" />
       </hit>
     </effects>
   </skill>
@@ -45,11 +48,12 @@
     <description>Bash the target with a heavy weapon.</description>
     <tag>Weapon</tag>
     <tag>Offense</tag>
+    <tag>Element:Physical</tag>
     <tag>Hammer</tag>
     <tag>Shield</tag>
     <effects range="weapon">
       <hit accuracy="-1">
-        <damage type="Physical" power="0.55" critical="0.01" />
+        <damage element="Physical" power="0.55" critical="0.01" />
       </hit>
     </effects>
   </skill>
@@ -58,49 +62,117 @@
     <description>Shoot the target with a ranged weapon.</description>
     <tag>Weapon</tag>
     <tag>Offense</tag>
+    <tag>Element:Physical</tag>
     <tag>Bow</tag>
     <tag>Gun</tag>
-    <effects range="weapon">
+    <effects stat="Attack" range="weapon">
       <hit accuracy="4">
-        <damage type="Physical" power="0.4" critical="0.05" />
+        <damage element="Physical" power="0.4" critical="0.05" />
       </hit>
     </effects>
   </skill>
     
-  <skill name="Fire α">
-    <description>Elemental magic that burns the target with fire.</description>
+  <skill name="Flame">
+    <description>Offensive magic that deals fire damage.</description>
     <tag>Magic</tag>
     <tag>Offense</tag>
-    <tag>Elemental</tag>
-    <tag>Fire</tag>
-    <effects cost="10" range="3">
-      <damage type="Fire" power="0.35" />
+    <tag>Element:Fire</tag>
+    <tag>Target:Single</tag>
+    <effects cost="10" range="2">
+      <damage element="Fire" power="0.35" />
     </effects>
   </skill>
   
-  <skill name="Fire β">
-    <description>Elemental magic that burns the target with fire.</description>
+  <skill name="Frost">
+    <description>Offensive magic that deals ice damage.</description>
     <tag>Magic</tag>
     <tag>Offense</tag>
-    <tag>Elemental</tag>
-    <tag>Fire</tag>
-    <effects cost="14" range="3" effect="1">
-      <damage type="Fire" power="0.3" />
+    <tag>Element:Ice</tag>
+    <tag>Target:Single</tag>
+    <effects cost="10" range="2">
+      <damage element="Ice" power="0.35" />
     </effects>
   </skill>
   
-  <skill name="Fire ω">
-    <description>Elemental magic that burns the target with fire.</description>
+  <skill name="Thunder">
+    <description>Offensive magic that deals lightning damage.</description>
     <tag>Magic</tag>
     <tag>Offense</tag>
-    <tag>Elemental</tag>
-    <tag>Fire</tag>
-    <effects cost="18" range="3" effect="2">
-      <damage type="Fire" power="0.28" />
+    <tag>Element:Lightning</tag>
+    <tag>Target:Single</tag>
+    <effects cost="10" range="2">
+      <damage element="Lightning" power="0.35" />
+    </effects>
+  </skill>
+  
+  <skill name="Whirlwind">
+    <description>Offensive magic that disorients and deals light physical damage.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Air</tag>
+    <tag>Target:Single</tag>
+    <effects cost="10" range="2">
+      <damage element="Physical" power="0.35" />
+      <inflict status="Confuse" power="1.25" />
+    </effects>
+  </skill>
+  
+  <skill name="Acid">
+    <description>Offensive magic that deals corrosion damage over time.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Corrosion</tag>
+    <tag>Target:Single</tag>
+    <effects cost="8" range="2">
+      <inflict status="Acid" power="1.0" />
+    </effects>
+  </skill>
+    
+  <skill name="Heal">
+    <description>Support magic that restores HP.</description>
+    <tag>Magic</tag>
+    <tag>Support</tag>
+    <tag>Element:Bio</tag>
+    <tag>Target:Single</tag>
+    <effects cost="16" range="2">
+      <damage element="Bio" power="-0.2" />
+    </effects>
+  </skill>
+  
+  <skill name="Fear">
+    <description>Offensive magic that induces running away in panic.</description>
+    <tag>Magic</tag>
+    <tag>Offense</tag>
+    <tag>Element:Anima</tag>
+    <tag>Target:Single</tag>
+    <effects cost="10" range="2">
+      <inflict status="Fear" power="1.5" />
+    </effects>
+  </skill>
+  
+  <skill name="Haste">
+    <description>Support magic that speeds up time, increasing effective Speed.</description>
+    <tag>Magic</tag>
+    <tag>Support</tag>
+    <tag>Element:Time</tag>
+    <tag>Target:Single</tag>
+    <effects cost="10" range="2">
+      <inflict status="Haste" power="0.8" />
+    </effects>
+  </skill>
+  
+  <skill name="Boost">
+    <description>Support magic that increases Attack.</description>
+    <tag>Magic</tag>
+    <tag>Support</tag>
+    <tag>Element:Assist</tag>
+    <tag>Target:Single</tag>
+    <effects cost="10" range="2">
+      <bonus stat="Attack" />
     </effects>
   </skill>
 
-  <skill name="Report">
+  <skill name="Command:Report">
     <description>Observe the details of the target.</description>
     <tag>Journalism</tag>
     <effects range="999">

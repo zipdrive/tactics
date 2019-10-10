@@ -3,11 +3,22 @@ using System.Collections.Generic;
 
 public class BattleCommandSkillSelection : BattleCommand
 {
+    private string m_Description;
     private BattleSkillFilter m_Filter;
     private bool m_Overdrive;
 
-    public BattleCommandSkillSelection(string label, BattleSkillFilter filter, bool overdrive = false) : base(label)
+    public override string Description
     {
+        get
+        {
+            return m_Description;
+        }
+    }
+
+
+    public BattleCommandSkillSelection(string label, string description, BattleSkillFilter filter, bool overdrive = false) : base(label)
+    {
+        m_Description = description;
         m_Filter = filter;
         m_Overdrive = overdrive;
     }
@@ -43,7 +54,7 @@ public class BattleCommandSkillSelection : BattleCommand
         {
             if (includeCost)
             {
-                menu.Add(skill.Cost <= (m_Overdrive ? agent.HP : agent.SP), skill, skill.Name, skill.Cost + (m_Overdrive ? " HP" : " SP"));
+                menu.Add(skill.Cost > (m_Overdrive ? agent.HP : agent.SP), skill, skill.Name, skill.Cost + (m_Overdrive ? " HP" : " SP"));
             }
             else
             {

@@ -3,6 +3,19 @@ using System.Xml;
 
 public abstract class Character
 {
+    public static Character Parse(XmlElement characterInfo)
+    {
+        string type = characterInfo.HasAttribute("type") ? characterInfo.GetAttribute("type") : "";
+
+        switch (type)
+        {
+            case "player":
+                return new PlayerCharacter(characterInfo);
+        }
+
+        throw new System.IO.FileLoadException("Unrecognized character type \"" + type + "\".");
+    }
+
     public readonly string Name;
     public readonly string Title;
     public readonly BattleSprite Sprite;
