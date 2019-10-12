@@ -14,11 +14,11 @@ public class BattleSkillAction : BattleAction
 
     public override void Execute(BattleManager manager, int time)
     {
-        BattleSelectableManhattanRadius range = skill.Range[actor];
+        BattleSelectableManhattanRadius range = skill.Range(actor);
 
         foreach (BattleAgent target in manager.agents)
         {
-            if (skill.EffectArea.Contains(range, center, target.Coordinates))
+            if (skill.Affects(actor, center, target.Coordinates))
             {
                 skill.Execute(actor, target);
             }

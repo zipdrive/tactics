@@ -60,7 +60,9 @@
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleReportAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleSkillAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleAgent.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleAgent\ManualBattleAgent.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleBehaviour\BattleBehaviour.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleBehaviour\BattleBerserkBehaviour.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleBehaviour\BattleManualBehaviour.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleGrid.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleManager.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleMenu\BattleCommand\BattleCommand.cs" />
@@ -88,12 +90,13 @@
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleObject2D.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleSurfaceTerrain.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleObject\BattleTerrain.cs" />
-     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentCharge.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleAgentDecision.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleJump.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueMember.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleShowAgentReport.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleTick.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleWalk.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableManhattanPath.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableManhattanRadius.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableRectangle.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableZone.cs" />
@@ -109,6 +112,7 @@
      <Compile Include="Assets\Battle\Scripts\Item\PlayerInventory.cs" />
      <Compile Include="Assets\Battle\Scripts\Item\Weapon.cs" />
      <Compile Include="Assets\Battle\Scripts\Item\WeaponType.cs" />
+     <Compile Include="Assets\Battle\Scripts\PathFinder.cs" />
      <Compile Include="Assets\Battle\Scripts\RotatableSprite.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\DamageType.cs" />
      <Compile Include="Assets\Battle\Scripts\Skill\Skill.cs" />

@@ -11,7 +11,7 @@ public class BattleMenuMoveSelection : BattleMenu
 
     public override void Construct(BattleManager manager)
     {
-        manager.grid.SelectableZone = new BattleSelectableManhattanRadius(user.Coordinates, 1, user.BaseCharacter["Move"]);
+        manager.grid.SelectableZone = new BattleSelectableManhattanPath(user.Coordinates, 1, user["Move"], user["Jump"]);
     }
 
     public override void Destruct(BattleManager manager)
@@ -23,7 +23,7 @@ public class BattleMenuMoveSelection : BattleMenu
     {
         Vector2Int center = manager.grid.Selector.SelectedTile;
 
-        if (manager.grid.SelectableZone.IsSelectable(center.x, center.y))
+        if (manager.grid.SelectableZone[center])
         {
             decision = new BattleMoveAction(user.Coordinates, center);
         }

@@ -6,13 +6,13 @@
 
   <tiles x="1" y="1">
     <tile texture="sample" height="2">
-      <character name="Reds" agent="manual" />
+      <character name="Reds" behaviour="manual" />
     </tile>
   </tiles>
 
   <tiles x="2" y="1">
     <tile texture="sample" height="3">
-      <character name="Debug 2" agent="manual" />
+      <character name="Debug 2" behaviour="berserk" />
     </tile>
   </tiles>
 
@@ -22,13 +22,13 @@
   
   <tiles x="6" y="6">
     <tile texture="sample" height="4">
-      <character name="Phil" agent="manual" />
+      <character name="Phil" behaviour="manual" />
     </tile>
   </tiles>
 
   <tiles x="7" y="5">
     <tile texture="sample" height="3">
-      <character name="Debug 1" agent="manual" />
+      <character name="Debug 1" behaviour="berserk" />
     </tile>
   </tiles>
   

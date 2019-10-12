@@ -44,6 +44,7 @@
       <stat name="SP">45</stat>
       <stat name="Attack">5</stat>
       <stat name="Magic">7</stat>
+      <stat name="Speed">6</stat>
     </stats>
     
     <skills>

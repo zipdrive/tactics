@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-public class BattleAgentCharge : BattleQueueMember
+public class BattleTick : BattleQueueMember
 {
-    public BattleAgentCharge(int time) : base(time) { }
+    public BattleTick(int time) : base(time) { }
 
     public override void QStart(BattleManager manager)
     {
@@ -13,7 +13,7 @@ public class BattleAgentCharge : BattleQueueMember
 
             agent.CP += agent["Speed"];
 
-            if (agent.CP > 100)
+            if (agent.CP >= 100)
             {
                 agent.CP = 100;
                 manager.Add(new BattleAgentDecision(time - agent["Speed"], agent));

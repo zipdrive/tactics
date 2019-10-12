@@ -2,7 +2,7 @@
 
 <sprites>
   
-  <sprite name="debug">
+  <sprite name="debug" portrait="reds">
     
     <images>
       <image name="blank" />
@@ -19,6 +19,25 @@
       </animation>
     </animations>
     
+  </sprite>
+
+  <sprite name="reds">
+
+    <images>
+      <image name="standing front" />
+      <image name="standing back" />
+    </images>
+
+    <animations>
+      <animation name="idle" direction="front">
+        <frame duration="1">standing front</frame>
+      </animation>
+
+      <animation name="idle" direction="back">
+        <frame duration="1">standing back</frame>
+      </animation>
+    </animations>
+
   </sprite>
 
   <sprite name="phil">

@@ -31,7 +31,7 @@ public class BattleCommandMagicSkill : BattleCommand
 
     public override bool Disabled(BattleAgent agent, bool canMove, bool canAct)
     {
-        return HasSkillWithTag(agent, "Magic");
+        return !canAct || !HasSkillWithTag(agent, "Magic");
     }
 
     public override void Select(BattleAgent agent, out BattleMenu next, out BattleAction decision)
@@ -51,13 +51,13 @@ public class BattleCommandMagicSkill : BattleCommand
 
         foreach (KeyValuePair<string, string> category in categories)
         {
-            if (HasSkillWithTag(agent, "Magic:" + category.Key))
+            if (HasSkillWithTag(agent, "Element:" + category.Key))
             {
                 menu.Add(false,
                     new BattleCommandSkillSelection(
                         category.Key,
                         category.Value,
-                        new BattleSkillSimpleTagFilter("Magic:" + category.Key),
+                        new BattleSkillSimpleTagFilter("Element:" + category.Key),
                         m_Overdrive),
                     category.Key);
             }

@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BattleAgent
+public class BattleAgent
 {
-    protected abstract int MaximumStat { get; }
-
-    public abstract Character BaseCharacter { get; }
+    public readonly Character BaseCharacter;
 
     /// <summary>
     /// The coordinates of the agent.
@@ -30,23 +28,48 @@ public abstract class BattleAgent
             foreach (StatusInstance status in StatusEffects.Values)
                 s += status[stat];
 
-            s = s > MaximumStat ? MaximumStat : s;
-
-            if (stat.StartsWith("Resist"))
-                return s < -100 ? -100 : s;
-            else 
+            if (!stat.StartsWith("Resist"))
+            {
                 return s < 0 ? 0 : s;
+            }
+            else
+            {
+                s = s < -100 ? -100 : s;
+
+                string element = stat.Substring(7);
+                if (element.Equals("Fire") || element.Equals("Ice") || element.Equals("Lightning") || element.Equals("Corrosion"))
+                    return s;
+                else
+                    return s > 100 ? 100 : s;
+            }
         }
     }
 
     public Dictionary<Status, StatusInstance> StatusEffects = new Dictionary<Status, StatusInstance>();
 
 
+    private BattleBehaviour m_DefaultBehaviour;
+
+    public BattleBehaviour Behaviour
+    {
+        get
+        {
+            return m_DefaultBehaviour;
+        }
+
+        set
+        {
+            m_DefaultBehaviour = value;
+        }
+    }
+
+
     public BattleAgent(Character baseCharacter)
     {
-        // TODO fix later
-        HP = baseCharacter["HP"];
-        SP = baseCharacter["SP"];
+        BaseCharacter = baseCharacter;
+
+        HP = this["HP"];
+        SP = this["SP"];
     }
 
     public void Damage(int damage, Element element = Element.Null)
@@ -60,16 +83,4 @@ public abstract class BattleAgent
         
         Debug.Log("[BattleAgent] " + BaseCharacter.Name + " took " + damage + " " + element.ToString().ToLower() + " damage!");
     }
-
-    public virtual void QStart(BattleManager manager, bool canMove, bool canAct) { }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="manager">The BattleManager for the current battle</param>
-    /// <param name="canMove"></param>
-    /// <param name="canAct"></param>
-    /// <param name="decision"></param>
-    /// <returns>Returns false if decision still in progress, true if a decision was made.</returns>
-    public abstract bool QUpdate(BattleManager manager, bool canMove, bool canAct, ref BattleAction decision);
 }

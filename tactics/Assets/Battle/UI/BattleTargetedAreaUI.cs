@@ -27,21 +27,23 @@ public class BattleTargetedAreaUI : MonoBehaviour
         transform.position = m_Grid.transform.position + m_Position;
     }
 
-    public void Set(SkillEffectArea area, BattleAgent user, Vector2Int center)
+    public void Set(Skill skill, BattleAgent user, Vector2Int center)
     {
         Clear();
 
-        BattleSelectableManhattanRadius range = m_Grid.SelectableZone as BattleSelectableManhattanRadius;
+        System.Collections.Generic.IEnumerator<Vector2Int> enumerator = 
+            skill.EffectArea.GetEnumerator(skill.Range(user), center);
 
-        for (int i = m_Grid.Width - 1; i >= 0; --i)
+        while (enumerator.MoveNext())
         {
-            for (int j = m_Grid.Height - 1; j >= 0; --j)
+            if (m_Grid[enumerator.Current] != null)
             {
-                if (area.Contains(range, center, new Vector2Int(i, j)))
-                {
-                    Transform tile = Instantiate(targetedAreaPrefab, transform);
-                    tile.localPosition = new Vector3(i, j, -0.5f * m_Grid[i, j].Height);
-                }
+                Transform tile = Instantiate(targetedAreaPrefab, transform);
+                tile.localPosition = new Vector3(
+                    enumerator.Current.x, 
+                    enumerator.Current.y, 
+                    -0.5f * m_Grid[enumerator.Current].Height
+                    );
             }
         }
     }

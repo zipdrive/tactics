@@ -49,6 +49,7 @@ public class AssetHolder : MonoBehaviour
                                 );
 
                         BattleSprite sprite = new BattleSprite();
+                        sprite.Portrait = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Battle/Portraits/" + (spriteInfo.HasAttribute("portrait") ? spriteInfo.GetAttribute("portrait") : spriteName) + ".png");
 
                         foreach (XmlElement animationInfo in spriteInfo["animations"].ChildNodes)
                         {

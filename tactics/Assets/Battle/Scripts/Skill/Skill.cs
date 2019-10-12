@@ -11,7 +11,7 @@ public class Skill
 
     public int Cost;
 
-    public SkillRange Range;
+    private SkillRange m_Range;
     public SkillEffectArea EffectArea;
 
     public List<SkillEffect> Effects = new List<SkillEffect>();
@@ -34,9 +34,9 @@ public class Skill
         // Range
         string range = effectsInfo.GetAttribute("range");
         if (range.CompareTo("weapon") == 0)
-            Range = new WeaponSkillRange();
+            m_Range = new WeaponSkillRange();
         else
-            Range = new RadialSkillRange(int.Parse(range));
+            m_Range = new RadialSkillRange(int.Parse(range));
 
         // Effect area
         string effectArea = effectsInfo.HasAttribute("effect") ? effectsInfo.GetAttribute("effect") : "0";
@@ -64,6 +64,16 @@ public class Skill
             Effects.Add(SkillEffect.Parse(effectInfo, stat));
     }
 
+    public BattleSelectableManhattanRadius Range(BattleAgent user)
+    {
+        return m_Range[user];
+    }
+
+    public bool Affects(BattleAgent user, Vector2Int center, Vector2Int target)
+    {
+        return EffectArea.Affects(Range(user), center, target);
+    }
+
     public void Execute(BattleAgent user, BattleAgent target)
     {
         if (user.SP >= Cost)
@@ -73,5 +83,10 @@ public class Skill
             foreach (SkillEffect effect in Effects)
                 effect.Execute(user, target);
         }
+    }
+
+    public override string ToString()
+    {
+        return Name;
     }
 }

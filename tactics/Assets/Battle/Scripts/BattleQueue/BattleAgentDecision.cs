@@ -24,36 +24,50 @@ public class BattleAgentDecision : BattleQueueMember
 
     public override void QStart(BattleManager manager)
     {
-        if (m_MoveAllowed && m_ActionAllowed)
-            foreach (KeyValuePair<Status, StatusInstance> status in m_Agent.StatusEffects)
-                status.Key.OnTurn(m_Agent, status.Value);
-
-        m_Agent.QStart(manager, m_MoveAllowed, m_ActionAllowed);
+        if (m_Agent.CP == 100)
+        {
+            if (m_MoveAllowed && m_ActionAllowed)
+                foreach (KeyValuePair<Status, StatusInstance> status in m_Agent.StatusEffects)
+                    status.Key.OnTurn(m_Agent, status.Value);
+            
+            m_Agent.Behaviour.Start(m_MoveAllowed, m_ActionAllowed);
+            manager.grid.Selector.SelectedTile = m_Agent.Coordinates;
+        }
     }
 
     public override bool QUpdate(BattleManager manager)
     {
-        BattleAction decision = null;
+        if (m_Agent.CP < 100) return true;
 
-        if (m_Agent.QUpdate(manager, m_MoveAllowed, m_ActionAllowed, ref decision))
+        BattleAction decision = m_Agent.Behaviour.Update(m_MoveAllowed, m_ActionAllowed);
+        //UnityEngine.Debug.Log("[BattleAgentDecision] Decision: " + decision);
+
+        if (decision != null)
         {
             decision.Execute(manager, time);
 
             if (decision is BattleEndTurnAction)
             {
                 m_Agent.CP -= 60;
+
+                if (!m_MoveAllowed) m_Agent.CP -= 15;
+                if (!m_ActionAllowed) m_Agent.CP -= 25;
             }
             else
             {
                 if (decision is BattleMoveAction)
                 {
                     m_MoveAllowed = false;
-                    m_Agent.CP -= 15;
+                    manager.grid.Selector.SelectedTile = (decision as BattleMoveAction).destination;
                 }
                 else
                 {
                     m_ActionAllowed = false;
-                    m_Agent.CP -= 25;
+
+                    if (decision is BattleSkillAction)
+                    {
+                        manager.grid.Selector.SelectedTile = (decision as BattleSkillAction).center;
+                    }
                 }
 
                 --time;

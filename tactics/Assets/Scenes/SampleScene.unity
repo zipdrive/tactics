@@ -5473,6 +5473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa07d9ccd4b7f564188faeac11d63b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portrait: {fileID: 970368626}
   profileDescription: {fileID: 237945316}
   profileName: {fileID: 1532167264}
   profileSpecies: {fileID: 570400823}

@@ -8,6 +8,8 @@ public class DamageSkillEffect : SkillEffect
     private float m_Critical;
     private string m_Stat;
 
+    public float Power { get { return m_Power; } }
+
     public DamageSkillEffect(XmlElement effectInfo, string stat)
     {
         // Damage type

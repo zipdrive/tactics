@@ -30,7 +30,7 @@ public class HitSkillEffect : SkillEffect
     }
 
     private float Accuracy = 1f;
-    private List<SkillEffect> Effects = new List<SkillEffect>();
+    public List<SkillEffect> Effects = new List<SkillEffect>();
 
     public HitSkillEffect(XmlElement effectInfo, string stat)
     {

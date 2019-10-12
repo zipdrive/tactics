@@ -13,8 +13,25 @@ public class BattleSelectableRectangle : BattleSelectableZone
         Max = max;
     }
 
-    public virtual bool IsSelectable(int x, int y)
+    public override bool this[int x, int y]
     {
-        return (x >= Min.x && x <= Max.x && y >= Min.y && y <= Max.y);
+        get
+        {
+            return (x >= Min.x && x <= Max.x && y >= Min.y && y <= Max.y);
+        }
+    }
+
+
+    public override IEnumerator<Vector2Int> GetEnumerator()
+    {
+        for (int i = Min.x; i <= Max.x; ++i)
+        {
+            for (int j = Min.y; j <= Max.y; ++j)
+            {
+                yield return new Vector2Int(i, j);
+            }
+        }
+
+        yield break;
     }
 }

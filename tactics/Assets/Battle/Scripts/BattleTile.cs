@@ -41,17 +41,11 @@ public class BattleTile : BattleGroundTerrain
         if (characterInfo != null)
         {
             Actor = Instantiate((BattleActor)AssetHolder.Objects["actor"], ground.transform);
-
-            Character character = AssetHolder.Characters[characterInfo.GetAttribute("name")];
+            Actor.Agent = new BattleAgent(AssetHolder.Characters[characterInfo.GetAttribute("name")]);
             
-            if (characterInfo.HasAttribute("agent"))
+            if (characterInfo.HasAttribute("behaviour"))
             {
-                switch (characterInfo.GetAttribute("agent"))
-                {
-                    case "manual":
-                        Actor.Agent = new ManualBattleAgent(character as PlayerCharacter);
-                        break;
-                }
+                Actor.Agent.Behaviour = BattleBehaviour.Parse(characterInfo.GetAttribute("behaviour"), Actor.Agent);
             }
 
             Actor.Agent.Coordinates = new Vector2Int(x, y);

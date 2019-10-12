@@ -4,6 +4,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class BattleAgentReportUI : MonoBehaviour
 {
+    public Image portrait;
+
     public Text profileDescription;
     public Text profileName;
     public Text profileSpecies;
@@ -26,6 +28,8 @@ public class BattleAgentReportUI : MonoBehaviour
 
     public void Show(BattleAgent agent)
     {
+        portrait.sprite = agent.BaseCharacter.Sprite.Portrait;
+
         profileName.text = agent.BaseCharacter.ProfileName;
         profileSpecies.text = agent.BaseCharacter.ProfileSpecies;
         profileOccupation.text = agent.BaseCharacter.ProfileOccupation;

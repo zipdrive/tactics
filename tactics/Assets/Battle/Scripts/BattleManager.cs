@@ -28,7 +28,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        m_Current = new BattleAgentCharge(0);
+        m_Current = new BattleTick(0);
         m_Current.QStart(this);
     }
 

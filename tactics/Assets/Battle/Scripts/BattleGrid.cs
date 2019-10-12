@@ -5,7 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-public class BattleGrid : MonoBehaviour, BattleSelectableZone
+public class BattleGrid : MonoBehaviour
 {
     public static float CameraSpeed = 0.05f;
 
@@ -155,6 +155,8 @@ public class BattleGrid : MonoBehaviour, BattleSelectableZone
     // Start is called before the first frame update
     void Start()
     {
+        PathFinder.Init(this);
+
         // Load and render tiles
         datafile = filename;
 

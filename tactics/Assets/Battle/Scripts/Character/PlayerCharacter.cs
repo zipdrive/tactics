@@ -12,8 +12,10 @@ public class PlayerCharacter : Character
         {
             int s = m_Stats.ContainsKey(stat) ? m_Stats[stat] : 0;
 
-            if (PrimaryWeapon != null) s += PrimaryWeapon[stat];
-            if (SecondaryWeapon != null) s += SecondaryWeapon[stat];
+            if (PrimaryWeapon != null)
+                s += PrimaryWeapon[stat];
+            if (SecondaryWeapon != null && PrimaryWeapon != SecondaryWeapon)
+                s += SecondaryWeapon[stat];
 
             return s;
         }
@@ -44,8 +46,8 @@ public class PlayerCharacter : Character
         set
         {
             if (m_Primary != null) PlayerInventory.Increment(m_Primary);
-
-            if (value.Type == WeaponType.Bow && m_Secondary != null)
+            
+            if (value != null && value.Type == WeaponType.Bow && m_Secondary != null)
             {
                 PlayerInventory.Increment(m_Secondary);
                 m_Secondary = null;
@@ -59,6 +61,8 @@ public class PlayerCharacter : Character
     {
         get
         {
+            if (m_Primary != null && m_Primary.Type == WeaponType.Bow)
+                return m_Primary;
             return m_Secondary;
         }
 
@@ -139,12 +143,12 @@ public class PlayerCharacter : Character
                     m_Commands.Add(new BattleCommandSkillSelection("Weapon Skill", "Use a weapon skill.", new BattleSkillWeaponFilter()));
                     break;
                 case "Magic Skill":
-                    m_Commands.Add(new BattleCommandSkillSelection("Magic Skill", "Use a magic skill.", new BattleSkillSimpleTagFilter("Magic")));
+                    m_Commands.Add(new BattleCommandMagicSkill("Magic Skill", "Use a magic skill.", false));
                     break;
 
                 // Individual commands
                 case "Overdrive":
-                    m_Commands.Add(new BattleCommandSkillSelection("Overdrive", "Supercharge your runic patterns to cast from HP instead of SP.", new BattleSkillSimpleTagFilter("Magic"), true));
+                    m_Commands.Add(new BattleCommandMagicSkill("Overdrive", "Supercharge runic circuitry to cast magic skills from HP.", true));
                     break;
                 case "Report":
                     m_Commands.Add(new BattleCommandSkillAreaSelection(AssetHolder.Skills["Report"]));

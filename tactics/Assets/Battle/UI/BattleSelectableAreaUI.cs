@@ -22,15 +22,12 @@ public class BattleSelectableAreaUI : MonoBehaviour
     {
         Clear();
 
-        for (int i = m_Grid.Width - 1; i >= 0; --i)
+        foreach (Vector2Int point in area)
         {
-            for (int j = m_Grid.Height - 1; j >= 0; --j)
+            if (m_Grid[point] != null)
             {
-                if (area.IsSelectable(i, j))
-                {
-                    Transform tile = Instantiate(selectableAreaPrefab, transform);
-                    tile.localPosition = new Vector3(i, j, -0.5f * m_Grid[i, j].Height);
-                }
+                Transform tile = Instantiate(selectableAreaPrefab, transform);
+                tile.localPosition = new Vector3(point.x, point.y, -0.5f * m_Grid[point].Height);
             }
         }
     }

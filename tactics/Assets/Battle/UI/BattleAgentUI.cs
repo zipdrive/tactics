@@ -25,7 +25,7 @@ public class BattleAgentUI : MonoBehaviour
             }
             else
             {
-                portrait.sprite = null;
+                portrait.sprite = value.BaseCharacter.Sprite.Portrait;
                 nameLabel.text = value.BaseCharacter.Name;
                 titleLabel.text = value.BaseCharacter.Title;
 

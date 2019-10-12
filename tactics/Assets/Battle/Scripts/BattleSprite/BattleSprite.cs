@@ -10,6 +10,7 @@ public class BattleSprite
     private string m_Animation = "idle";
     private float m_Time;
 
+    public Sprite Portrait;
     public Direction Direction;
 
     public string Animation
