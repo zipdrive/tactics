@@ -40,15 +40,22 @@ public class BattleTile : BattleGroundTerrain
         XmlElement characterInfo = tileInfo.SelectSingleNode("character") as XmlElement;
         if (characterInfo != null)
         {
-            Actor = Instantiate((BattleActor)AssetHolder.Objects["actor"], ground.transform);
-            Actor.Agent = new BattleAgent(AssetHolder.Characters[characterInfo.GetAttribute("name")]);
-            
-            if (characterInfo.HasAttribute("behaviour"))
+            try
             {
-                Actor.Agent.Behaviour = BattleBehaviour.Parse(characterInfo.GetAttribute("behaviour"), Actor.Agent);
-            }
+                Actor = Instantiate((BattleActor)AssetHolder.Objects["actor"], ground.transform);
+                Actor.Agent = new BattleAgent(AssetHolder.Characters[characterInfo.GetAttribute("name")]);
 
-            Actor.Agent.Coordinates = new Vector2Int(x, y);
+                if (characterInfo.HasAttribute("behaviour"))
+                {
+                    Actor.Agent.Behaviour = BattleBehaviour.Parse(characterInfo.GetAttribute("behaviour"), Actor.Agent);
+                }
+
+                Actor.Agent.Coordinates = new Vector2Int(x, y);
+            }
+            catch
+            {
+                Actor = null;
+            }
         }
     }
 

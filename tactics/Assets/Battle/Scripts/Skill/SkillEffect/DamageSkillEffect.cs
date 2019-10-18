@@ -6,11 +6,10 @@ public class DamageSkillEffect : SkillEffect
     private Element m_Element = Element.Null;
     private float m_Power;
     private float m_Critical;
-    private string m_Stat;
 
     public float Power { get { return m_Power; } }
 
-    public DamageSkillEffect(XmlElement effectInfo, string stat)
+    public DamageSkillEffect(XmlElement effectInfo)
     {
         // Damage type
         if (!effectInfo.HasAttribute("element") || 
@@ -23,22 +22,27 @@ public class DamageSkillEffect : SkillEffect
         // Base critical % chance
         if (effectInfo.HasAttribute("critical"))
             m_Critical = float.Parse(effectInfo.GetAttribute("critical"));
-
-        // Stat to base damage on
-        m_Stat = stat;
     }
 
-    public override void Execute(BattleAgent user, BattleAgent target)
+    public override void Execute(BattleSkillEvent eventInfo)
     {
-        int stat = user[m_Stat];
-        float res = 1f - (0.01f * target["Resist " + m_Element]);
-
-        float baseDamage = m_Power * (stat * stat) * res * Random.Range(0.9f, 1.1f);
+        float baseDamage = 0.01f * m_Power * (eventInfo.Power * (100 - eventInfo.Target["Resist " + m_Element]));
         float baseCritical = m_Critical;
 
         float damage = baseDamage;
         float critical = baseCritical;
 
-        target.Damage(Random.Range(0f, 1f) < critical ? 2 * Mathf.RoundToInt(damage) : Mathf.RoundToInt(damage), m_Element);
+        BattleDamageEvent damageEventInfo = new BattleDamageEvent(
+            BattleEvent.Type.BeforeTakeDamage, 
+            eventInfo.Target, 
+            m_Element,
+            Random.Range(0f, 1f) < critical ? 2 * Mathf.RoundToInt(damage) : Mathf.RoundToInt(damage)
+            );
+        eventInfo.Target.OnTrigger(damageEventInfo);
+
+        eventInfo.Target.Damage(damageEventInfo);
+
+        damageEventInfo.Event = BattleEvent.Type.AfterTakeDamage;
+        eventInfo.Target.OnTrigger(damageEventInfo);
     }
 }

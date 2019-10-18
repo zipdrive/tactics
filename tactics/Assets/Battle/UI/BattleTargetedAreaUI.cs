@@ -31,19 +31,12 @@ public class BattleTargetedAreaUI : MonoBehaviour
     {
         Clear();
 
-        System.Collections.Generic.IEnumerator<Vector2Int> enumerator = 
-            skill.EffectArea.GetEnumerator(skill.Range(user), center);
-
-        while (enumerator.MoveNext())
+        foreach (Vector2Int point in skill.Target(user, center))
         {
-            if (m_Grid[enumerator.Current] != null)
+            if (m_Grid[point] != null)
             {
                 Transform tile = Instantiate(targetedAreaPrefab, transform);
-                tile.localPosition = new Vector3(
-                    enumerator.Current.x, 
-                    enumerator.Current.y, 
-                    -0.5f * m_Grid[enumerator.Current].Height
-                    );
+                tile.localPosition = new Vector3(point.x, point.y, -0.5f * m_Grid[point].Height);
             }
         }
     }

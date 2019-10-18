@@ -11,6 +11,6 @@ public class BattleEndTurnAction : BattleAction
 
     public override void Execute(BattleManager manager, int time)
     {
-        // ???
+        m_Agent.OnTrigger(new BattleEvent(BattleEvent.Type.AfterTurn));
     }
 }

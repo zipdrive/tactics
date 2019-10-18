@@ -1,0 +1,30 @@
+﻿public class BattleSkillEvent : BattleEvent
+{
+    /// <summary>
+    /// The agent using the skill.
+    /// </summary>
+    public BattleAgent User;
+
+    /// <summary>
+    /// The agent affected by the skill.
+    /// </summary>
+    public BattleAgent Target;
+
+    /// <summary>
+    /// The skill being used.
+    /// </summary>
+    public Skill Skill;
+
+    /// <summary>
+    /// The power of the skill.
+    /// </summary>
+    public int Power;
+
+    public BattleSkillEvent(Type type, BattleAgent user, BattleAgent target, Skill skill) : base(type)
+    {
+        User = user;
+        Target = target;
+        Skill = skill;
+        Power = Skill.BasePower(user);
+    }
+}

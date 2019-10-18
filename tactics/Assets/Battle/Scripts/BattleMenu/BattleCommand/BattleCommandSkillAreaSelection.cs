@@ -20,7 +20,7 @@ public class BattleCommandSkillAreaSelection : BattleCommand
 
     public override bool Disabled(BattleAgent agent, bool canMove, bool canAct)
     {
-        return !canAct || agent.SP < m_Skill.Cost;
+        return !canAct || agent.SP < m_Skill.Cost(agent);
     }
 
     public override void Select(BattleAgent agent, out BattleMenu next, out BattleAction decision)

@@ -72,15 +72,25 @@ public class BattleAgent
         SP = this["SP"];
     }
 
-    public void Damage(int damage, Element element = Element.Null)
+    public void Damage(BattleDamageEvent eventInfo)
     {
-        if (HP - damage > this["HP"])
+        if (HP - eventInfo.Damage > this["HP"])
             HP = this["HP"];
-        else if (HP - damage < 0)
+        else if (HP - eventInfo.Damage < 0)
             HP = 0;
         else
-            HP -= damage;
+            HP -= eventInfo.Damage;
         
-        Debug.Log("[BattleAgent] " + BaseCharacter.Name + " took " + damage + " " + element.ToString().ToLower() + " damage!");
+        Debug.Log("[BattleAgent] " + BaseCharacter.Name + " took " + eventInfo.Damage + " " + eventInfo.Element.ToString().ToLower() + " damage!");
+    }
+
+    public void OnTrigger(BattleEvent eventInfo)
+    {
+        List<Status> statusEffects = new List<Status>(StatusEffects.Keys);
+
+        foreach (Status statusEffect in statusEffects)
+        {
+            statusEffect.OnTrigger(new StatusEvent(eventInfo, statusEffect, StatusEffects[statusEffect], this));
+        }
     }
 }

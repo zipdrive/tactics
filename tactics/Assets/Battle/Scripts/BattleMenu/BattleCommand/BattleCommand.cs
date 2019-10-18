@@ -7,7 +7,7 @@
 
     public BattleCommand(string label)
     {
-        Label = label;
+        Label = label.StartsWith("Command:") ? label.Substring(8) : label;
     }
 
     public abstract bool Disabled(BattleAgent agent, bool canMove, bool canAct);

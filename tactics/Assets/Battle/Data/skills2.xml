@@ -1,0 +1,626 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<skills>
+    
+  <!--
+  MARTIAL WEAPON SKILLS
+  Punching, open palm attacks, and other martial arts stuff.
+  -->
+    
+  <skill name="Punch" type="Weapon-Martial" range="Adjacent">
+    <description>
+      A barehanded punch.
+    </description>
+    <effects>
+      <hit accuracy="0">
+        <damage element="Physical" power="0.37" critical="0.01" />
+      </hit>
+    </effects>
+  </skill>
+  
+  
+    
+  <!--
+  SLASHING WEAPON SKILLS
+  Skills using an edged weapon, like a sword or axe.
+  -->
+    
+  <skill name="Slash" type="Weapon-Slash">
+    <description>
+      Slash the target with an edged weapon.
+    </description>
+    <effects>
+      <hit accuracy="1">
+        <damage element="Physical" power="0.42" critical="0.03" />
+      </hit>
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  STABBING WEAPON SKILLS
+  Skills using a pointed weapon, like a sword or knife.
+  -->
+    
+  <skill name="Stab" type="Weapon-Pierce">
+    <description>
+      Stab the target with a sharp weapon.
+    </description>
+    <effects>
+      <hit accuracy="2">
+        <damage element="Physical" power="0.39" critical="0.1" />
+      </hit>
+    </effects>
+  </skill>
+  
+  <skill name="Assassinate" type="Weapon-Pierce">
+    <description>
+      Attempt to stab the target in a vital spot.
+    </description>
+    <effects stat="Accuracy">
+      <inflict status="KO:Bio" power="0.01" />
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  BLUNT WEAPON SKILLS
+  Skills using a heavy blunt weapon, like a hammer or shield.
+  -->
+    
+  <skill name="Whack" type="Weapon-Blunt">
+    <description>
+      Hit the target with a heavy weapon.
+    </description>
+    <effects>
+      <hit accuracy="-1">
+        <damage element="Physical" power="0.55" critical="0.01" />
+      </hit>
+    </effects>
+  </skill>
+  
+  <skill name="Arm Breaker" type="Weapon-Blunt">
+    <description>
+      Injure the target's arms, lowering their Attack.
+    </description>
+    <effects>
+      <inflict status="Attack Down" power="0.015" />
+    </effects>
+  </skill>
+  
+  <skill name="Leg Breaker" type="Weapon-Blunt">
+    <description>
+      Injure the target's arms, lowering their Attack.
+    </description>
+    <effects>
+      <inflict status="Move Down" power="0.015" />
+    </effects>
+  </skill>
+  
+  <skill name="Head Breaker" type="Weapon-Blunt">
+    <description>
+      Injure the target's head, lowering their Magic.
+    </description>
+    <effects>
+      <inflict status="Magic Down:Bio" />
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  RANGED WEAPON SKILLS
+  Skills using a ranged weapon, like a gun or crossbow.
+  -->
+    
+  <skill name="Shoot" type="Weapon-Ranged">
+    <description>
+      Shoot the target with a ranged weapon.
+    </description>
+    <effects>
+      <hit accuracy="4">
+        <damage element="Physical" power="0.4" critical="0.05" />
+      </hit>
+    </effects>
+  </skill>
+  
+  <skill name="Snipe Eye" type="Weapon-Ranged">
+    <description>
+      Fire a shot aimed at the target's eyes, blinding them.
+    </description>
+  </skill>
+  
+  <skill name="Snipe Arm" type="Weapon-Ranged">
+    <description>
+      Fire a shot aimed at the target's arms, preventing them from acting.
+    </description>
+  </skill>
+  
+  <skill name="Snipe Leg" type="Weapon-Ranged">
+    <description>
+      Fire a shot aimed at the target's legs, reducing their ability to move.
+    </description>
+    <effects stat="Accuracy">
+      <inflict status="Move Down" power="0.01" />
+    </effects>
+  </skill>
+  
+  <skill name="Doubleshot" type="Weapon-Ranged">
+    <description>
+      Fire two inaccurate shots in quick succession.
+    </description>
+    <effects>
+      <hit accuracy="-1">
+        <damage element="Physical" power="0.4" />
+      </hit>
+      <hit accuracy="-2">
+        <damage element="Physical" power="0.4" />
+      </hit>
+    </effects>
+  </skill>
+  
+  <skill name="Hailstorm" type="Weapon-Ranged" target="All">
+    <description>
+      Fire a rain of arrows on all enemies in range.
+    </description>
+    <effects>
+      <hit accuracy="0">
+        <damage element="Physical" power="0.4" />
+      </hit>
+    </effects>
+  </skill>
+  
+  
+  
+  
+  
+  <!--
+  FIRE MAGIC
+  Generally revolve around doing fire damage.
+  -->
+    
+  <skill name="Fireball" type="Magic-Offense" element="Fire" target="Area">
+    <description>
+      Offensive magic that calls up a great ball of fire, dealing fire damage.
+    </description>
+    <effects cost="15">
+      <damage element="Fire" power="0.5" />
+    </effects>
+  </skill>
+    
+  <skill name="Inferno" type="Magic-Offense" element="Fire" target="All">
+    <description>
+      Offensive magic that summons a massive pillar of flame, dealing fire damage to everyone within range.
+    </description>
+    <effects cost="30">
+      <damage element="Fire" power="0.5" />
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  ICE MAGIC
+  Generally revolve around doing ice damage.
+  -->
+  
+  <skill name="Blizzard" type="Magic-Offense" element="Ice" target="Area">
+    <description>
+      Offensive magic that summons a whirlwind of ice and snow, dealing ice damage.
+    </description>
+    <effects cost="15">
+      <damage element="Ice" power="0.5" />
+    </effects>
+  </skill>
+  
+  <skill name="Niflheim" type="Magic-Offense" element="Ice" target="All">
+    <description>
+      Offensive magic that quickly chills the environment to subzero temperatures, dealing ice damage to everyone within range.
+    </description>
+    <effects cost="30">
+      <damage element="Ice" power="0.5" />
+    </effects>
+  </skill>
+
+
+
+  <!--
+  LIGHTNING MAGIC
+  Generally revolve around doing lightning damage.
+  -->
+  
+  <skill name="Thunder" type="Magic-Offense" element="Lightning" target="Area">
+    <description>
+      Offensive magic that electrocutes a single target, dealing lightning damage.
+    </description>
+    <effects cost="15">
+      <damage element="Lightning" power="0.5" />
+    </effects>
+  </skill>
+  
+  <skill name="Tempest" type="Magic-Offense" element="Lightning" target="All">
+    <description>
+      Offensive magic that summons a massive thunderstorm, dealing lightning damage to everyone within range.
+    </description>
+    <effects cost="30">
+      <damage element="Lightning" power="0.5" />
+    </effects>
+  </skill>
+
+
+
+  <!--
+  AIR MAGIC
+  Generally revolve around doing light physical damage and/or inflicting status effects.
+  -->
+  
+  
+  
+  <!-- 
+  CORROSION MAGIC
+  Generally revolve around inflicting status effects.
+  -->
+
+  <skill name="Acid" type="Magic-Offense" element="Corrosion" target="Area">
+    <description>
+      Offensive magic that conjures a splash of acid, dealing corrosion damage over time.
+    </description>
+    <effects cost="15">
+      <inflict status="Acid" power="1.45" />
+    </effects>
+  </skill>
+
+  <skill name="Acid Rain" type="Magic-Offense" element="Corrosion" target="All">
+    <description>
+      Offensive magic that coats everyone within range in acid, dealing corrosion damage over time.
+    </description>
+    <effects cost="30">
+      <inflict status="Acid" power="1.45" />
+    </effects>
+  </skill>
+  
+  <skill name="Irradiate" type="Magic-Offense" element="Corrosion" target="Area">
+    <description>
+      Offensive magic that creates toxic radiation, slowly reducing maximum HP over time.
+    </description>
+    <effects cost="10">
+      <inflict status="Radiation" power="3.5" />
+    </effects>
+  </skill>
+  
+  <skill name="Irradiate All" type="Magic-Offense" element="Corrosion" target="All">
+    <description>
+      Offensive magic that irradiates everyone within range, slowly reducing their maximum HP over time.
+    </description>
+    <effects cost="25">
+      <inflict status="Radiation" power="3.5" />
+    </effects>
+  </skill>
+
+  <skill name="Atrophy" type="Magic-Offense" element="Corrosion" target="Area">
+    <description>
+      Offensive magic that stiffens joints and gradually reduces Attack.
+    </description>
+    <effects cost="15">
+      <inflict status="Atrophy" power="1.45" />
+    </effects>
+  </skill>
+
+  <skill name="Atrophy All" type="Magic-Offense" element="Corrosion" target="All">
+    <description>
+      Offensive magic that stiffens the joints of everyone within range, gradually reducing their Attack.
+    </description>
+    <effects cost="30">
+      <inflict status="Atrophy" power="1.45" />
+    </effects>
+  </skill>
+  
+  <skill name="Corrode" type="Magic-Offense" element="Corrosion" target="Area">
+    <description>
+      Offensive magic that corrodes through defenses over time, gradually increasing vulnerability to physical damage.
+    </description>
+    <effects cost="15">
+      <inflict status="Corrosion" power="1.85" />
+    </effects>
+  </skill>
+
+  <skill name="Corrode All" type="Magic-Offense" element="Corrosion" target="All">
+    <description>
+      Offensive magic that corrodes the defenses of everyone within range, gradually making them more vulnerable to physical damage.
+    </description>
+    <effects cost="30">
+      <inflict status="Corrosion" power="1.85" />
+    </effects>
+  </skill>
+  
+  <skill name="Enervate" type="Magic-Offense" element="Corrosion" target="Area">
+    <description>
+      Offensive magic that corrodes from the inside out, gradually increasing vulnerability to fire, ice, lightning, and corrosion.
+    </description>
+    <effects cost="15">
+      <inflict status="Enervation" power="1.85" />
+    </effects>
+  </skill>
+
+  <skill name="Enervate All" type="Magic-Offense" element="Corrosion" target="All">
+    <description>
+      Offensive magic that breaks everyone within range down from the inside, gradually making them more vulnerable to fire, ice, lightning, and corrosion.
+    </description>
+    <effects cost="30">
+      <inflict status="Enervation" power="1.85" />
+    </effects>
+  </skill>
+
+
+
+  <!--
+  BIO MAGIC
+  Healing and some other stuff.
+  -->
+  
+  <skill name="Heal" type="Magic-Support" element="Bio" target="Area">
+    <description>
+      Support magic that mends wounds, restoring HP.
+    </description>
+    <effects cost="15">
+      <damage element="Bio" power="-0.4" />
+      <remove>Bleed</remove>
+    </effects>
+  </skill>
+  
+  <skill name="Heal All" type="Magic-Support" element="Bio" target="All">
+    <description>
+      Support magic that heals the wounds of everyone within range, restoring HP.
+    </description>
+    <effects cost="30">
+      <damage element="Bio" power="-0.4" />
+      <remove>Bleed</remove>
+    </effects>
+  </skill>
+  
+  <skill name="Cure" type="Magic-Support" element="Bio" target="Single">
+    <description>
+      Support magic that cures the biological ailments of a single target.
+    </description>
+    <effects cost="10">
+      <remove>Bleed</remove>
+      <remove>Poison</remove>
+      <remove>Blind:Bio</remove>
+      <remove>Sleep</remove>
+      <remove>Paralysis</remove>
+    </effects>
+  </skill>
+  
+  <skill name="Regen" type="Magic-Support" element="Bio" target="Single">
+    <description>
+      Support magic that heals wounds for a single target over time, slowly restoring HP.
+    </description>
+    <effects cost="10">
+      <inflict status="Regen" power="1.45" />
+    </effects>
+  </skill>
+  
+  <skill name="Strength" type="Magic-Support" element="Bio" target="Single">
+    <description>
+      Support magic that augments the physical strength of a single target, increasing Attack.
+    </description>
+    <effects cost="15">
+      <inflict status="Attack Up" power="0.02" />
+    </effects>
+  </skill>
+  
+  <skill name="Strength All" type="Magic-Support" element="Bio" target="All">
+    <description>
+      Support magic that augments the physical strength of everyone within range, increasing Attack.
+    </description>
+    <effects cost="30">
+      <inflict status="Attack Up" power="0.02" />
+    </effects>
+  </skill>
+  
+  <skill name="Bleed" type="Magic-Offense" element="Bio" target="Single">
+    <description>
+      Offensive magic that causes a single target to bleed out, gradually damaging them over time.
+    </description>
+    <effects cost="5">
+      <inflict status="Bleed" power="3.5" />
+    </effects>
+  </skill>
+  
+  <skill name="Poison" type="Magic-Offense" element="Bio" target="Single">
+    <description>
+      Offensive magic that poisons a single target, lowering their maximum HP over time.
+    </description>
+    <effects cost="5">
+      <inflict status="Poison" power="1.45" />
+    </effects>
+  </skill>
+  
+  <skill name="Fatigue" type="Magic-Offense" element="Bio" target="Single">
+    <description>
+      Offensive magic that saps the strength of a single target, lowering Attack.
+    </description>
+    <effects cost="15">
+      <inflict status="Attack Down" power="0.02" />
+    </effects>
+  </skill>
+  
+  <skill name="Fatigue All" type="Magic-Offense" element="Bio" target="All">
+    <description>
+      Offensive magic that saps the strength of a single target, lowering Attack.
+    </description>
+    <effects cost="30">
+      <inflict status="Attack Down" power="0.02" />
+    </effects>
+  </skill>
+  
+  
+  
+  <!-- 
+  ANIMA MAGIC
+  Emotional control and some other stuff.
+  -->
+  
+  <skill name="Berserk" type="Magic-Offense" element="Anima" target="Single">
+    <description>
+      Offensive magic that induces a blind rage with no regard for friend or foe.
+    </description>
+    <effects cost="5">
+      <inflict status="Berserk" power="0.032" />
+    </effects>
+  </skill>
+    
+  <skill name="Fear" type="Magic-Offense" element="Anima" target="Single">
+    <description>
+      Offensive magic that causes a single target to run away in panic.
+    </description>
+    <effects cost="5">
+      <inflict status="Fear" power="0.05" />
+    </effects>
+  </skill>
+  
+  <skill name="Willpower" type="Magic-Support" element="Anima" target="Single">
+    <description>
+      Support magic that dispels the mental ailments of a single target.
+    </description>
+    <effects cost="10">
+      <remove>Confuse</remove>
+      <remove>Berserk</remove>
+      <remove>Fear</remove>
+      <remove>Apathy</remove>
+      <remove>Blind:Anima</remove>
+      <remove>Sap</remove>
+    </effects>
+  </skill>
+  
+  <skill name="Vanish" type="Magic-Support" element="Anima" target="Single">
+    <description>
+      Support magic that causes enemies to ignore the presence of the target.
+    </description>
+    <effects cost="5">
+      <inflict status="Vanish" power="" />
+    </effects>
+  </skill>
+  
+  <skill name="Soulrend" type="Magic-Offense" element="Anima" target="Single">
+    <description>
+      Offensive magic that attempts to directly tear away at the soul.
+    </description>
+    <effects cost="20">
+      <inflict status="KO:Anima" power="0.015" />
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  TIME MAGIC
+  Generally revolve around altering Speed and Move.
+  -->
+  
+  <skill name="Haste" type="Magic-Support" element="Time" target="Single">
+    <description>
+      Support magic that speeds up the passage of time, increasing effective Speed.
+    </description>
+    <effects cost="5">
+      <inflict status="Haste" power="0.6" />
+    </effects>
+  </skill>
+  
+  <skill name="Haste All" type="Magic-Support" element="Time" target="All">
+    <description>
+      Support magic that speeds up the passage of time, increasing effective Speed.
+    </description>
+    <effects cost="15">
+      <inflict status="Haste" power="0.6" />
+    </effects>
+  </skill>
+  
+  <skill name="Slow" type="Magic-Offense" element="Time" target="Single">
+    <description>
+      Offensive magic that slows down the passage of time, decreasing effective Speed.
+    </description>
+    <effects cost="5">
+      <inflict status="Slow" power="0.6" />
+    </effects>
+  </skill>
+  
+  <skill name="Slow All" type="Magic-Offense" element="Time" target="All">
+    <description>
+      Offensive magic that slows down the passage of time, decreasing effective Speed.
+    </description>
+    <effects cost="5">
+      <inflict status="Slow" power="0.6" />
+    </effects>
+  </skill>
+  
+  <skill name="Stop" type="Magic-Offense" element="Time" target="Single">
+    <description>
+      Offensive magic that halts the passage of time for a single target, preventing them from acting or being harmed.
+    </description>
+    <effects>
+      <inflict status="Stop" />
+    </effects>
+  </skill>
+    
+  <skill name="Reflect" type="Magic-Support" element="Time" target="Single">
+    <description>
+      Support magic that edits cause and effect, causing any magic used on the target to be reflected back onto the caster.
+    </description>
+    <effects cost="10">
+      <inflict status="Reflect" />
+    </effects>
+  </skill>
+  
+  <skill name="Dispel" type="Magic-Support" element="Time" target="Single">
+    <description>
+      Support magic that , expelling harmful effects.
+    </description>
+    <effects>
+      <exhaust>Burn</exhaust>
+      <exhaust>Freeze</exhaust>
+      <exhaust>Acid</exhaust>
+      <exhaust>Radiation</exhaust>
+      <exhaust>Atrophy</exhaust>
+      <exhaust>Corrosion</exhaust>
+      <exhaust>Enervation</exhaust>
+      <exhaust>Bleed</exhaust>
+      <exhaust>Poison</exhaust>
+      <exhaust>Stun</exhaust>
+      <exhaust>Sleep</exhaust>
+      <exhaust>Paralysis</exhaust>
+      <exhaust>Blind</exhaust>
+      <exhaust>Confusion</exhaust>
+      <exhaust>Berserk</exhaust>
+      <exhaust>Fear</exhaust>
+      <exhaust>Slow</exhaust>
+      <exhaust>Stop</exhaust>
+    </effects>
+  </skill>
+  
+  <skill name="Teleport" type="Magic-Support" element="Time" target="Single">
+    <description>
+      Support magic that teleports the user.
+    </description>
+    <effects cost="5">
+      <teleport />
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  COMMANDS
+  Commands that are specific to certain characters.
+  -->
+
+  <skill name="Command:Report" range="All">
+    <description>Observe the details of the target.</description>
+    <effects>
+      <report />
+    </effects>
+  </skill>
+  
+</skills>

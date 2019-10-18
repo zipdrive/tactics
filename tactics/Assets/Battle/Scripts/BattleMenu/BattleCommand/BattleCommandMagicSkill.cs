@@ -21,17 +21,16 @@ public class BattleCommandMagicSkill : BattleCommand
         m_Overdrive = overdrive;
     }
 
-    private bool HasSkillWithTag(BattleAgent agent, string tag)
+    private bool SkillFilterNonempty(SkillFilter filter)
     {
-        foreach (Skill skill in agent.BaseCharacter.Skills)
-            if (skill.Tags.Contains(tag))
-                return true;
+        foreach (Skill skill in filter)
+            return true;
         return false;
     }
 
     public override bool Disabled(BattleAgent agent, bool canMove, bool canAct)
     {
-        return !canAct || !HasSkillWithTag(agent, "Magic");
+        return !canAct || !SkillFilterNonempty(new TypeSkillFilter(agent.BaseCharacter, "Magic"));
     }
 
     public override void Select(BattleAgent agent, out BattleMenu next, out BattleAction decision)
@@ -51,13 +50,14 @@ public class BattleCommandMagicSkill : BattleCommand
 
         foreach (KeyValuePair<string, string> category in categories)
         {
-            if (HasSkillWithTag(agent, "Element:" + category.Key))
+            SkillFilter filter = new ElementSkillFilter(agent.BaseCharacter, category.Key);
+            if (SkillFilterNonempty(filter))
             {
                 menu.Add(false,
                     new BattleCommandSkillSelection(
                         category.Key,
                         category.Value,
-                        new BattleSkillSimpleTagFilter("Element:" + category.Key),
+                        filter,
                         m_Overdrive),
                     category.Key);
             }

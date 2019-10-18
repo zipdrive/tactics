@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<commands>
+
+  <command name="Move" expends="move">
+    <move />
+  </command>
+
+  <command name="Weapon Skill" expends="action">
+    <skill type="Weapon" />
+  </command>
+
+  <command name="Magic Skill" expends="action">
+    <skill type="Magic" />
+  </command>
+
+  <command name="End Turn">
+    <end />
+  </command>
+  
+  
+  
+  <!--
+  Bard command
+  Give a buff to all allies until next turn.
+  -->
+  <command name="Music Skill" expends="action">
+    <skill type="Music" />
+  </command>
+
+  <!--
+  Blood Mage command
+  Damage 20% of maximum HP in exchange for +25% magic power.
+  -->
+  <command name="Sacrifice" expends="action">
+    <damage to="HP" percentage="0.2" />
+    <skill type="Magic">
+      <power>1.33</power>
+    </skill>
+  </command>
+  
+  <!--
+  Druid command
+  Alter terrain.
+  -->
+  <command name="Nature Skill" expends="action">
+    <skill type="Nature" />
+  </command>
+  
+  <!--
+  Mechanist command
+  Use rune engines.
+  -->
+  <command name="Tech" expends="action">
+    <item type="Rune Engine" />
+  </command>
+
+  <!--
+  Priest command
+  Heal all adjacent allies and damage all adjacent enemies.
+  -->
+  <command name="Holy" expends="action">
+    <skill name="Command:Holy" />
+  </command>
+  
+  <!--
+  Runecaster command
+  Enhance next magic skill.
+  -->
+  <command name="Rune Skill" expends="action">
+    <skill type="Rune" />
+  </command>
+  
+  <!--
+  Spellsword command
+  Combine a weapon skill with a magic skill.
+  -->
+  <command name="Imbue" expends="action">
+    <skill type="Weapon" target="Single" />
+    <skill type="Magic" target="Radius">
+      <target>Single</target>
+    </skill>
+  </command>
+
+  <!--
+  Tattoo Mage command
+  Casts magic skill from HP instead of SP.
+  -->
+  <command name="Overdrive" expends="action">
+    <skill type="Magic" hpcost="1" spcost="0" />
+  </command>
+
+  <!--
+  Berserker command
+  Inflict Berserk on self, but increase Attack.
+  -->
+  <command name="Berserk">
+    <skill name="Command:Berserk" />
+  </command>
+  
+  <!--
+  Chemist command
+  Mix two reagents to create and use potions, poisons, and bombs on the fly.
+  -->
+  <command name="Concoct">
+    <mix>
+      <item type="Reagent" />
+      <item type="Reagent" />
+    </mix>
+  </command>
+  
+  <!--
+  Knight command
+  Redirect all physical damage from adjacent allies to self until next turn.
+  -->
+  <command name="Cover">
+    <skill name="Command:Cover" />
+  </command>
+  
+  <!--
+  Scout command
+  Displays target's stats.
+  -->
+  <command name="Report" expends="action">
+    <skill name="Command:Report" />
+  </command>
+  
+  <!--
+  Sky Warrior command
+  Takes to the sky before descending on an enemy.
+  -->
+  <command name="Fly" expends="action">
+    <skill name="Command:Fly" />
+  </command>
+
+  <!--
+  Thief command
+  Steal money, items, and equipment from enemies.
+  -->
+  <command name="Steal" expends="action">
+    <skill type="Thief Skill" />
+  </command>
+  
+  <!--
+  Warweaver command
+  ?????
+  -->
+  <command name="???" expends="action">
+    <skill name="Command:???" />
+  </command>
+  
+</commands>

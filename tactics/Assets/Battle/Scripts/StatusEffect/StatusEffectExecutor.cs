@@ -12,9 +12,9 @@ public class StatusEffectExecutor : StatusEffect
             m_Effects.Add(Parse(effectInfo));
     }
 
-    public override void Execute(BattleAgent target, StatusInstance status)
+    public override void Execute(StatusEvent eventInfo)
     {
         foreach (StatusEffect effect in m_Effects)
-            effect.Execute(target, status);
+            effect.Execute(eventInfo);
     }
 }

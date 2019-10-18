@@ -18,7 +18,7 @@ public class BattleSelectableAreaUI : MonoBehaviour
         transform.position = m_Grid.transform.position + m_Position;
     }
 
-    public void Set(BattleSelectableZone area)
+    public void Set(BattleZone area)
     {
         Clear();
 

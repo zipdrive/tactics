@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BattleSelectableZone : IEnumerable<Vector2Int>
+public abstract class BattleZone : IEnumerable<Vector2Int>
 {
     public abstract bool this[int x, int y] { get; }
 

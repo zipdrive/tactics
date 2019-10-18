@@ -2,290 +2,104 @@
 
 <skills>
     
-  <skill name="Punch">
-    <description>A barehanded punch.</description>
-    <tag>Weapon</tag>
-    <tag>Offense</tag>
-    <tag>Element:Physical</tag>
-    <tag>Fist</tag>
-    <effects range="weapon">
-      <hit accuracy="0">
-        <damage element="Physical" power="0.37" critical="0.01" />
-      </hit>
-    </effects>
-  </skill>
-    
-  <skill name="Slash">
-    <description>Slash the target with an edged weapon.</description>
-    <tag>Weapon</tag>
-    <tag>Offense</tag>
-    <tag>Element:Physical</tag>
-    <tag>Axe</tag>
-    <tag>Sword</tag>
-    <effects range="weapon">
-      <hit accuracy="1">
-        <damage element="Physical" power="0.42" critical="0.03" />
-      </hit>
-    </effects>
-  </skill>
-    
-  <skill name="Stab">
-    <description>Stab the target with a sharp weapon.</description>
-    <tag>Weapon</tag>
-    <tag>Offense</tag>
-    <tag>Element:Physical</tag>
-    <tag>Knife</tag>
-    <tag>Spear</tag>
-    <tag>Sword</tag>
-    <effects range="weapon">
-      <hit accuracy="2">
-        <damage element="Physical" power="0.39" critical="0.1" />
-      </hit>
-    </effects>
-  </skill>
-    
-  <skill name="Bash">
-    <description>Bash the target with a heavy weapon.</description>
-    <tag>Weapon</tag>
-    <tag>Offense</tag>
-    <tag>Element:Physical</tag>
-    <tag>Hammer</tag>
-    <tag>Shield</tag>
-    <effects range="weapon">
-      <hit accuracy="-1">
-        <damage element="Physical" power="0.55" critical="0.01" />
-      </hit>
-    </effects>
-  </skill>
-    
-  <skill name="Shoot">
-    <description>Shoot the target with a ranged weapon.</description>
-    <tag>Weapon</tag>
-    <tag>Offense</tag>
-    <tag>Element:Physical</tag>
-    <tag>Bow</tag>
-    <tag>Gun</tag>
-    <effects stat="Attack" range="weapon">
-      <hit accuracy="4">
-        <damage element="Physical" power="0.4" critical="0.05" />
-      </hit>
-    </effects>
-  </skill>
-    
-  <skill name="Flame">
-    <description>Offensive magic that surrounds a single target in flames, dealing fire damage.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Fire</tag>
-    <tag>Target:Single</tag>
-    <effects cost="11" range="2">
-      <damage element="Fire" power="0.35" />
-    </effects>
-  </skill>
-    
-  <skill name="Fireball">
-    <description>Offensive magic that calls up a great ball of fire, dealing fire damage to those nearby.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Fire</tag>
-    <tag>Target:Area</tag>
-    <effects cost="14" range="2" effect="1">
-      <damage element="Fire" power="0.3" />
-    </effects>
-  </skill>
-    
-  <skill name="Inferno">
-    <description>Offensive magic that summons a massive pillar of flame, dealing fire damage to everyone within range.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Fire</tag>
-    <tag>Target:All</tag>
-    <effects cost="18" range="2" effect="all">
-      <damage element="Fire" power="0.28" />
+  <!--
+  MARTIAL WEAPON
+  Barehanded skills.
+    -->
+  
+  
+  
+  <!--
+  FIRE MAGIC
+  Magic of heat and flame.
+    -->
+  
+  <skill name="Burn" type="Magic-Offense" element="Fire" target="Radius">
+    <description>
+      Scorch targets with searing heat.
+      Effect: Deals fire damage.
+    </description>
+    <effects cost="15">
+      <damage element="Fire" power="0.5" />
     </effects>
   </skill>
   
-  <skill name="Frost">
-    <description>Offensive magic that surrounds a single target with cold vapors, dealing ice damage.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Ice</tag>
-    <tag>Target:Single</tag>
-    <effects cost="11" range="2">
-      <damage element="Ice" power="0.35" />
+  <skill name="Burn All" type="Magic-Offense" element="Fire" target="All">
+    <description>
+      Scorch everyone in range with searing heat.
+      Effect: Deals fire damage.
+    </description>
+    <effects cost="30">
+      <damage element="Fire" power="0.5" />
     </effects>
   </skill>
   
-  <skill name="Blizzard">
-    <description>Offensive magic that summons a whirlwind of ice and snow, dealing ice damage to those nearby.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Ice</tag>
-    <tag>Target:Area</tag>
-    <effects cost="14" range="2" effect="1">
-      <damage element="Ice" power="0.3" />
+  
+  
+  <!--
+  CORROSION MAGIC
+  Magic of acid and corrosion.
+    -->
+  
+  <skill name="Disintegrate" type="Magic-Offense" element="Corrosion" target="Radius">
+    <description>
+      Splash targets with strong acid.
+      Effect: Deals corrosion damage over time.
+    </description>
+    <effects cost="15">
+      <inflict status="Acid" power="1.45" />
     </effects>
   </skill>
   
-  <skill name="Niflheim">
-    <description>Offensive magic that calls forth , dealing ice damage to everyone within range.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Ice</tag>
-    <tag>Target:All</tag>
-    <effects cost="18" range="2" effect="all">
-      <damage element="Ice" power="0.28" />
+  <skill name="Disintegrate All" type="Magic-Offense" element="Corrosion" target="All">
+    <description>
+      Cover everyone within range in strong acid.
+      Effect: Deals corrosion damage over time.
+    </description>
+    <effects cost="30">
+      <inflict status="Acid" power="1.45" />
     </effects>
   </skill>
   
-  <skill name="Thunder">
-    <description>Offensive magic that electrocutes a single target, dealing lightning damage.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Lightning</tag>
-    <tag>Target:Single</tag>
-    <effects cost="11" range="2">
-      <damage element="Lightning" power="0.35" />
+  
+  
+  <!--
+  BIO MAGIC
+  Magic of biological processes.
+    -->
+  
+  <skill name="Heal" type="Magic-Support" element="Bio" target="Radius">
+    <description>
+      Heals the wounds of the targets.
+      Effect: Restores HP.
+    </description>
+    <effects cost="15">
+      <damage element="Bio" power="-0.4" />
     </effects>
   </skill>
   
-  <skill name="Storm">
-    <description>Offensive magic that electrically charges the ground, dealing lightning damage to those nearby.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Lightning</tag>
-    <tag>Target:Area</tag>
-    <effects cost="11" range="2" effect="1">
-      <damage element="Lightning" power="0.3" />
+  <skill name="Heal All" type="Magic-Support" element="Bio" target="All">
+    <description>
+      Heals the wounds of everyone within range.
+      Effect: Restores HP.
+    </description>
+    <effects cost="30">
+      <damage element="Bio" power="-0.4" />
     </effects>
   </skill>
   
-  <skill name="Tempest">
-    <description>Offensive magic that summons a massive thunderstorm, dealing lightning damage to everyone within range.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Lightning</tag>
-    <tag>Target:All</tag>
-    <effects cost="11" range="2" effect="all">
-      <damage element="Lightning" power="0.28" />
-    </effects>
-  </skill>
   
-  <skill name="Whirlwind">
-    <description>Offensive magic that spins a single target around with strong winds, disorienting them and dealing light physical damage.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Air</tag>
-    <tag>Target:Single</tag>
-    <effects cost="10" range="2">
-      <damage element="Physical" power="0.35" />
-      <inflict status="Confuse" power="1.25" />
-    </effects>
-  </skill>
   
-  <skill name="Acid">
-    <description>Offensive magic that splashes a single target with acid, dealing corrosion damage over time.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Corrosion</tag>
-    <tag>Target:Single</tag>
-    <effects cost="8" range="2">
-      <inflict status="Acid" power="1.0" />
-    </effects>
-  </skill>
-  
-  <skill name="Radiation">
-    <description>Offensive magic that irradiates a single target, slowly reducing their SP over time.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Corrosion</tag>
-    <tag>Target:Single</tag>
-    <effects cost="8" range="2">
-      <inflict status="Radiation" power="3.25" />
-    </effects>
-  </skill>
-  
-  <skill name="Adhesive">
-    <description>Offensive magic that coats a single target with a sticky glue, making it harder for them to move and dodge.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Corrosion</tag>
-    <tag>Target:Single</tag>
-    <effects cost="8" range="2">
-      <inflict status="Adhesive" power="1.0" />
-    </effects>
-  </skill>
-  
-  <skill name="Corrode">
-    <description>Offensive magic that corrodes the defenses of a single target, making them more vulnerable to physical damage.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Corrosion</tag>
-    <tag>Target:Single</tag>
-    <effects cost="8" range="2">
-      <inflict status="Corrode" power="1.25" />
-    </effects>
-  </skill>
-  
-  <skill name="Breach">
-    <description>Offensive magic that ???, making them more vulnerable to elemental damage.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Corrosion</tag>
-    <tag>Target:Single</tag>
-    <effects cost="8" range="2">
-      <inflict status="breach" power="1.25" />
-    </effects>
-  </skill>
-    
-  <skill name="Heal">
-    <description>Support magic that restores HP.</description>
-    <tag>Magic</tag>
-    <tag>Support</tag>
-    <tag>Element:Bio</tag>
-    <tag>Target:Single</tag>
-    <effects cost="16" range="2">
-      <damage element="Bio" power="-0.2" />
-    </effects>
-  </skill>
-  
-  <skill name="Fear">
-    <description>Offensive magic that induces running away in panic.</description>
-    <tag>Magic</tag>
-    <tag>Offense</tag>
-    <tag>Element:Anima</tag>
-    <tag>Target:Single</tag>
-    <effects cost="10" range="2">
-      <inflict status="Fear" power="1.5" />
-    </effects>
-  </skill>
-  
-  <skill name="Haste">
-    <description>Support magic that speeds up time, increasing effective Speed.</description>
-    <tag>Magic</tag>
-    <tag>Support</tag>
-    <tag>Element:Time</tag>
-    <tag>Target:Single</tag>
-    <effects cost="10" range="2">
-      <inflict status="Haste" power="0.8" />
-    </effects>
-  </skill>
-  
-  <skill name="Boost">
-    <description>Support magic that increases Attack.</description>
-    <tag>Magic</tag>
-    <tag>Support</tag>
-    <tag>Element:Assist</tag>
-    <tag>Target:Single</tag>
-    <effects cost="10" range="2">
-      <bonus stat="Attack" />
-    </effects>
-  </skill>
+  <!--
+  COMMANDS
+  Commands that are specific to certain characters.
+    -->
 
-  <skill name="Report">
-    <description>Observe the details of the target.</description>
-    <tag>Journalism</tag>
-    <effects range="999">
+  <skill name="Command:Report" range="All">
+    <description>
+      Observe the details of the target.
+    </description>
+    <effects>
       <report />
     </effects>
   </skill>

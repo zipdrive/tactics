@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleSelectableManhattanRadius : BattleSelectableZone
+public class BattleManhattanDistanceZone : BattleZone
 {
     public Vector2Int Center;
     public int MinRadius;
     public int MaxRadius;
 
-    public BattleSelectableManhattanRadius(Vector2Int center, int min, int max)
+    public BattleManhattanDistanceZone(Vector2Int center, int min, int max)
     {
         Center = center;
         MinRadius = min;

@@ -75,9 +75,9 @@ public abstract class BattleBehaviour
         throw new System.Exception("[BattleBehaviour] No targets located on field.");
     }
 
-    protected BattleAction MoveWithinRangeOfTarget(Vector2Int target, BattleSelectableManhattanRadius range)
+    protected BattleAction MoveWithinRangeOfTarget(Vector2Int target, BattleManhattanDistanceZone range)
     {
-        BattleSelectableManhattanPath moveRange = new BattleSelectableManhattanPath(m_Agent.Coordinates, 1, m_Agent["Move"], m_Agent["Jump"]);
+        BattleManhattanPathZone moveRange = new BattleManhattanPathZone(m_Agent.Coordinates, 1, m_Agent["Move"], m_Agent["Jump"]);
 
         List<Vector2Int> options = new List<Vector2Int>();
         Vector2Int destination = new Vector2Int();

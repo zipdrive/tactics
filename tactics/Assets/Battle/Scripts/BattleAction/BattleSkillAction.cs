@@ -14,13 +14,22 @@ public class BattleSkillAction : BattleAction
 
     public override void Execute(BattleManager manager, int time)
     {
-        BattleSelectableManhattanRadius range = skill.Range(actor);
-
-        foreach (BattleAgent target in manager.agents)
+        foreach (Vector2Int point in skill.Target(actor, center))
         {
-            if (skill.Affects(actor, center, target.Coordinates))
+            BattleTile tile = manager.grid[point];
+            if (tile != null && tile.Actor != null)
             {
-                skill.Execute(actor, target);
+                BattleAgent target = tile.Actor.Agent;
+
+                BattleSkillEvent eventInfo = new BattleSkillEvent(BattleEvent.Type.BeforeUseSkill, actor, target, skill);
+                actor.OnTrigger(eventInfo);
+                eventInfo.Event = BattleEvent.Type.BeforeTargetedBySkill;
+                target.OnTrigger(eventInfo);
+
+                skill.Execute(eventInfo);
+
+                eventInfo.Event = BattleEvent.Type.AfterTargetedBySkill;
+                target.OnTrigger(eventInfo);
             }
         }
     }

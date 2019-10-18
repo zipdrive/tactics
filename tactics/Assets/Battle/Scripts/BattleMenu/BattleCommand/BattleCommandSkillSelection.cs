@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class BattleCommandSkillSelection : BattleCommand
 {
     private string m_Description;
-    private BattleSkillFilter m_Filter;
+    private SkillFilter m_Filter;
     private bool m_Overdrive;
 
     public override string Description
@@ -16,7 +16,7 @@ public class BattleCommandSkillSelection : BattleCommand
     }
 
 
-    public BattleCommandSkillSelection(string label, string description, BattleSkillFilter filter, bool overdrive = false) : base(label)
+    public BattleCommandSkillSelection(string label, string description, SkillFilter filter, bool overdrive = false) : base(label)
     {
         m_Description = description;
         m_Filter = filter;
@@ -27,9 +27,8 @@ public class BattleCommandSkillSelection : BattleCommand
     {
         if (!canAct) return true;
 
-        foreach (Skill skill in agent.BaseCharacter.Skills)
-            if (m_Filter[agent, skill])
-                return false;
+        foreach (Skill skill in m_Filter)
+            return false;
 
         return true;
     }
@@ -39,26 +38,23 @@ public class BattleCommandSkillSelection : BattleCommand
         List<Skill> skills = new List<Skill>();
         bool includeCost = false;
 
-        foreach (Skill skill in agent.BaseCharacter.Skills)
+        foreach (Skill skill in m_Filter)
         {
-            if (m_Filter[agent, skill])
-            {
-                skills.Add(skill);
+            skills.Add(skill);
 
-                if (skill.Cost > 0) includeCost = true;
-            }
+            if (skill.Cost(agent) > 0) includeCost = true;
         }
 
-        BattleMenuSkillSelection menu = new BattleMenuSkillSelection((includeCost ? "Magic" : "Weapon") + " Skill Battle Menu UI", agent);
+        BattleMenuCommandSelection menu = new BattleMenuCommandSelection((includeCost ? "Magic" : "Weapon") + " Skill Battle Menu UI", agent);
         foreach (Skill skill in skills)
         {
             if (includeCost)
             {
-                menu.Add(skill.Cost > (m_Overdrive ? agent.HP : agent.SP), skill, skill.Name, skill.Cost + (m_Overdrive ? " HP" : " SP"));
+                menu.Add(skill.Cost(agent) > (m_Overdrive ? agent.HP : agent.SP), new BattleCommandSkillAreaSelection(skill), skill.Name, skill.Cost(agent) + (m_Overdrive ? " HP" : " SP"));
             }
             else
             {
-                menu.Add(false, skill, skill.Name);
+                menu.Add(false, new BattleCommandSkillAreaSelection(skill), skill.Name);
             }
         }
 

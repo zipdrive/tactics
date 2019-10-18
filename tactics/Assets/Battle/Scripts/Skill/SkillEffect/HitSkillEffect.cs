@@ -32,18 +32,18 @@ public class HitSkillEffect : SkillEffect
     private float Accuracy = 1f;
     public List<SkillEffect> Effects = new List<SkillEffect>();
 
-    public HitSkillEffect(XmlElement effectInfo, string stat)
+    public HitSkillEffect(XmlElement effectInfo)
     {
         if (effectInfo.HasAttribute("accuracy"))
             Accuracy = float.Parse(effectInfo.GetAttribute("accuracy"));
 
         foreach (XmlElement subEffectInfo in effectInfo.ChildNodes)
-            Effects.Add(SkillEffect.Parse(subEffectInfo, stat));
+            Effects.Add(SkillEffect.Parse(subEffectInfo));
     }
 
-    public override void Execute(BattleAgent user, BattleAgent target)
+    public override void Execute(BattleSkillEvent eventInfo)
     {
-        float k = 0.7f + (0.2f * Accuracy * user["Accuracy"]) - (0.2f * user["Evasion"]);
+        float k = 0.7f + (0.2f * Accuracy * eventInfo.User["Accuracy"]) - (0.2f * eventInfo.Target["Evasion"]);
         float baseHitChance = 0.5f * (1f + Erf(k));
 
         float hitChance = baseHitChance;
@@ -51,7 +51,7 @@ public class HitSkillEffect : SkillEffect
         if (Random.Range(0f, 1f) < hitChance)
         {
             foreach (SkillEffect effect in Effects)
-                effect.Execute(user, target);
+                effect.Execute(eventInfo);
         }
         else
         {

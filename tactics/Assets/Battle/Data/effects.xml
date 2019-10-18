@@ -1,232 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <effects>
+  
+  
+  <!--
+  DEBUG STATUS EFFECTS
+  Status effects that are meant to test various features.
+    -->
 
-  <!-- Deals high HP damage over a short period of time. -->
-  <effect name="Burn" element="Fire" power="0.4" resist="false">
-    <tick>
-      <random probability="0.4" resist="true">
-        <damage element="Fire" to="HP" />
-      </random>
-    </tick>
-    <damage element="Ice">
-      <duration>-1</duration>
-    </damage>
+  <effect name="Debug:Target ">
+    <target element="Fire">
+      <damage power="1" />
+    </target>
   </effect>
 
-  <effect name="Freeze" element="Ice" power="0.4">
-    <begin>
-      <bonus stat="Move">-2</bonus>
-    </begin>
-    <damage element="Fire">
-      <duration>-1</duration>
-    </damage>
+  <effect name="Debug:Reflect Magic">
+    <target type="Magic">
+      <reflect />
+    </target>
   </effect>
-
-  <effect name="Stun:Lightning" element="Lightning" power="0.2">
-    <begin>
-      <bonus stat="Speed">-4</bonus>
-    </begin>
-  </effect>
+  
+  
+  <!--
+  CORROSION STATUS EFFECTS
+  Revolve around doing damage or reducing stats over a (generally long) period of time. 
+  -->
   
   <!-- Deals high HP damage over a medium period of time. -->
   <effect name="Acid" element="Corrosion" resist="false">
     <tick>
-      <random probability="0.5" resist="true">
+      <random probability="0.45" resist="true">
         <damage element="Corrosion" to="HP" />
       </random>
     </tick>
   </effect>
-
-  <!-- Deals low SP damage over a long period of time. -->
-  <effect name="Radiation" element="Corrosion" resist="false">
-    <tick>
-      <random probability="0.22" resist="true">
-        <damage element="Corrosion" to="SP" />
-      </random>
-    </tick>
-  </effect>
-
-  <effect name="Corrode" element="Corrosion" power="1.25">
-    <begin>
-      <bonus stat="Resist Physical" percentage="-0.5" />
-    </begin>
-  </effect>
-
-  <effect name="Breach" element="Corrosion" power="1.25">
-    <begin>
-      <bonus stat="Resist Fire" percentage="-0.5" />
-      <bonus stat="Resist Ice" percentage="-0.5" />
-      <bonus stat="Resist Lightning" percentage="-0.5" />
-      <bonus stat="Resist Air" percentage="-0.5" />
-      <bonus stat="Resist Corrosion" percentage="-0.5" />
-    </begin>
-  </effect>
-
-  <effect name="Adhesive" element="Corrosion" power="1.0">
-    <begin>
-      <bonus stat="Move">-2</bonus>
-      <bonus stat="Evasion">-2</bonus>
-    </begin>
-    <terrain type="water">
-      <duration>-99</duration>
-    </terrain>
-  </effect>
-
-  <effect name="Regen" element="Bio" power="1.65">
-    <tick>
-      <random probability="0.31">
-        <damage element="Bio" to="HP">-1</damage>
-      </random>
-    </tick>
-  </effect>
-
-  <effect name="Bleed" element="Bio" power="3.25">
-    <tick>
-      <random probability="0.2">
-        <damage element="Bio" to="HP" />
-      </random>
-    </tick>
-  </effect>
-
-  <effect name="Poison" element="Bio" power="2.5">
-    <tick>
-      <random probability="0.33">
-        <bonus stat="HP">-1</bonus>
-      </random>
-    </tick>
-  </effect>
-
-  <effect name="Stun:Bio" element="Bio" power="0.2">
-    <begin>
-      <bonus stat="Speed">-4</bonus>
-    </begin>
-  </effect>
-
-  <effect name="Sleep" element="Bio" power="0.8">
-    <begin>
-      <bonus stat="Speed">-99</bonus>
-    </begin>
-    <damage>
-      <duration>-1</duration>
-    </damage>
-  </effect>
-
-  <effect name="Paralysis" element="Bio" power="0.6">
-    <begin>
-      <bonus stat="Speed">-99</bonus>
-    </begin>
-  </effect>
-
-  <effect name="KO:Bio" element="Bio" power="0.008">
-    <begin>
-      <damage to="HP">999</damage>
-    </begin>
-  </effect>
-
-  <!-- Deals high SP damage over a medium period of time. -->
-  <effect name="Sap" element="Anima" power="1.5">
-    <tick>
-      <random probability="0.4">
-        <damage element="Anima" to="SP" />
-      </random>
-    </tick>
-  </effect>
-
-  <effect name="Confuse" element="Anima" power="1.25">
-    <begin>
-      <bonus stat="Accuracy">-2</bonus>
-    </begin>
-    <turn>
-      <act target="Random" />
-    </turn>
-  </effect>
-
-  <effect name="Fear" element="Anima" power="1.5">
-    <turn>
-      <act move="Escape" />
-    </turn>
-  </effect>
-
-  <effect name="Berserk" element="Anima" power="0.8">
-    <turn>
-      <act target="Nearest" skill="Weapon" item="None" />
-    </turn>
-  </effect>
-
-  <effect name="Headache" element="Anima" power="0.6">
-    <turn>
-      <act skill="Weapon" />
-    </turn>
-  </effect>
-
-  <effect name="Apathy" element="Anima" power="0.8">
-    <turn>
-      <act skill="None" item="None" />
-    </turn>
-  </effect>
-
-  <effect name="KO:Anima" element="Anima" power="0.008">
-    <begin>
-      <damage element="Anima" to="HP">999</damage>
-    </begin>
-  </effect>
-
-  <effect name="Haste" power="0.8">
-    <begin>
-      <bonus stat="Speed">2</bonus>
-    </begin>
-  </effect>
-
-  <effect name="Slow" power="0.8">
-    <begin>
-      <bonus stat="Speed">-2</bonus>
-    </begin>
-  </effect>
   
-  <effect name="Stop" power="0.8">
-    <begin>
-      <bonus stat="Speed">-99</bonus>
-      <bonus stat="Resist Physical">100</bonus>
-      <bonus stat="Resist Fire">100</bonus>
-      <bonus stat="Resist Ice">100</bonus>
-      <bonus stat="Resist Lightning">100</bonus>
-      <bonus stat="Resist Air">100</bonus>
-      <bonus stat="Resist Corrosion">100</bonus>
-      <bonus stat="Resist Bio">100</bonus>
-      <bonus stat="Resist Anima">100</bonus>
-    </begin>
-  </effect>
+  
+  
+  <!--
+  TIME STATUS EFFECTS
+  Generally revolve around altering Speed.
+    -->
 
-  <effect name="Shield" power="2.5">
-    <begin>
-      <bonus stat="Resist Physical" percentage="0.5" />
-    </begin>
-    <target skill="Element:Physical">
-      <duration>-10</duration>
-    </target>
-  </effect>
-
-  <effect name="Barrier" power="2.5">
-    <begin>
-      <bonus stat="Resist Fire" percentage="0.5" />
-      <bonus stat="Resist Ice" percentage="0.5" />
-      <bonus stat="Resist Lightning" percentage="0.5" />
-      <bonus stat="Resist Corrosion" percentage="0.5" />
-    </begin>
-  </effect>
-
-  <effect name="Reflect" power="2.5">
-    <target skill="Magic">
-      <duration>-10</duration>
+  <effect name="Reflect">
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <target trigger="before" type="Magic-Offense">
+      <duration />
       <reflect />
     </target>
   </effect>
-
-  <effect name="Vanish" power="0.8">
-    <begin>
-      <untargetable />
-    </begin>
-  </effect>
+    
+  
   
 </effects>

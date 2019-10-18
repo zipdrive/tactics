@@ -41,6 +41,12 @@ public class BattleSprite
         m_Animations[false] = new Dictionary<string, BattleSpriteAnimation>();
     }
 
+    public BattleSprite(BattleSprite other)
+    {
+        m_Animations[true] = other.m_Animations[true];
+        m_Animations[false] = other.m_Animations[false];
+    }
+
     public void Add(bool front, string name, BattleSpriteAnimation animation)
     {
         m_Animations[front].Add(name, animation);

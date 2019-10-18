@@ -131,8 +131,8 @@ public class BattleGrid : MonoBehaviour
     public BattleSelectableAreaUI SelectableAreas;
     public BattleTargetedAreaUI TargetedAreas;
 
-    private BattleSelectableZone m_SelectableZone;
-    public BattleSelectableZone SelectableZone
+    private BattleZone m_SelectableZone;
+    public BattleZone SelectableZone
     {
         get
         {

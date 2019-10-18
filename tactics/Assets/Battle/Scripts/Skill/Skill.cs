@@ -1,88 +1,153 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml;
 using UnityEngine;
 
-public class Skill
+public class Skill : IComparable<Skill>
 {
+    private int m_Index;
+
     public string Name;
     public string Description;
-    public HashSet<string> Tags = new HashSet<string>();
 
-    public int Cost;
-
-    private SkillRange m_Range;
-    public SkillEffectArea EffectArea;
-
+    public string Type;
+    public string Element;
+    private string m_Range;
+    private string m_Target;
+    
     public List<SkillEffect> Effects = new List<SkillEffect>();
 
-    public Skill(XmlElement skillInfo)
+    private int m_Cost;
+    private string m_Stat;
+    
+
+    public Skill(XmlElement skillInfo, int index)
     {
+        m_Index = index;
+
         Name = skillInfo.GetAttribute("name");
         Description = skillInfo["description"].InnerText.Trim();
 
         // Tags
-        foreach (XmlElement tag in skillInfo.GetElementsByTagName("tag"))
-            Tags.Add(tag.InnerText.Trim());
+        Type = skillInfo.HasAttribute("type") ? skillInfo.GetAttribute("type").Trim() : "None";
+        Element = skillInfo.HasAttribute("element") ? skillInfo.GetAttribute("element").Trim() : "Null";
+        m_Target = skillInfo.HasAttribute("target") ? skillInfo.GetAttribute("target").Trim() : "Single";
+
+        if (skillInfo.HasAttribute("range")) m_Range = skillInfo.GetAttribute("range").Trim();
+        else m_Range = Type.StartsWith("Weapon") ? "Weapon" : "Radius";
+
 
         XmlElement effectsInfo = skillInfo["effects"];
 
         // SP cost
         if (effectsInfo.HasAttribute("cost"))
-            Cost = int.Parse(effectsInfo.GetAttribute("cost"));
-
-        // Range
-        string range = effectsInfo.GetAttribute("range");
-        if (range.CompareTo("weapon") == 0)
-            m_Range = new WeaponSkillRange();
-        else
-            m_Range = new RadialSkillRange(int.Parse(range));
-
-        // Effect area
-        string effectArea = effectsInfo.HasAttribute("effect") ? effectsInfo.GetAttribute("effect") : "0";
-        if (effectArea.CompareTo("all") == 0)
-            EffectArea = new RangeSkillEffectArea();
-        else
-            EffectArea = new RadialSkillEffectArea(int.Parse(effectArea));
+            m_Cost = int.Parse(effectsInfo.GetAttribute("cost"));
 
         // Effects
-        string stat = "";
         if (effectsInfo.HasAttribute("stat"))
         {
-            stat = effectsInfo.GetAttribute("stat");
+            m_Stat = effectsInfo.GetAttribute("stat");
         }
-        else if (Tags.Contains("Weapon"))
+        else if (Type.StartsWith("Weapon"))
         {
-            stat = "Attack";
+            m_Stat = "Attack";
         }
-        else if (Tags.Contains("Magic"))
+        else
         {
-            stat = "Magic";
+            m_Stat = "Magic";
         }
 
         foreach (XmlElement effectInfo in effectsInfo.ChildNodes)
-            Effects.Add(SkillEffect.Parse(effectInfo, stat));
+            Effects.Add(SkillEffect.Parse(effectInfo));
     }
 
-    public BattleSelectableManhattanRadius Range(BattleAgent user)
+    public int Cost(BattleAgent user)
     {
-        return m_Range[user];
+        return Mathf.CeilToInt(0.01f * m_Cost * (100 - user["Cost " + Type]));
     }
 
-    public bool Affects(BattleAgent user, Vector2Int center, Vector2Int target)
+    public int BasePower(BattleAgent user)
     {
-        return EffectArea.Affects(Range(user), center, target);
-    }
+        int s = user[m_Stat];
 
-    public void Execute(BattleAgent user, BattleAgent target)
-    {
-        if (user.SP >= Cost)
+        if (Type.StartsWith("Weapon"))
         {
-            user.SP -= Cost;
+            Weapon[] weapons = { user.BaseCharacter.PrimaryWeapon, user.BaseCharacter.SecondaryWeapon };
+
+            foreach (Weapon weapon in weapons)
+            {
+                if (weapon != null && !weapon.IsClass(Type))
+                {
+                    s -= weapon[m_Stat];
+                }
+            }
+        }
+
+        return s * (s + 2);
+    }
+
+    public BattleManhattanDistanceZone Range(BattleAgent user)
+    {
+        switch (m_Range)
+        {
+            case "Self":
+                return new BattleManhattanDistanceZone(user.Coordinates, 0, 0);
+            case "Adjacent":
+                return new BattleManhattanDistanceZone(user.Coordinates, 1, 1);
+            case "Weapon":
+                Weapon primary = user.BaseCharacter.PrimaryWeapon;
+                
+                if (primary != null)
+                {
+                    if (primary.Type == WeaponType.Bow)
+                        return new BattleManhattanDistanceZone(user.Coordinates, 2, 4);
+                    else if (primary.Type == WeaponType.Gun)
+                        return new BattleManhattanDistanceZone(user.Coordinates, 2, 8);
+                }
+
+                return new BattleManhattanDistanceZone(user.Coordinates, 1, 1);
+            case "Radius":
+                return new BattleManhattanDistanceZone(user.Coordinates, 0, user["Range " + Type]);
+            case "All":
+                return new BattleManhattanDistanceZone(user.Coordinates, 0, int.MaxValue);
+        }
+
+        throw new System.ArgumentException("[Skill] Unrecognized range type: \"" + m_Range + "\"");
+    }
+
+    public BattleManhattanDistanceZone Target(BattleAgent user, Vector2Int center)
+    {
+        switch (m_Target)
+        {
+            case "Single":
+                return new BattleManhattanDistanceZone(center, 0, 0);
+            case "Area":
+                return new BattleManhattanDistanceZone(center, 0, user["Area " + Type]);
+            case "All":
+                return Range(user);
+        }
+
+        throw new System.ArgumentException("[Skill] Unrecognized target type: \"" + m_Target + "\"");
+    }
+
+    public void Execute(BattleSkillEvent eventInfo)
+    {
+        int cost = Cost(eventInfo.User);
+
+        if (eventInfo.User.SP >= cost)
+        {
+            eventInfo.User.SP -= cost;
 
             foreach (SkillEffect effect in Effects)
-                effect.Execute(user, target);
+                effect.Execute(eventInfo);
         }
+    }
+
+
+    public int CompareTo(Skill other)
+    {
+        return m_Index.CompareTo(other.m_Index);
     }
 
     public override string ToString()

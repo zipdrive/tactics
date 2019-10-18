@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleSelectableManhattanPath : BattleSelectableManhattanRadius
+public class BattleManhattanPathZone : BattleManhattanDistanceZone
 {
     public int MaxVerticalDistance;
 
-    public BattleSelectableManhattanPath(Vector2Int center, int min, int max, int vert) : base(center, min, max)
+    public BattleManhattanPathZone(Vector2Int center, int min, int max, int vert) : base(center, min, max)
     {
         MaxVerticalDistance = vert;
     }

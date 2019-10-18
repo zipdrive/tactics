@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleSelectableRectangle : BattleSelectableZone
+public class BattleRectangularZone : BattleZone
 {
     public Vector2Int Min;
     public Vector2Int Max;
 
-    public BattleSelectableRectangle(Vector2Int min, Vector2Int max)
+    public BattleRectangularZone(Vector2Int min, Vector2Int max)
     {
         Min = min;
         Max = max;

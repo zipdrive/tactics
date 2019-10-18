@@ -1,32 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <sprites>
-  
+
   <sprite name="debug" portrait="reds">
-    
-    <images>
-      <image name="blank" />
-      <image name="standing" />
-    </images>
 
     <animations>
       <animation name="idle" direction="front">
-        <frame duration="1">standing</frame>
+        <frame duration="1">standing front</frame>
       </animation>
 
       <animation name="idle" direction="back">
-        <frame duration="1">standing</frame>
+        <frame duration="1">standing back</frame>
       </animation>
     </animations>
-    
+
   </sprite>
 
   <sprite name="reds">
-
-    <images>
-      <image name="standing front" />
-      <image name="standing back" />
-    </images>
 
     <animations>
       <animation name="idle" direction="front">
@@ -42,18 +32,27 @@
 
   <sprite name="phil">
 
-    <images>
-      <image name="standing front" />
-      <image name="standing back" />
-    </images>
-
     <animations>
       <animation name="idle" direction="front">
-        <frame duration="1">standing front</frame>
+        <frame duration="1">idle front</frame>
+      </animation>
+
+      <animation name="walk" direction="front">
+        <frame duration="0.0625">walk1 front</frame>
+        <frame duration="0.0625">idle front</frame>
+        <frame duration="0.0625">walk2 front</frame>
+        <frame duration="0.0625">idle front</frame>
       </animation>
 
       <animation name="idle" direction="back">
-        <frame duration="1">standing back</frame>
+        <frame duration="1">idle back</frame>
+      </animation>
+
+      <animation name="walk" direction="back">
+        <frame duration="0.0625">walk1 back</frame>
+        <frame duration="0.0625">idle back</frame>
+        <frame duration="0.0625">walk2 back</frame>
+        <frame duration="0.0625">idle back</frame>
       </animation>
     </animations>
     

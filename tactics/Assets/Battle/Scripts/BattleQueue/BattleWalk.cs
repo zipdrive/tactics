@@ -29,7 +29,7 @@ public class BattleWalk : BattleQueueMember
 
         // set animation
         actor.Agent.Direction = Mathf.Atan2(-m_Direction.x, -m_Direction.y) * 180f / Mathf.PI;
-        //actor.Sprite.Animation = "walk";
+        actor.Sprite.Animation = "walk";
     }
 
     public override bool QUpdate(BattleManager manager)
@@ -41,8 +41,12 @@ public class BattleWalk : BattleQueueMember
             || (m_Actor.localPosition.z < -10 * m_Direction.y && m_Velocity.z < 0f)
             || (m_Actor.localPosition.z > -10 * m_Direction.y && m_Velocity.z > 0f))
         {
-            m_Grid[m_Source].Actor.Agent.Coordinates = m_Source + m_Direction;
-            m_Grid[m_Source + m_Direction].Actor = m_Grid[m_Source].Actor;
+            BattleActor actor = m_Grid[m_Source].Actor;
+
+            actor.Agent.Coordinates = m_Source + m_Direction;
+            actor.Sprite.Animation = "idle";
+
+            m_Grid[m_Source + m_Direction].Actor = actor;
             m_Grid[m_Source].Actor = null;
             m_Actor.localPosition = new Vector3(0f, m_Actor.localPosition.y, 0f);
             return true;

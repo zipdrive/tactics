@@ -27,9 +27,8 @@ public class BattleAgentDecision : BattleQueueMember
         if (m_Agent.CP == 100)
         {
             if (m_MoveAllowed && m_ActionAllowed)
-                foreach (KeyValuePair<Status, StatusInstance> status in m_Agent.StatusEffects)
-                    status.Key.OnTurn(m_Agent, status.Value);
-            
+                m_Agent.OnTrigger(new BattleEvent(BattleEvent.Type.BeforeTurn));
+
             m_Agent.Behaviour.Start(m_MoveAllowed, m_ActionAllowed);
             manager.grid.Selector.SelectedTile = m_Agent.Coordinates;
         }

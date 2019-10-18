@@ -13,7 +13,7 @@ public class BattleActor : BattleObject2D
     {
         m_GridTransform = GameObject.FindObjectOfType<BattleGrid>().transform;
         m_Renderer = GetComponent<MeshRenderer>();
-        Sprite = Agent.BaseCharacter.Sprite;
+        Sprite = new BattleSprite(Agent.BaseCharacter.Sprite);
     }
 
     protected override void Update()

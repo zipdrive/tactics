@@ -7,11 +7,12 @@ public class DurationStatusEffect : StatusEffect
 
     public DurationStatusEffect(XmlElement effectInfo)
     {
-        m_Duration = int.Parse(effectInfo.InnerText.Trim());
+        if (!int.TryParse(effectInfo.InnerText.Trim(), out m_Duration))
+            m_Duration = -1;
     }
 
-    public override void Execute(BattleAgent target, StatusInstance status)
+    public override void Execute(StatusEvent eventInfo)
     {
-        status.Duration += m_Duration;
+        eventInfo.Status.Duration += m_Duration;
     }
 }

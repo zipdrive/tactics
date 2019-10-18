@@ -15,8 +15,13 @@ public class DamageStatusEffect : StatusEffect
             m_Damage = 1;
     }
 
-    public override void Execute(BattleAgent target, StatusInstance status)
+    public override void Execute(StatusEvent eventInfo)
     {
-        target.Damage(m_Damage, m_Element);
+        eventInfo.Target.Damage(new BattleDamageEvent(
+            BattleEvent.Type.BeforeTakeDamage, 
+            eventInfo.Target, 
+            m_Element, 
+            m_Damage
+            ));
     }
 }

@@ -4,6 +4,7 @@ public class StatusInstance
 {
     public readonly Element Element;
     public int Duration;
+    public bool Exhaustible = true;
 
     private Dictionary<string, int> m_Bonus = new Dictionary<string, int>();
 

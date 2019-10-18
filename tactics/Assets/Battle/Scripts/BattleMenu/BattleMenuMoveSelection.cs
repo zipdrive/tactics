@@ -11,7 +11,7 @@ public class BattleMenuMoveSelection : BattleMenu
 
     public override void Construct(BattleManager manager)
     {
-        manager.grid.SelectableZone = new BattleSelectableManhattanPath(user.Coordinates, 1, user["Move"], user["Jump"]);
+        manager.grid.SelectableZone = new BattleManhattanPathZone(user.Coordinates, 1, user["Move"], user["Jump"]);
     }
 
     public override void Destruct(BattleManager manager)

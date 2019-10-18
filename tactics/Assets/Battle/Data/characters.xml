@@ -1,8 +1,139 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <characters>
+  <character name="Reds" title="Rune Robot" type="player" sprite="phil">
+    
+    <profile>
+      <description></description>
+      <name>KTHN-73 "Reds"</name>
+      <species>Robot</species>
+      <occupation>Sewage System Maintenance</occupation>
+    </profile>
+
+    <stats>
+      <stat name="HP">80</stat>
+      <stat name="SP">45</stat>
+      <stat name="Attack">7</stat>
+      <stat name="Magic">6</stat>
+      <stat name="Speed">4</stat>
+      
+      <stat name="Resist Lightning">-100</stat>
+      <stat name="Resist Air">100</stat>
+      <stat name="Resist Corrosion">-100</stat>
+      <stat name="Resist Bio">100</stat>
+      <stat name="Resist Anima">25</stat>
+    </stats>
+
+    <skills>
+      <skill>Punch</skill>
+	    <skill>Whack</skill>
+      <skill>Heal</skill>
+    </skills>
+
+    <equipment>
+		  <weapons>
+			  <primary>Wrench</primary>
+		  </weapons>
+      <body>Uniform</body>
+    </equipment>
+
+    <commands>
+      <command>Move</command>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+      <command>Overdrive</command>
+    </commands>
   
-  <character name="debug" type="player" sprite="debug">
+  </character>
+
+  <character name="Phil" title="Independent Journalist" type="player" sprite="phil">
+
+    <profile>
+      <description>Well, who could this incredibly talented, intelligent, and good-looking journalist be? Oh, that's right- it's me!</description>
+      <name>Philharmonica Phonetical Phreneticism</name>
+      <species>Gnome</species>
+      <occupation>Independent Journalist</occupation>
+    </profile>
+    
+    <stats>
+      <stat name="HP">55</stat>
+      <stat name="SP">50</stat>
+      <stat name="Attack">5</stat>
+      <stat name="Magic">5</stat>
+      <stat name="Speed">7</stat>
+      <stat name="Move">4</stat>
+      <stat name="Jump">3</stat>
+    </stats>
+
+    <skills>
+      <skill>Punch</skill>
+      <skill>Shoot</skill>
+    </skills>
+
+    <equipment>
+      <weapons>
+        <primary>Crossbow</primary>
+      </weapons>
+    </equipment>
+
+    <commands>
+      <command>Move</command>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+      <command>Report</command>
+    </commands>
+  
+  </character>
+
+  <character name="Gereth" type="player">
+
+    <profile>
+      <description></description>
+      <name>Gereth Aernwulf</name>
+      <species>Pristarik</species>
+      <occupation>Mechanic</occupation>
+    </profile>
+
+    <stats>
+      <stat name="HP">55</stat>
+      <stat name="SP">60</stat>
+      <stat name="Attack">4</stat>
+      <stat name="Magic">7</stat>
+      <stat name="Speed">5</stat>
+    </stats>
+
+    <skills>
+      <skill>Punch</skill>
+      <skill>Thunder</skill>
+      <skill>Acid</skill>
+    </skills>
+    
+  </character>
+
+  <character name="Kharna" type="player">
+
+    <profile>
+      <description></description>
+      <name>Kharna</name>
+      <species>Half-kobold</species>
+      <occupation>Bounty Hunter</occupation>
+    </profile>
+
+    <stats>
+      <stat name="HP">75</stat>
+      <stat name="SP">35</stat>
+      <stat name="Attack">8</stat>
+      <stat name="Magic">3</stat>
+      <stat name="Speed">5</stat>
+    </stats>
+
+    <skills>
+      <skill>Punch</skill>
+    </skills>
+    
+  </character>
+  
+  <character name="debug" type="player" sprite="phil">
 
     <profile>
       <description>The OG worthless nobody.</description>
@@ -30,7 +161,7 @@
     
   </character>
 
-  <character name="Debug 1" title="Human Wizard" type="player" sprite="debug">
+  <character name="Debug 1" title="Human Wizard" type="player" sprite="phil">
 
     <profile>
       <description>Worthless nobody #1.</description>
@@ -64,7 +195,7 @@
     
   </character>
 
-  <character name="Debug 2" title="Human Brawler" type="player" sprite="debug">
+  <character name="Debug 2" title="Human Brawler" type="player" sprite="phil">
 
     <profile>
       <description>Worthless nobody #2.</description>
@@ -104,82 +235,5 @@
     
   </character>
   
-  <character name="Reds" title="Rune Robot" type="player" sprite="debug" portrait="debug">
-    
-    <profile>
-      <description></description>
-      <name>KTHN-73 "Reds"</name>
-      <species>Robot</species>
-      <occupation>Sewage System Maintenance</occupation>
-    </profile>
-
-    <stats>
-      <stat name="HP">60</stat>
-      <stat name="SP">35</stat>
-      <stat name="Attack">8</stat>
-      <stat name="Magic">7</stat>
-      <stat name="Speed">4</stat>
-      <stat name="Resist Physical">10</stat>
-      <stat name="Resist Lightning">-100</stat>
-      <stat name="Resist Air">100</stat>
-      <stat name="Resist Corrosion">-100</stat>
-      <stat name="Resist Bio">100</stat>
-      <stat name="Resist Anima">25</stat>
-    </stats>
-
-    <skills>
-      <skill>Punch</skill>
-      <skill>Heal</skill>
-    </skills>
-
-    <equipment>
-      <body>Uniform</body>
-    </equipment>
-
-    <commands>
-      <command>Move</command>
-      <command>Weapon Skill</command>
-      <command>Magic Skill</command>
-      <command>Overdrive</command>
-    </commands>
-  
-  </character>
-
-  <character name="Phil" title="Independent Journalist" type="player" sprite="phil" portrait="phil">
-
-    <profile>
-      <description>An incredibly intelligent and beautiful journalist with a knack for </description>
-      <name>Philharmonica Phonetical Phreneticism</name>
-      <species>Gnome</species>
-      <occupation>Independent Journalist</occupation>
-    </profile>
-    
-    <stats>
-      <stat name="HP">42</stat>
-      <stat name="SP">37</stat>
-      <stat name="Attack">5</stat>
-      <stat name="Magic">5</stat>
-      <stat name="Speed">7</stat>
-    </stats>
-
-    <skills>
-      <skill>Punch</skill>
-      <skill>Shoot</skill>
-    </skills>
-
-    <equipment>
-      <weapons>
-        <primary>Crossbow</primary>
-      </weapons>
-    </equipment>
-
-    <commands>
-      <command>Move</command>
-      <command>Weapon Skill</command>
-      <command>Magic Skill</command>
-      <command>Report</command>
-    </commands>
-  
-  </character>
   
 </characters>

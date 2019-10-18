@@ -6,18 +6,32 @@ public abstract class StatusEffect
     {
         switch (effectInfo.Name)
         {
-            case "duration":
-                return new DurationStatusEffect(effectInfo);
-            case "damage":
-                return new DamageStatusEffect(effectInfo);
+            case "begin":
+            case "tick":
+            case "turn":
+                return new StatusTriggerExecutor(effectInfo);
+            case "use":
+            case "target":
+                return new StatusSkillTriggerExecutor(effectInfo);
+            case "damaged":
+                return new StatusTriggerExecutor(effectInfo); // TODO
+
             case "bonus":
                 return new BonusStatusEffect(effectInfo);
+            case "damage":
+                return new DamageStatusEffect(effectInfo);
+            case "duration":
+                return new DurationStatusEffect(effectInfo);
+            case "exhaustible":
+                return new ExhaustibleStatusEffect(effectInfo);
             case "random":
                 return new ProbabilisticStatusEffect(effectInfo);
+            case "repeat":
+                return new RepeaterStatusEffect(effectInfo);
         }
 
         throw new System.IO.FileLoadException("[StatusEffect] Unrecognized effect type \"" + effectInfo.Name + "\"");
     }
 
-    public abstract void Execute(BattleAgent target, StatusInstance status);
+    public abstract void Execute(StatusEvent eventInfo);
 }

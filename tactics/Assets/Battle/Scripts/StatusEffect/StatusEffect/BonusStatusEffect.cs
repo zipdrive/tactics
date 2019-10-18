@@ -5,7 +5,6 @@ public class BonusStatusEffect : StatusEffect
 {
     private string m_Stat;
     private int m_Bonus;
-    private float m_Percentage;
 
     public BonusStatusEffect(XmlElement effectInfo)
     {
@@ -15,19 +14,10 @@ public class BonusStatusEffect : StatusEffect
         {
             m_Bonus = 0;
         }
-
-        if (effectInfo.HasAttribute("percentage"))
-        {
-            m_Percentage = float.Parse(effectInfo.GetAttribute("percentage"));
-        }
-        else
-        {
-            m_Percentage = 0f;
-        }
     }
 
-    public override void Execute(BattleAgent target, StatusInstance status)
+    public override void Execute(StatusEvent eventInfo)
     {
-        status[m_Stat] += Mathf.FloorToInt((100 - status[m_Stat]) * m_Percentage) + m_Bonus;
+        eventInfo.Status[m_Stat] += m_Bonus;
     }
 }

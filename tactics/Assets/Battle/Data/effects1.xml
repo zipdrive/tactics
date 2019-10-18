@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<effects>
+
+  <!-- Deals high HP damage over a short period of time. -->
+  <effect name="Burn" element="Fire" power="0.4" resist="false">
+    <tick>
+      <random probability="0.4" resist="true">
+        <damage element="Fire" to="HP" />
+      </random>
+    </tick>
+    <damage element="Ice">
+      <duration />
+    </damage>
+    <terrain type="fire">
+      <duration>2</duration>
+    </terrain>
+    <terrain type="water">
+      <duration>-99</duration>
+    </terrain>
+  </effect>
+
+  <!-- Reduces Move for a short period of time. -->
+  <effect name="Freeze" element="Ice" power="0.4">
+    <begin>
+      <bonus stat="Move">-2</bonus>
+    </begin>
+    <damage element="Fire">
+      <duration />
+    </damage>
+  </effect>
+
+  <!-- Reduces Speed for a short period of time. -->
+  <effect name="Stun:Lightning" element="Lightning" power="0.2">
+    <begin>
+      <bonus stat="Speed">-4</bonus>
+    </begin>
+  </effect>
+  
+  
+  
+  <!--
+  AIR STATUS EFFECTS
+  ???
+  -->
+  
+  <!-- -->
+  <effect name="Suffocate" element="Air" resist="false">
+    <tick>
+      <random probability="0.5" resist="true">
+        <bonus stat="HP">-1</bonus>
+      </random>
+    </tick>
+  </effect>
+  
+  <!-- Gives a bonus to physical resistance that decreases over time. -->
+  <effect name="Shield">
+    <begin>
+      <repeat number="duration">
+        <bonus stat="Resist Physical" />
+      </repeat>
+    </begin>
+    <tick>
+      <bonus stat="Resist Physical">-1</bonus>
+    </tick>
+  </effect>
+  
+  <!-- Gives a bonus to elemental resistance that decreases over time. -->
+  <effect name="Insulate">
+    <begin>
+      <repeat number="duration">
+        <bonus stat="Resist Fire" />
+        <bonus stat="Resist Ice" />
+        <bonus stat="Resist Lightning" />
+        <bonus stat="Resist Air" />
+        <bonus stat="Resist Corrosion" />
+      </repeat>
+    </begin>
+    <tick>
+      <bonus stat="Resist Fire">-1</bonus>
+      <bonus stat="Resist Ice">-1</bonus>
+      <bonus stat="Resist Lightning">-1</bonus>
+      <bonus stat="Resist Air">-1</bonus>
+      <bonus stat="Resist Corrosion">-1</bonus>
+    </tick>
+  </effect>
+
+  
+  
+  <!--
+  CORROSION STATUS EFFECTS
+  Revolve around doing damage or reducing stats over a (generally long) period of time. 
+  -->
+  
+  <!-- Deals high HP damage over a medium period of time. -->
+  <effect name="Acid" element="Corrosion" resist="false">
+    <tick>
+      <random probability="0.45" resist="true">
+        <damage element="Corrosion" to="HP" />
+      </random>
+    </tick>
+  </effect>
+
+  <!-- Slowly lowers maximum HP over a long period of time. -->
+  <effect name="Radiation" element="Corrosion" resist="false">
+    <tick>
+      <random probability="0.4" resist="true">
+        <bonus stat="HP">-1</bonus>
+      </random>
+    </tick>
+  </effect>
+
+  <!-- Reduces Attack over time. -->
+  <effect name="Atrophy" element="Corrosion" resist="false">
+    <begin>
+      <exhaustible>false</exhaustible>
+    </begin>
+    <tick>
+      <random probability="0.025" resist="true">
+        <bonus stat="Attack">-1</bonus>
+      </random>
+    </tick>
+  </effect>
+
+  <!-- Reduces physical resistance over time. -->
+  <effect name="Corrosion" element="Corrosion" resist="false">
+    <begin>
+      <exhaustible>false</exhaustible>
+    </begin>
+    <tick>
+      <random probability="0.5" resist="true">
+        <bonus stat="Resist Physical">-1</bonus>
+      </random>
+    </tick>
+  </effect>
+
+  <!-- Reduces elemental resistance over time. -->
+  <effect name="Enervation" element="Corrosion" resist="false">
+    <begin>
+      <exhaustible>false</exhaustible>
+    </begin>
+    <tick>
+      <random probability="0.5" resist="true">
+        <bonus stat="Resist Fire">-1</bonus>
+        <bonus stat="Resist Ice">-1</bonus>
+        <bonus stat="Resist Lightning">-1</bonus>
+      </random>
+    </tick>
+  </effect>
+
+  <!-- Reduces movement and evasion. -->
+  <effect name="Adhesive" power="1.0">
+    <begin>
+      <bonus stat="Move">-2</bonus>
+      <bonus stat="Evasion">-2</bonus>
+    </begin>
+    <terrain type="water">
+      <duration>-99</duration>
+    </terrain>
+  </effect>
+
+
+
+  <!--
+  BIO STATUS EFFECTS
+  Generally revolve around preventing action or healing/damaging HP over time.
+  -->
+
+  <!-- Restores HP over time. -->
+  <effect name="Regen" element="Bio">
+    <tick>
+      <random probability="0.33">
+        <damage element="Bio" to="HP">-1</damage>
+      </random>
+    </tick>
+  </effect>
+
+  <!-- Does low HP damage over a long period of time. -->
+  <effect name="Bleed" element="Bio">
+    <tick>
+      <random probability="0.25">
+        <damage element="Bio" to="HP" />
+      </random>
+    </tick>
+  </effect>
+
+  <!-- Lowers maximum HP over time. -->
+  <effect name="Poison" element="Bio">
+    <begin>
+      <exhaustible>false</exhaustible>
+    </begin>
+    <tick>
+      <random probability="0.75">
+        <bonus stat="HP">-1</bonus>
+      </random>
+    </tick>
+  </effect>
+  
+  <!-- Increases Attack. -->
+  <effect name="Attack Up" element="Bio">
+    <begin>
+      <exhaustible>false</exhaustible>
+      <repeat number="duration">
+        <bonus stat="Attack" />
+      </repeat>
+      <duration>-99</duration>
+    </begin>
+  </effect>
+  
+  <!-- Decreases Attack. -->
+  <effect name="Attack Down" element="Bio">
+    <begin>
+      <exhaustible>false</exhaustible>
+      <repeat number="duration">
+        <bonus stat="Attack">-1</bonus>
+      </repeat>
+      <duration>-99</duration>
+    </begin>
+  </effect>
+  
+  <!-- Decreases Magic. -->
+  <effect name="Magic Down:Bio" element="Bio">
+    <begin>
+      <exhaustible>false</exhaustible>
+      <repeat number="duration">
+        <bonus stat="Magic">-1</bonus>
+      </repeat>
+      <duration>-99</duration>
+    </begin>
+  </effect>
+  
+  <!-- Decreases Move. -->
+  <effect name="Move Down" element="Bio">
+    <begin>
+      <exhaustible>false</exhaustible>
+      <repeat number="duration">
+        <bonus stat="Move">-1</bonus>
+      </repeat>
+      <duration>-99</duration>
+    </begin>
+  </effect>
+
+  <!-- Greatly lowers Speed for a short period of time. -->
+  <effect name="Stun:Bio" element="Bio" power="0.2">
+    <begin>
+      <bonus stat="Speed">-4</bonus>
+    </begin>
+  </effect>
+
+  <!-- Puts target to sleep until woken up by being damaged. -->
+  <effect name="Sleep" element="Bio" power="0.8">
+    <begin>
+      <bonus stat="Speed">-99</bonus>
+    </begin>
+    <damage>
+      <duration />
+    </damage>
+  </effect>
+
+  <!-- Paralyzes target to prevent them from acting. -->
+  <effect name="Paralysis" element="Bio" power="0.6">
+    <begin>
+      <bonus stat="Speed">-99</bonus>
+    </begin>
+  </effect>
+
+  <!-- Strikes target in a vital spot, instantly killing them. -->
+  <effect name="KO:Bio" element="Bio" power="0.008">
+    <begin>
+      <damage to="HP">999</damage>
+    </begin>
+  </effect>
+  
+  
+  
+  <!--
+  ANIMA STATUS EFFECTS
+  Generally revolve around influencing behaviour or damaging SP over time.
+  -->
+
+  <!-- Deals high SP damage over a medium period of time. -->
+  <effect name="Sap" element="Anima">
+    <tick>
+      <random probability="0.4">
+        <damage element="Anima" to="SP" />
+      </random>
+    </tick>
+  </effect>
+  
+  <!-- Increases Magic -->
+  <effect name="Magic Up" element="Anima">
+    <begin>
+      <exhaustible>false</exhaustible>
+      <repeat number="duration">
+        <bonus stat="Magic" />
+      </repeat>
+      <duration>-99</duration>
+    </begin>
+  </effect>
+  
+  <!-- Decreases Magic. -->
+  <effect name="Magic Down:Anima" element="Anima">
+    <begin>
+      <exhaustible>false</exhaustible>
+      <repeat number="duration">
+        <bonus stat="Magic">-1</bonus>
+      </repeat>
+      <duration>-99</duration>
+    </begin>
+  </effect>
+
+  <effect name="Confuse" element="Anima">
+    <begin>
+      <bonus stat="Accuracy">-2</bonus>
+    </begin>
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <turn>
+      <duration />
+      <act target="Random" />
+    </turn>
+  </effect>
+
+  <effect name="Fear" element="Anima" power="1.5">
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <turn>
+      <duration />
+      <act move="Escape" />
+    </turn>
+  </effect>
+
+  <effect name="Berserk" element="Anima" power="0.8">
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <turn>
+      <duration />
+      <act target="Nearest" skill="Weapon" item="None" />
+    </turn>
+  </effect>
+
+  <effect name="Apathy" element="Anima" power="0.8">
+    <turn>
+      <act skill="None" item="None" />
+    </turn>
+  </effect>
+
+  <effect name="KO:Anima" element="Anima" power="0.008">
+    <begin>
+      <damage element="Anima" to="HP">999</damage>
+    </begin>
+  </effect>
+  
+  
+  
+  <!--
+  TIME STATUS EFFECTS
+  Generally revolve around altering Speed.
+  -->
+
+  <effect name="Haste" power="0.8">
+    <begin>
+      <bonus stat="Speed">2</bonus>
+    </begin>
+  </effect>
+
+  <effect name="Slow" power="0.8">
+    <begin>
+      <bonus stat="Speed">-2</bonus>
+    </begin>
+  </effect>
+  
+  <effect name="Stop" power="0.8">
+    <begin>
+      <bonus stat="Speed">-99</bonus>
+      <bonus stat="Resist Physical">100</bonus>
+      <bonus stat="Resist Fire">100</bonus>
+      <bonus stat="Resist Ice">100</bonus>
+      <bonus stat="Resist Lightning">100</bonus>
+      <bonus stat="Resist Air">100</bonus>
+      <bonus stat="Resist Corrosion">100</bonus>
+      <bonus stat="Resist Bio">100</bonus>
+      <bonus stat="Resist Anima">100</bonus>
+    </begin>
+  </effect>
+
+  
+  
+  <!--
+  ASSIST STATUS EFFECTS
+  Generally revolve around increasing Attack/Resistances.
+  -->
+  
+  <!-- Increases Attack. -->
+  <effect name="Boost">
+    <begin>
+      <exhaustible>false</exhaustible>
+      <repeat number="duration">
+        <bonus stat="Attack" />
+      </repeat>
+      <duration>-99</duration>
+    </begin>
+  </effect>
+  
+  <!-- Increases physical resistance. -->
+  <effect name="Protect">
+    <begin>
+      <exhaustible>false</exhaustible>
+      <repeat number="duration">
+        <bonus stat="Resist Physical" />
+      </repeat>
+      <duration>-99</duration>
+    </begin>
+  </effect>
+  
+  <effect name="Shield" power="0.04">
+    <begin>
+      <bonus stat="Resist Physical" percentage="0.5" />
+    </begin>
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <target skill="Element:Physical">
+      <duration />
+    </target>
+  </effect>
+
+  <effect name="Barrier" power="0.04">
+    <begin>
+      <bonus stat="Resist Fire" percentage="0.5" />
+      <bonus stat="Resist Ice" percentage="0.5" />
+      <bonus stat="Resist Lightning" percentage="0.5" />
+      <bonus stat="Resist Corrosion" percentage="0.5" />
+    </begin>
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <target skill="Element:Fire">
+      <duration />
+    </target>
+    <target skill="Element:Ice">
+      <duration />
+    </target>
+    <target skill="Element:Lightning">
+      <duration />
+    </target>
+    <target skill="Element:Corrosion">
+      <duration />
+    </target>
+  </effect>
+
+  <effect name="Reflect" power="0.04">
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <target skill="Class:MagicOffense">
+      <duration />
+      <reflect />
+    </target>
+  </effect>
+
+  <effect name="Vanish" power="0.8">
+    <begin>
+      <untargetable />
+    </begin>
+  </effect>
+  
+</effects>
