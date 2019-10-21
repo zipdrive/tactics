@@ -13,6 +13,8 @@ public class AssetHolder : MonoBehaviour
     public static Dictionary<string, Sprite> Tiles = new Dictionary<string, Sprite>();
     public static Dictionary<string, BattleObject> Objects = new Dictionary<string, BattleObject>();
 
+    public static Dictionary<string, BattleCommand> Commands = new Dictionary<string, BattleCommand>();
+
     public static Dictionary<string, Status> Effects = new Dictionary<string, Status>();
     public static Dictionary<string, Skill> Skills = new Dictionary<string, Skill>();
     public static Dictionary<string, Item> Items = new Dictionary<string, Item>();
@@ -129,6 +131,33 @@ public class AssetHolder : MonoBehaviour
                 }
             }
 
+            // Commands
+            XmlDocument commandsDoc = new XmlDocument();
+            commandsDoc.PreserveWhitespace = false;
+
+            try
+            {
+                commandsDoc.Load("Assets/Battle/Data/commands.xml");
+                XmlNode root = commandsDoc.SelectSingleNode("commands");
+
+                foreach (XmlElement commandInfo in root.SelectNodes("command"))
+                {
+                    try
+                    {
+                        Commands.Add(commandInfo.GetAttribute("name"), new BattleCommand(commandInfo));
+                    }
+                    catch (Exception e)
+                    {
+                        string id = commandInfo.HasAttribute("name") ? commandInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                        Error("[AssetHolder] Unable to load command \"" + id + "\".\n" + e);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Error("[AssetHolder] Unable to load commands from \"Assets/Battle/Data/commands.xml\".\n" + e);
+            }
+
             // Status effects
             XmlDocument effectsDoc = new XmlDocument();
             effectsDoc.PreserveWhitespace = false;
@@ -138,7 +167,7 @@ public class AssetHolder : MonoBehaviour
                 effectsDoc.Load("Assets/Battle/Data/effects.xml");
                 XmlElement root = effectsDoc["effects"];
 
-                foreach (XmlElement statusInfo in root.GetElementsByTagName("effect"))
+                foreach (XmlElement statusInfo in root.SelectNodes("effect"))
                 {
                     try
                     {

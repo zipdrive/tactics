@@ -65,7 +65,7 @@ public class BattleAgentDecision : BattleQueueMember
 
                     if (decision is BattleSkillAction)
                     {
-                        manager.grid.Selector.SelectedTile = (decision as BattleSkillAction).center;
+                        manager.grid.Selector.SelectedTile = (decision as BattleSkillAction).Target.Center;
                     }
                 }
 

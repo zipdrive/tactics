@@ -50,12 +50,12 @@ public class PlayerCharacter : Character
     {
         get
         {
-            throw new NotImplementedException();
+            return m_Body;
         }
 
         set
         {
-            throw new NotImplementedException();
+            m_Body = value;
         }
     }
 
@@ -63,12 +63,12 @@ public class PlayerCharacter : Character
     {
         get
         {
-            throw new NotImplementedException();
+            return m_Head;
         }
 
         set
         {
-            throw new NotImplementedException();
+            m_Head = value;
         }
     }
 
@@ -76,12 +76,12 @@ public class PlayerCharacter : Character
     {
         get
         {
-            throw new NotImplementedException();
+            return m_Accessory;
         }
 
         set
         {
-            throw new NotImplementedException();
+            m_Accessory = value;
         }
     }
 
@@ -96,56 +96,8 @@ public class PlayerCharacter : Character
     }
 
 
-    private List<BattleCommand> m_Commands = new List<BattleCommand>();
-
-    public List<BattleCommand> Commands
-    {
-        get
-        {
-            return m_Commands;
-        }
-    }
-
-
     public PlayerCharacter(XmlElement characterInfo) : base(characterInfo)
     {
-        // Load commands
-        XmlElement commandsInfo = characterInfo["commands"];
-        foreach (XmlElement commandInfo in commandsInfo.SelectNodes("command"))
-        {
-            switch (commandInfo.InnerText.Trim())
-            {
-                // Standard commands
-                case "Move":
-                    m_Commands.Add(new BattleCommandMove());
-                    break;
-                case "Weapon Skill":
-                    m_Commands.Add(new BattleCommandSkillSelection("Weapon Skill", "Use a weapon skill.", new WeaponSkillFilter(this)));
-                    break;
-                case "Magic Skill":
-                    m_Commands.Add(new BattleCommandMagicSkill("Magic Skill", "Use a magic skill.", false));
-                    break;
-
-                // Individual commands
-                case "Overdrive":
-                    m_Commands.Add(new BattleCommandMagicSkill("Overdrive", "Supercharge runic circuitry to cast magic skills from HP.", true));
-                    break;
-                default:
-                    string command = commandInfo.InnerText.Trim();
-                    if (command.EndsWith("Skill"))
-                    {
-                        m_Commands.Add(new BattleCommandSkillSelection(
-                            command, 
-                            "Use a " + command.ToLower() + ".", 
-                            new TypeSkillFilter(this, command.Substring(0, command.Length - 6)))
-                            );
-                    }
-                    else
-                    {
-                        m_Commands.Add(new BattleCommandSkillAreaSelection(AssetHolder.Skills["Command:" + command]));
-                    }
-                    break;
-            }
-        }
+        // TODO
     }
 }

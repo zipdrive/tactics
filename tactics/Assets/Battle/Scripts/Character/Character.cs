@@ -38,8 +38,17 @@ public abstract class Character
             }
             else
             {
-                if (stat.StartsWith("Range Magic"))
-                    value = 2;
+                if (stat.StartsWith("Power"))
+                    value = 100;
+                else if (stat.StartsWith("Range"))
+                {
+                    if (stat.StartsWith("Range: Magic"))
+                        value = 2;
+                    else if (stat.Equals("Range: Weapon [Ranged]"))
+                        value = 4;
+                    else
+                        value = 1;
+                }
                 else if (stat.Equals("Speed"))
                     value = 5;
                 else if (stat.Equals("Move"))
@@ -69,6 +78,10 @@ public abstract class Character
     public abstract Equipment Head { get; set; }
     public abstract Equipment Body { get; set; }
     public abstract Equipment Accessory { get; set; }
+
+
+    public List<BattleCommand> Commands = new List<BattleCommand>();
+
 
     public Character(XmlElement characterInfo)
     {
@@ -106,6 +119,7 @@ public abstract class Character
                 foreach (XmlElement skillInfo in activeSkillsInfo.SelectNodes("skill"))
                 {
                     string skillName = skillInfo.InnerText.Trim();
+
                     Skill skill;
                     if (AssetHolder.Skills.TryGetValue(skillName, out skill))
                         ActiveSkills.Add(skill);
@@ -147,6 +161,18 @@ public abstract class Character
                             Accessory = temp;
                     }
                 }
+            }
+        }
+
+        // Load commands
+        XmlNode commandsInfo = characterInfo.SelectSingleNode("commands");
+        if (commandsInfo != null)
+        {
+            foreach (XmlElement commandInfo in commandsInfo.SelectNodes("command"))
+            {
+                BattleCommand command;
+                if (AssetHolder.Commands.TryGetValue(commandInfo.InnerText.Trim(), out command))
+                    Commands.Add(command);
             }
         }
     }

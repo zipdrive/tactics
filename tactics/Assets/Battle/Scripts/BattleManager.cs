@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    public BattleMenuUI rootMenu;
-    public BattleMenuUI weaponSkillMenu;
+    public Transform battleMenus;
+    public BattleMenuUI battleMenuPrefab;
 
     public BattleGrid grid;
     public List<BattleAgent> agents = new List<BattleAgent>();

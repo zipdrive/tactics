@@ -11,10 +11,20 @@ public class TypeSkillFilter : SkillFilter
 
     public override IEnumerator<Skill> GetEnumerator()
     {
+        Weapon weapon1 = m_Character.PrimaryWeapon;
+        Weapon weapon2 = m_Character.SecondaryWeapon;
+
         foreach (Skill skill in m_Character.ActiveSkills)
         {
             if (skill.Type.StartsWith(m_Type))
-                yield return skill;
+            {
+                if (skill.Element.Equals("Martial") ||
+                    (weapon1 != null && weapon1.IsClass(skill.Type)) ||
+                    (weapon2 != null && weapon2.IsClass(skill.Type)))
+                {
+                    yield return skill;
+                }
+            }
         }
 
         yield break;

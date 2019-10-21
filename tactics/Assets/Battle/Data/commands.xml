@@ -2,151 +2,308 @@
 
 <commands>
 
+  <!-- Perform a standard move action. -->
   <command name="Move" expends="move">
-    <move />
-  </command>
+    <description>
+      Move to another tile.
+    </description>
+    
+    <select>
+      <target id="destination" range="Move" target="Single" />
+    </select>
 
+    <action>
+      <move target="destination" />
+    </action>
+  </command>
+  
+  <!-- Use a standard weapon skill. -->
   <command name="Weapon Skill" expends="action">
-    <skill type="Weapon" />
+    <description>
+      Use a weapon skill.
+    </description>
+    
+    <select>
+      <skill id="skill" type="Weapon" />
+      <target id="target" skill="skill" />
+    </select>
+
+    <action>
+      <skill id="skill" target="target" />
+    </action>
   </command>
 
+  <!-- Use a standard magic skill. -->
   <command name="Magic Skill" expends="action">
-    <skill type="Magic" />
+    <description>
+      Use a magic skill.
+    </description>
+    
+    <select>
+      <skill id="skill" type="Magic" />
+      <target id="target" skill="skill" />
+    </select>
+
+    <action>
+      <skill id="skill" target="target" />
+    </action>
   </command>
 
+  <!-- Ends your turn. -->
   <command name="End Turn">
-    <end />
+    <description>
+      End your turn.
+    </description>
+    
+    <action>
+      <end />
+    </action>
   </command>
-  
-  
-  
-  <!--
-  Bard command
-  Give a buff to all allies until next turn.
-  -->
+
+
+
+  <!-- The Bard command. Gives a buff to all allies for one turn. -->
   <command name="Music Skill" expends="action">
-    <skill type="Music" />
-  </command>
+    <description>
+      Play music to heal or give a buff to all allies.
+    </description>
+    
+    <select>
+      <skill id="skill" type="Music" />
+      <target id="target" skill="skill" />
+    </select>
 
-  <!--
-  Blood Mage command
-  Damage 20% of maximum HP in exchange for +25% magic power.
-  -->
+    <action>
+      <skill id="skill" target="target" />
+    </action>
+  </command>
+  
+  <!-- The Blood Mage command. Sacrifices 20% of maximum HP in exchange for greater magic power. -->
   <command name="Sacrifice" expends="action">
-    <damage to="HP" percentage="0.2" />
-    <skill type="Magic">
-      <power>1.33</power>
-    </skill>
+    <description>
+      Sacrifice HP to boost your magic power.
+    </description>
+    
+    <select>
+      <skill id="skill" type="Magic" />
+      <target id="target" skill="skill" />
+    </select>
+
+    <action>
+      <damage to="HP" percentage="0.2" />
+      <skill id="skill" target="target" power="Power: Sacrifice" />
+    </action>
   </command>
   
-  <!--
-  Druid command
-  Alter terrain.
-  -->
+  <!-- The Druid command. Alters the terrain of the battlefield. -->
   <command name="Nature Skill" expends="action">
-    <skill type="Nature" />
+    <description>
+      Use nature magic to alter the terrain of the battlefield.
+    </description>
+    
+    <select>
+      <skill id="skill" type="Nature" />
+      <target id="target" skill="skill" />
+    </select>
+
+    <action>
+      <skill id="skill" target="target" />
+    </action>
   </command>
   
-  <!--
-  Mechanist command
-  Use rune engines.
-  -->
+  <!-- The Mechanist command. Uses a rune engine. -->
+  <!-- TODO how to choose target -->
   <command name="Tech" expends="action">
-    <item type="Rune Engine" />
+    <description>
+      Use a rune engine to emulate magic.
+    </description>
+    
+    <select>
+      <item id="item" type="Rune Engine" />
+      <target id="target" />
+    </select>
+
+    <action>
+      <item id="item" target="target" />
+    </action>
   </command>
 
-  <!--
-  Priest command
-  Heal all adjacent allies and damage all adjacent enemies.
-  -->
+  <!-- The Priest command. Heals adjacent allies and damages adjacent enemies. -->
   <command name="Holy" expends="action">
-    <skill name="Command:Holy" />
+    <description>
+      Heal nearby allies and damage nearby enemies.
+    </description>
+    
+    <select>
+      <target id="target" range="Range: Holy" target="All" />
+    </select>
+
+    <action>
+      <skill name="Command:Holy" target="target" />
+    </action>
   </command>
   
-  <!--
-  Runecaster command
-  Enhance next magic skill.
-  -->
+  <!-- The Runecaster command. Enhances a magic skill for additional SP. -->
   <command name="Rune Skill" expends="action">
-    <skill type="Rune" />
+    <description>
+      Enhance a magic skill for additional SP.
+    </description>
+    
+    <select>
+      <skill id="rune" type="Rune" />
+      <skill id="skill" type="Magic" />
+      <target id="target" skill="skill" />
+    </select>
+
+    <action>
+      <skill id="rune" range="Self" target="Single" />
+      <skill id="skill" target="target" />
+    </action>
   </command>
   
-  <!--
-  Spellsword command
-  Combine a weapon skill with a magic skill.
-  -->
+  <!-- The Spellsword command. Combines a weapon skill with a magic skill. -->
   <command name="Imbue" expends="action">
-    <skill type="Weapon" target="Single" />
-    <skill type="Magic" target="Radius">
-      <target>Single</target>
-    </skill>
-  </command>
+    <description>
+      Combine a weapon skill and a magic skill for additional SP.
+    </description>
+    
+    <select>
+      <skill id="weapon" type="Weapon" />
+      <skill id="magic" type="Magic" sp="1.33" />
+      <target id="target" skill="weapon" />
+    </select>
 
-  <!--
-  Tattoo Mage command
-  Casts magic skill from HP instead of SP.
-  -->
+    <action>
+      <skill id="weapon" target="target" />
+      <skill id="magic" target="target" sp="1.33" />
+    </action>
+  </command>
+  
+  <!-- The Tattoo Mage command. Casts magic from HP instead of SP. -->
   <command name="Overdrive" expends="action">
-    <skill type="Magic" hpcost="1" spcost="0" />
+    <description>
+      Activate runic patterns to cast magic skills from HP.
+    </description>
+    
+    <select>
+      <skill id="skill" type="Magic" hp="1" sp="0" />
+      <target id="target" skill="skill" />
+    </select>
+
+    <action>
+      <skill id="skill" target="target" hp="1" sp="0" />
+    </action>
+  </command>
+  
+  <!-- The Berserker command. Increases Attack and inflicts Berserk on self. -->
+  <command name="Berserk" expends="none">
+    <description>
+      Enter a feral rage that enhances strength.
+    </description>
+    
+    <select>
+      <target id="target" range="Self" target="Single" />
+    </select>
+
+    <action>
+      <skill name="Command:Berserk" target="target" />
+    </action>
   </command>
 
-  <!--
-  Berserker command
-  Inflict Berserk on self, but increase Attack.
-  -->
-  <command name="Berserk">
-    <skill name="Command:Berserk" />
+  <!-- The Chemist command. Mixes two reagents to create and use items on the fly. -->
+  <command name="Concoct" expends="action">
+    <description>
+      Mix two reagents to create unstable concoctions.
+    </description>
+    
+    <select>
+      <item id="reagent1" type="Reagent" />
+      <item id="reagent2" type="Reagent" />
+      <target id="target" range="Throw" target="Single" />
+    </select>
+
+    <action>
+      <mix item1="reagent1" item2="reagent2" target="target" />
+    </action>
+  </command>
+
+  <!-- The Knight command. Redirects all physical damage from adjacent allies to self until next turn. -->
+  <command name="Cover" expends="action">
+    <description>
+      Until next turn, redirect all physical damage from adjacent allies to you.
+    </description>
+    
+    <select>
+      <target id="target" range="Adjacent" target="All" />
+    </select>
+
+    <action>
+      <skill name="Command:Cover" target="target" />
+    </action>
   </command>
   
-  <!--
-  Chemist command
-  Mix two reagents to create and use potions, poisons, and bombs on the fly.
-  -->
-  <command name="Concoct">
-    <mix>
-      <item type="Reagent" />
-      <item type="Reagent" />
-    </mix>
-  </command>
-  
-  <!--
-  Knight command
-  Redirect all physical damage from adjacent allies to self until next turn.
-  -->
-  <command name="Cover">
-    <skill name="Command:Cover" />
-  </command>
-  
-  <!--
-  Scout command
-  Displays target's stats.
-  -->
+  <!-- The Scout command. Displays the stats of the target. -->
   <command name="Report" expends="action">
-    <skill name="Command:Report" />
+    <description>
+      Analyze and report on the details of a target.
+    </description>
+    
+    <select>
+      <target id="target" range="All" target="Single" />
+    </select>
+
+    <action>
+      <skill name="Command:Report" target="target" />
+    </action>
   </command>
   
-  <!--
-  Sky Warrior command
-  Takes to the sky before descending on an enemy.
-  -->
+  <!-- The Sky Warrior command. Fly forward and use a weapon skill before retreating. -->
   <command name="Fly" expends="action">
-    <skill name="Command:Fly" />
+    <description>
+      Fly forward and use a weapon skill.
+    </description>
+    
+    <select>
+      <skill id="skill" type="Weapon" />
+      <target id="destination" range="Move" target="Single" />
+      <target id="target" center="destination" skill="skill" />
+    </select>
+
+    <action>
+      <move target="destination" />
+      <skill id="skill" target="target" />
+    </action>
+  </command>
+  
+  <!-- The Thief command. Steals items, money, equipment, and stats. -->
+  <command name="Steal" expends="action">
+    <description>
+      Steal money, items, and equipment from enemies.
+    </description>
+    
+    <select>
+      <skill id="skill" type="Thief" />
+      <target id="target" skill="skill" />
+    </select>
+
+    <action>
+      <skill id="skill" target="target" />
+    </action>
   </command>
 
-  <!--
-  Thief command
-  Steal money, items, and equipment from enemies.
-  -->
-  <command name="Steal" expends="action">
-    <skill type="Thief Skill" />
-  </command>
-  
-  <!--
-  Warweaver command
-  ?????
-  -->
-  <command name="???" expends="action">
-    <skill name="Command:???" />
+  <!-- The Warweaver command. Increases physical and elemental resistances proportional to evasion for the next turn. -->
+  <command name="Feint" expends="action">
+    <description>
+      dsakjbfsjhgksfk
+    </description>
+    
+    <select>
+      <target id="target" range="Self" target="Single" />
+    </select>
+
+    <action>
+      <skill name="Command:Feint" target="target" />
+    </action>
   </command>
   
 </commands>

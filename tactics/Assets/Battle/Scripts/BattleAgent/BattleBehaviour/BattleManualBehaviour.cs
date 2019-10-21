@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class BattleManualBehaviour : BattleBehaviour
 {
-    private Stack<BattleMenu> m_Menus;
-    private BattleMenu m_BaseMenu;
+    private BattleCommandListMenu m_RootMenu;
+    private bool m_RootShown;
 
     public BattleManualBehaviour(BattleAgent agent) : base(agent)
     {
@@ -14,54 +14,32 @@ public class BattleManualBehaviour : BattleBehaviour
 
     public override void Start(bool canMove, bool canAct)
     {
-        m_BaseMenu = new BattleMenuRootSelection(m_Agent, canMove, canAct);
-
-        m_Menus = new Stack<BattleMenu>();
-        m_Menus.Push(m_BaseMenu);
-        m_BaseMenu.Construct(m_Manager);
+        m_RootMenu = new BattleCommandListMenu(m_Manager, m_Agent, canMove, canAct);
+        m_RootMenu.Construct();
+        m_RootShown = true;
     }
 
     public override BattleAction Update(bool canMove, bool canAct)
     {
-        BattleAction decision = null;
-
-        if (Input.GetButtonDown("Submit"))
+        if (m_RootShown)
         {
-            if (m_Menus.Count == 0)
-            {
-                m_Menus.Push(m_BaseMenu);
-                m_BaseMenu.Construct(m_Manager);
-            }
-            else
-            {
-                BattleMenu next;
-                m_Menus.Peek().Select(m_Manager, out next, out decision);
+            BattleAction decision;
+            BattleMenu.UpdateResult result = m_RootMenu.Update(out decision);
 
-                if (decision != null)
-                {
-                    m_Menus.Peek().Destruct(m_Manager);
-                    return decision;
-                }
-                else if (next != null)
-                {
-                    m_Menus.Peek().Destruct(m_Manager);
-                    m_Menus.Push(next);
-                    next.Construct(m_Manager);
-                }
+            if (result == BattleMenu.UpdateResult.Canceled)
+            {
+                m_RootShown = false;
+            }
+            else if (result == BattleMenu.UpdateResult.Completed)
+            {
+                return decision;
             }
         }
-        if (Input.GetButtonDown("Cancel"))
+        else if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Cancel"))
         {
-            if (m_Menus.Count > 0)
-            {
-                m_Menus.Pop().Destruct(m_Manager);
-
-                if (m_Menus.Count > 0)
-                    m_Menus.Peek().Construct(m_Manager);
-            }
+            m_RootMenu.Construct();
+            m_RootShown = true;
         }
-
-        if (m_Menus.Count > 0) m_Menus.Peek().MUpdate(m_Manager);
 
         return null;
     }

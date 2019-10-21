@@ -1,6 +1,6 @@
 ﻿public abstract class BattleAction
 {
-    public BattleAgent actor;
+    public BattleAgent Agent;
 
     public abstract void Execute(BattleManager manager, int time);
 }

@@ -1,21 +1,18 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
-public class BattleSequenceAction<T> : BattleAction where T : BattleAction
+public class BattleSequenceAction : BattleAction
 {
-    public T next;
+    public List<BattleAction> Sequence;
 
-    public BattleSequenceAction()
+    public BattleSequenceAction(IEnumerable<BattleAction> sequence)
     {
-        next = null;
-    }
-
-    public BattleSequenceAction(T next)
-    {
-        this.next = next;
+        Sequence = new List<BattleAction>(sequence);
     }
 
     public override void Execute(BattleManager manager, int time)
     {
-        manager.Add(new BattleActionExecution(time - 1, next));
+        int t = time - Sequence.Count - 2;
+        foreach (BattleAction action in Sequence)
+            manager.Add(new BattleActionExecution(t++, action));
     }
 }

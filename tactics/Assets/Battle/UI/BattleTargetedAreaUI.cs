@@ -27,11 +27,11 @@ public class BattleTargetedAreaUI : MonoBehaviour
         transform.position = m_Grid.transform.position + m_Position;
     }
 
-    public void Set(Skill skill, BattleAgent user, Vector2Int center)
+    public void Set(BattleZone targets)
     {
         Clear();
 
-        foreach (Vector2Int point in skill.Target(user, center))
+        foreach (Vector2Int point in targets)
         {
             if (m_Grid[point] != null)
             {

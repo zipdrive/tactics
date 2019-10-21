@@ -25,15 +25,15 @@
     </stats>
 
     <skills>
-      <skill>Punch</skill>
-	    <skill>Whack</skill>
-      <skill>Heal</skill>
+      <active>
+        <skill>Punch</skill>
+	      <skill>Whack</skill>
+        <skill>Heal</skill>
+      </active>
     </skills>
 
     <equipment>
-		  <weapons>
-			  <primary>Wrench</primary>
-		  </weapons>
+			<weapon>Wrench</weapon>
       <body>Uniform</body>
     </equipment>
 
@@ -66,14 +66,14 @@
     </stats>
 
     <skills>
-      <skill>Punch</skill>
-      <skill>Shoot</skill>
+      <active>
+        <skill>Punch</skill>
+        <skill>Shoot</skill>
+      </active>
     </skills>
 
     <equipment>
-      <weapons>
-        <primary>Crossbow</primary>
-      </weapons>
+      <weapon>Crossbow</weapon>
     </equipment>
 
     <commands>
@@ -103,9 +103,11 @@
     </stats>
 
     <skills>
-      <skill>Punch</skill>
-      <skill>Thunder</skill>
-      <skill>Acid</skill>
+      <active>
+        <skill>Punch</skill>
+        <skill>Thunder</skill>
+        <skill>Acid</skill>
+      </active>
     </skills>
     
   </character>
@@ -128,7 +130,9 @@
     </stats>
 
     <skills>
-      <skill>Punch</skill>
+      <active>
+        <skill>Punch</skill>
+      </active>
     </skills>
     
   </character>
@@ -150,7 +154,9 @@
     </stats>
     
     <skills>
-      <skill>Punch</skill>
+      <active>
+        <skill>Punch</skill>
+      </active>
     </skills>
 
     <commands>
@@ -179,12 +185,14 @@
     </stats>
     
     <skills>
-      <skill>Punch</skill>
-      <skill>Flame</skill>
-      <skill>Frost</skill>
-      <skill>Thunder</skill>
-      <skill>Acid</skill>
-      <skill>Heal</skill>
+      <active>
+        <skill>Punch</skill>
+        <skill>Flame</skill>
+        <skill>Frost</skill>
+        <skill>Thunder</skill>
+        <skill>Acid</skill>
+        <skill>Heal</skill>
+      </active>
     </skills>
 
     <commands>
@@ -212,18 +220,18 @@
     </stats>
     
     <skills>
-      <skill>Punch</skill>
-      <skill>Slash</skill>
-      <skill>Stab</skill>
-      <skill>Bash</skill>
-      <skill>Shoot</skill>
-      <skill>Flame</skill>
+      <active>
+        <skill>Punch</skill>
+        <skill>Slash</skill>
+        <skill>Stab</skill>
+        <skill>Bash</skill>
+        <skill>Shoot</skill>
+        <skill>Flame</skill>
+      </active>
     </skills>
 
     <equipment>
-      <weapons>
-        <primary>Warhammer of Zillyhoo</primary>
-      </weapons>
+      <weapon>Warhammer of Zillyhoo</weapon>
       <body>Divine Pantaloons</body>
     </equipment>
     

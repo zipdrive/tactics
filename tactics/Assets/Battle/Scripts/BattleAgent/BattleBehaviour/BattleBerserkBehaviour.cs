@@ -32,7 +32,7 @@ public class BattleBerserkBehaviour : BattleBehaviour
         if (bestSkill == null) return new BattleEndTurnAction(m_Agent);
 
         // Select a target
-        BattleManhattanDistanceZone range = bestSkill.Range(m_Agent);
+        BattleManhattanDistanceZone range = Skill.GetRange(bestSkill.Range, m_Agent);
         List<Vector2Int> options = new List<Vector2Int>();
         Vector2Int target;
 
@@ -62,8 +62,11 @@ public class BattleBerserkBehaviour : BattleBehaviour
             System.Random rand = new System.Random();
             target = options[rand.Next() % options.Count];
         }
-        
-        return new BattleSkillAction(m_Agent, bestSkill, target);
+
+        BattleManhattanDistanceZone targets = Skill.GetTarget(bestSkill.Target, m_Agent, range);
+        targets.Center = target;
+
+        return new BattleSkillAction(m_Agent, bestSkill, targets, 0.01f * m_Agent["Power: " + bestSkill.Element], 1f, 0f);
     }
 
     private float CalculatePower(SkillEffect effect)
