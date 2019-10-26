@@ -21,8 +21,8 @@ public class BattleAgentDecision : BattleQueueMember
         {
             if (m_Decider == null)
             {
-                m_Agent["Turn: Move"] = 1;
-                m_Agent["Turn: Action"] = 1;
+                m_Agent["Turn:Move"] = 1;
+                m_Agent["Turn:Action"] = 1;
                 m_Agent.OnTrigger(new BattleEvent(BattleEvent.Type.BeforeTurn));
 
                 if (m_Agent.Behaviour == null)

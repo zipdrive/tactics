@@ -1,35 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<grid width="6" height="10">
+<map>
+  <grid width="6" height="10">
 
-  <tiles x="2" y="1">
-    <tile texture="sample" height="2">
-      <character name="Debug Blood Mage" />
-    </tile>
-  </tiles>
+    <tiles x="2" y="1">
+      <tile texture="sample" height="2">
+        <character name="Debug Blood Mage" unit="player" />
+      </tile>
+    </tiles>
 
-  <tiles x="3" y="1">
-    <tile texture="sample" height="2">
-      <character name="Debug Spellsword" />
-    </tile>
-  </tiles>
-  
+    <tiles x="3" y="1">
+      <tile texture="sample" height="2">
+        <character name="Debug Spellsword" unit="player" />
+      </tile>
+    </tiles>
 
-  <tiles x="2" y="8">
-    <tile texture="sample" height="2">
-      <character name="Debug Spellsword" behaviour="offense" />
-    </tile>
-  </tiles>
 
-  <tiles x="3" y="8">
-    <tile texture="sample" height="2">
-      <character name="Debug Blood Mage" behaviour="offense" />
-    </tile>
-  </tiles>
-  
-    
-  <tiles x="0" y="0" width="6" height="10">
-    <tile texture="sample" height="1" />
-  </tiles>
+    <tiles x="2" y="8">
+      <tile texture="sample" height="2">
+        <character name="Debug Spellsword" unit="enemy" behaviour="offense" />
+      </tile>
+    </tiles>
 
-</grid>
+    <tiles x="3" y="8">
+      <tile texture="sample" height="2">
+        <character name="Debug Blood Mage" unit="enemy" behaviour="offense" />
+      </tile>
+    </tiles>
+
+
+    <tiles x="0" y="0" width="6" height="10">
+      <tile texture="sample" height="1" />
+    </tiles>
+
+  </grid>
+</map>

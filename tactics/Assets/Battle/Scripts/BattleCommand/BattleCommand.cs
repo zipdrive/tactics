@@ -58,8 +58,8 @@ public class BattleCommand
                     return false;
         }
 
-        if (Expends == Type.Move) return agent["Turn: Move"] > 0;
-        if (Expends == Type.Action) return agent["Turn: Action"] > 0;
+        if (Expends == Type.Move) return agent["Turn:Move"] > 0;
+        if (Expends == Type.Action) return agent["Turn:Action"] > 0;
         return true;
     }
 

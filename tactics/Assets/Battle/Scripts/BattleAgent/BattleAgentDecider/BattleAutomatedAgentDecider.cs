@@ -15,7 +15,7 @@ public class BattleAutomatedAgentDecider : BattleAgentDecider
     public override BattleAction Update()
     {
         Dictionary<string, object> selections;
-        BattleCommand command = m_Agent.Behaviour.Decide(m_Agent, out selections);
+        BattleCommand command = m_Agent.Behaviour.Decide(m_Manager, m_Agent, out selections);
 
         if (command != null)
         {
@@ -27,9 +27,10 @@ public class BattleAutomatedAgentDecider : BattleAgentDecider
 
                 if (targetSelection != null)
                 {
-                    BattleManhattanDistanceZone range, target;
-                    targetSelection.GetRangeAndTarget(m_Agent, selections, out range, out target);
-                    target = selections[targetSelection.id] as BattleManhattanDistanceZone;
+                    string rangeType, targetType;
+                    targetSelection.GetRangeAndTarget(m_Agent, selections, out rangeType, out targetType);
+                    BattleManhattanDistanceZone range = Skill.GetRange(rangeType, m_Agent);
+                    BattleManhattanDistanceZone target = selections[targetSelection.id] as BattleManhattanDistanceZone;
 
                     m_Manager.Add(new BattleTargetSelect(t++, range));
                     m_Manager.Add(new BattleTargetConfirm(t++, range, target));
@@ -38,6 +39,8 @@ public class BattleAutomatedAgentDecider : BattleAgentDecider
 
             // TODO
 
+            if (command.Expends != BattleCommand.Type.None)
+                --m_Agent["Turn:" + command.Expends];
             return command.Construct(m_Agent, selections);
         }
 

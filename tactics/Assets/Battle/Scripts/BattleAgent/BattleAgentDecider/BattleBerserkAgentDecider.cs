@@ -9,7 +9,7 @@ public class BattleBerserkAgentDecider : BattleAgentDecider
     {
         m_Manager.grid.Selector.SelectedTile = m_Agent.Coordinates;
 
-        if (m_Agent["Turn: Action"] <= 0) return new BattleEndTurnAction(m_Agent);
+        if (m_Agent["Turn:Action"] <= 0) return new BattleEndTurnAction(m_Agent);
 
         // Find most powerful skill
         WeaponSkillFilter filter = new WeaponSkillFilter(m_Agent.BaseCharacter);
@@ -45,7 +45,7 @@ public class BattleBerserkAgentDecider : BattleAgentDecider
 
         if (options.Count == 0)
         {
-            if (m_Agent["Turn: Move"] <= 0) return new BattleEndTurnAction(m_Agent);
+            if (m_Agent["Turn:Move"] <= 0) return new BattleEndTurnAction(m_Agent);
 
             // Try to move closer
             target = TargetNearest();

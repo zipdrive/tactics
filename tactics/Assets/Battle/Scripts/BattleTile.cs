@@ -46,6 +46,7 @@ public class BattleTile : BattleGroundTerrain
                 Actor.Agent = new BattleAgent(AssetHolder.Characters[characterInfo.GetAttribute("name")],
                     characterInfo.HasAttribute("behaviour") ? 
                     BattleBehaviour.Parse(characterInfo.GetAttribute("behaviour")) : null);
+                Actor.Agent.Unit = BattleUnit.Get(characterInfo.HasAttribute("unit") ? characterInfo.GetAttribute("unit") : "civilian");
                 Actor.Agent.Coordinates = new Vector2Int(x, y);
             }
             catch (System.Exception e)

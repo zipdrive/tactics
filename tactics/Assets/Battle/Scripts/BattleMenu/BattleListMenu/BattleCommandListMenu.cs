@@ -141,7 +141,7 @@ public class BattleCommandListMenu : BattleListMenu
 
                 if (m_Command.Expends != BattleCommand.Type.None)
                 {
-                    string turn = "Turn: " + m_Command.Expends;
+                    string turn = "Turn:" + m_Command.Expends;
                     --m_Agent[turn];
                 }
 

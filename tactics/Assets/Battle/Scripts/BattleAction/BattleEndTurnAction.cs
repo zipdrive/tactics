@@ -14,7 +14,7 @@ public class BattleEndTurnAction : BattleAction
         m_Agent.OnTrigger(new BattleEvent(BattleEvent.Type.AfterTurn));
 
         m_Agent.CP -= 60;
-        if (m_Agent["Turn: Move"] <= 0) m_Agent.CP -= 15;
-        if (m_Agent["Turn: Action"] <= 0) m_Agent.CP -= 25;
+        if (m_Agent["Turn:Move"] <= 0) m_Agent.CP -= 15;
+        if (m_Agent["Turn:Action"] <= 0) m_Agent.CP -= 25;
     }
 }

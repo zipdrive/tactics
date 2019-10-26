@@ -69,6 +69,7 @@
      <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleBehaviour\BattleBehaviour.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleBehaviour\BattleBerserkBehaviour.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleBehaviour\BattleOffensiveBehaviour.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleDangerZone\BattleDangerZone.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAgent\BattleUnit.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleCommand\BattleCommand.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleCommand\BattleCommandAction\BattleCommandAction.cs" />

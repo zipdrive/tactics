@@ -23,5 +23,14 @@ public abstract class BattleCommandSelection
 
     public abstract BattleMenu Construct(BattleAgent agent, Dictionary<string, object> selections);
 
+    /// <summary>
+    /// Selects a list of best options from those available.
+    /// </summary>
+    /// <param name="agent">The agent performing the action</param>
+    /// <param name="selections">A dictionary of prior selections</param>
+    /// <param name="offense">True if the action is intended for offense, false for support.</param>
+    /// <returns>A list of options to pick from</returns>
+    public abstract List<object> Select(BattleManager manager, BattleAgent agent, Dictionary<string, object> selections, bool offense);
+
     public abstract List<object> Options(BattleAgent agent, Dictionary<string, object> selections);
 }

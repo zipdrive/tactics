@@ -38,6 +38,41 @@ public class BattleCommandSkillSelection : BattleCommandSelection
         return new BattleSkillElementListMenu(new TypeSkillFilter(agent.BaseCharacter, Type), id, SPCost, HPCost);
     }
 
+    public override List<object> Select(BattleManager manager, BattleAgent agent, Dictionary<string, object> selections, bool offense)
+    {
+        List<object> options = new List<object>();
+        TypeSkillFilter filter = new TypeSkillFilter(agent.BaseCharacter, Type);
+
+        if (offense)
+        {
+            foreach (Skill skill in filter)
+            {
+                if (skill.Type.StartsWith("Weapon") ||
+                    skill.Type.Equals("Magic [Offense]") ||
+                    skill.Type.Equals("Rune") ||
+                    skill.Type.Equals("Thievery"))
+                {
+                    options.Add(skill);
+                }
+            }
+        }
+        else
+        { 
+            foreach (Skill skill in filter)
+            {
+                if (skill.Type.Equals("Magic [Support]") ||
+                    skill.Type.Equals("Rune") ||
+                    skill.Type.Equals("Music") ||
+                    skill.Type.Equals("Nature"))
+                {
+                    options.Add(skill);
+                }
+            }
+        }
+
+        return options;
+    }
+
     public override List<object> Options(BattleAgent agent, Dictionary<string, object> selections)
     {
         return new List<object>(new TypeSkillFilter(agent.BaseCharacter, Type));

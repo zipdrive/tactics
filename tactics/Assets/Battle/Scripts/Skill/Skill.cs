@@ -28,15 +28,12 @@ public class Skill : IComparable<Skill>
 
     public static BattleManhattanDistanceZone GetTarget(string target, BattleAgent agent, BattleManhattanDistanceZone range)
     {
-        switch (target)
-        {
-            case "Single":
-                return new BattleManhattanDistanceZone(new Vector2Int(), 0, 0);
-            case "All":
-                return range;
-            default:
-                return new BattleManhattanDistanceZone(new Vector2Int(), 0, agent[target]);
-        }
+        if (target.Equals("Single"))
+            return new BattleManhattanDistanceZone(new Vector2Int(), 0, 0);
+        if (target.StartsWith("All"))
+            return new BattleManhattanDistanceZone(range.Center, range.MinRadius, range.MaxRadius + agent["AoE:" + target.Substring(4)]);
+
+        return new BattleManhattanDistanceZone(new Vector2Int(), 0, agent[target]);
     }
 
 
@@ -71,6 +68,10 @@ public class Skill : IComparable<Skill>
         if (Target.Equals("Radius"))
         {
             Target = "AoE:" + Type;
+        }
+        else if (Target.Equals("All"))
+        {
+            Target = "All:" + Type;
         }
 
         Range = skillInfo.HasAttribute("range") ? skillInfo.GetAttribute("range").Trim() : "Radius";

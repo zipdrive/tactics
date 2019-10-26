@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using System;
 
 public class BattleCommandTargetSelection : BattleCommandSelection
 {
@@ -20,15 +21,124 @@ public class BattleCommandTargetSelection : BattleCommandSelection
 
     public override BattleMenu Construct(BattleAgent agent, Dictionary<string, object> selections)
     {
-        BattleManhattanDistanceZone range, target;
-        GetRangeAndTarget(agent, selections, out range, out target);
+        string rangeType, targetType;
+        GetRangeAndTarget(agent, selections, out rangeType, out targetType);
+        BattleManhattanDistanceZone range = Skill.GetRange(rangeType, agent);
+        BattleManhattanDistanceZone target = Skill.GetTarget(targetType, agent, range);
+
         return new BattleTargetSelectMenu(id, range, target);
+    }
+
+    public override List<object> Select(BattleManager manager, BattleAgent agent, Dictionary<string, object> selections, bool offense)
+    {
+        string rangeType, targetType;
+        GetRangeAndTarget(agent, selections, out rangeType, out targetType);
+        BattleManhattanDistanceZone range = Skill.GetRange(rangeType, agent);
+
+        List<object> targets = new List<object>();
+
+        if (targetType.StartsWith("All"))
+        {
+            BattleManhattanDistanceZone target = Skill.GetTarget(targetType, agent, range);
+            
+            foreach (Vector2Int point in target)
+            {
+                // count if enemy or ally in space
+                BattleTile tile = manager.grid[point];
+
+                if (tile != null && tile.Actor != null)
+                {
+                    BattleUnit other = tile.Actor.Agent.Unit;
+                    if ((offense && agent.Unit.Opposes(other)) ||
+                        (!offense && !agent.Unit.Opposes(other)))
+                    {
+                        targets.Add(target);
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            int badMin = int.MaxValue;
+            int goodMax = 0;
+            int bestHealth = offense ? int.MaxValue : 0;
+
+            foreach (Vector2Int center in range)
+            {
+                BattleManhattanDistanceZone target = Skill.GetTarget(targetType, agent, range);
+                target.Center = center;
+
+                int badCount = 0;
+                int goodCount = 0;
+                int health = 0;
+
+                foreach (Vector2Int point in target)
+                {
+                    // count if enemy or ally in space
+                    BattleTile tile = manager.grid[point];
+                    
+                    if (tile != null && tile.Actor != null)
+                    {
+                        BattleAgent other = tile.Actor.Agent;
+                        if (offense)
+                        {
+                            if (agent.Unit.Opposes(other.Unit)) // is an enemy (good target)
+                            {
+                                ++goodCount;
+                                health += agent.HP;
+                            }
+                            else // is an ally or neutral (bad target)
+                            {
+                                ++badCount;
+                            }
+                        }
+                        else
+                        {
+                            if (agent.Unit.Opposes(other.Unit)) // is an enemy (bad target)
+                            {
+                                ++badCount;
+                            }
+                            else // is an ally or neutral (good target)
+                            {
+                                ++goodCount;
+                                health += agent.HP;
+                            }
+                        }
+                    }
+                }
+
+                if (badCount < badMin || (badCount == badMin && goodCount >= goodMax))
+                {
+                    if (badCount < badMin || goodCount > goodMax)
+                    {
+                        targets = new List<object>();
+                        badMin = badCount;
+                        goodMax = goodCount;
+                        bestHealth = health;
+                    }
+                    else if (health < bestHealth)
+                    {
+                        targets = new List<object>();
+                        bestHealth = health;
+                    }
+
+                    targets.Add(target);
+                }
+            }
+
+            if (goodMax == 0) return new List<object>();
+        }
+
+        return targets;
     }
 
     public override List<object> Options(BattleAgent agent, Dictionary<string, object> selections)
     {
-        BattleManhattanDistanceZone range, target;
-        GetRangeAndTarget(agent, selections, out range, out target);
+        string rangeType, targetType;
+        GetRangeAndTarget(agent, selections, out rangeType, out targetType);
+        BattleManhattanDistanceZone range = Skill.GetRange(rangeType, agent);
+        BattleManhattanDistanceZone target = Skill.GetTarget(targetType, agent, range);
 
         List<object> points = new List<object>();
         foreach (Vector2Int point in range)
@@ -39,10 +149,10 @@ public class BattleCommandTargetSelection : BattleCommandSelection
         return points;
     }
 
-    public void GetRangeAndTarget(BattleAgent agent, Dictionary<string, object> selections, out BattleManhattanDistanceZone range, out BattleManhattanDistanceZone target)
+    public void GetRangeAndTarget(BattleAgent agent, Dictionary<string, object> selections, out string range, out string target)
     {
-        string rangeType = "";
-        string targetType = "";
+        range = "";
+        target = "";
 
         if (!m_Skill.Equals(""))
         {
@@ -56,14 +166,11 @@ public class BattleCommandTargetSelection : BattleCommandSelection
                 AssetHolder.Skills.TryGetValue(m_Skill, out skill);
             }
 
-            rangeType = skill.Range;
-            targetType = skill.Target;
+            range = skill.Range;
+            target = skill.Target;
         }
 
-        if (!m_Range.Equals("")) rangeType = m_Range;
-        if (!m_Target.Equals("")) targetType = m_Target;
-
-        range = Skill.GetRange(rangeType, agent);
-        target = Skill.GetTarget(targetType, agent, range);
+        if (!m_Range.Equals("")) range = m_Range;
+        if (!m_Target.Equals("")) target = m_Target;
     }
 }

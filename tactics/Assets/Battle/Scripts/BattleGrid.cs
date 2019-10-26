@@ -66,11 +66,16 @@ public class BattleGrid : MonoBehaviour
             {
                 src.Load(value);
 
-                XmlNode root = src["grid"];
-                m_Width = int.Parse(root.Attributes["width"].Value);
-                m_Tiles = new BattleTile[m_Width * int.Parse(root.Attributes["height"].Value)];
+                XmlNode root = src["map"];
 
-                foreach (XmlElement tiles in root.SelectNodes("tiles"))
+                BattleUnit.Reset();
+                // TODO load units (outside of default "player" and "enemy")
+
+                XmlElement gridInfo = root.SelectSingleNode("grid") as XmlElement;
+                m_Width = int.Parse(gridInfo.GetAttribute("width"));
+                m_Tiles = new BattleTile[m_Width * int.Parse(gridInfo.GetAttribute("height"))];
+
+                foreach (XmlElement tiles in gridInfo.SelectNodes("tiles"))
                 {
                     int x = int.Parse(tiles.GetAttribute("x"));
                     int y = int.Parse(tiles.GetAttribute("y"));
