@@ -26,7 +26,12 @@ public class DamageSkillEffect : SkillEffect
 
     public override void Execute(BattleSkillEvent eventInfo)
     {
-        float baseDamage = 0.01f * m_Power * (eventInfo.Power * (100 - eventInfo.Target["Resist " + m_Element]));
+        // Calculate resistance
+        int resist = eventInfo.Target["Resist " + m_Element];
+        if (resist > 0) resist = resist < eventInfo.IgnoreResistance ? 0 : resist - eventInfo.IgnoreResistance;
+
+        // Calculate damage
+        float baseDamage = 0.01f * m_Power * (eventInfo.Power * (100 - resist));
         float baseCritical = m_Critical;
 
         float damage = baseDamage;

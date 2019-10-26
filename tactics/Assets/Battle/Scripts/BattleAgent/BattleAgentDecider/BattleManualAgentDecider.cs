@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleManualBehaviour : BattleBehaviour
+public class BattleManualAgentDecider : BattleAgentDecider
 {
     private BattleCommandListMenu m_RootMenu;
     private bool m_RootShown;
 
-    public BattleManualBehaviour(BattleAgent agent) : base(agent)
+    public BattleManualAgentDecider(BattleAgent agent) : base(agent)
     {
-        if (!(agent.BaseCharacter is PlayerCharacter))
-            throw new System.ArgumentException("[BattleManualBehaviour] Character must have type \"player\".");
+        // TODO???
     }
 
-    public override void Start(bool canMove, bool canAct)
+    public override void Start()
     {
-        m_RootMenu = new BattleCommandListMenu(m_Manager, m_Agent, canMove, canAct);
+        m_RootMenu = new BattleCommandListMenu(m_Manager, m_Agent);
         m_RootMenu.Construct();
         m_RootShown = true;
     }
 
-    public override BattleAction Update(bool canMove, bool canAct)
+    public override BattleAction Update()
     {
         if (m_RootShown)
         {

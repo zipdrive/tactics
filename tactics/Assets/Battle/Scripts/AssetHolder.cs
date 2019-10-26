@@ -76,7 +76,7 @@ public class AssetHolder : MonoBehaviour
                         BattleSprite sprite = new BattleSprite();
                         sprite.Portrait = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Battle/Portraits/" + (spriteInfo.HasAttribute("portrait") ? spriteInfo.GetAttribute("portrait") : spriteName) + ".png");
 
-                        foreach (XmlElement animationInfo in spriteInfo["animations"].ChildNodes)
+                        foreach (XmlElement animationInfo in spriteInfo.SelectNodes("animations/animation"))
                         {
                             BattleSpriteAnimation animation = new BattleSpriteAnimation();
 
@@ -138,7 +138,7 @@ public class AssetHolder : MonoBehaviour
             try
             {
                 commandsDoc.Load("Assets/Battle/Data/commands.xml");
-                XmlNode root = commandsDoc.SelectSingleNode("commands");
+                XmlNode root = commandsDoc["commands"];
 
                 foreach (XmlElement commandInfo in root.SelectNodes("command"))
                 {
@@ -196,7 +196,7 @@ public class AssetHolder : MonoBehaviour
 
                 int index = 1;
 
-                foreach (XmlElement skillInfo in root.GetElementsByTagName("skill"))
+                foreach (XmlElement skillInfo in root.SelectNodes("skill"))
                 {
                     try
                     {
@@ -293,7 +293,7 @@ public class AssetHolder : MonoBehaviour
                 characterDoc.Load("Assets/Battle/Data/characters.xml");
                 XmlElement root = characterDoc["characters"];
 
-                foreach (XmlElement characterInfo in root.ChildNodes)
+                foreach (XmlElement characterInfo in root.SelectNodes("character"))
                 {
                     try
                     {

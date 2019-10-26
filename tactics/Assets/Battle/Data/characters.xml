@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <characters>
-  <character name="Reds" title="Rune Robot" type="player" sprite="phil">
+  
+  <!--
+  PLAYABLE CHARACTERS
+  Characters who are primary playable characters.
+    -->
+  
+  <character name="Reds" title="Rune Robot" type="humanoid" sprite="reds">
     
     <profile>
-      <description></description>
+      <description>One of the first all-purpose robot models, first released about 24 years ago and discontinued shortly after as technology advanced.</description>
       <name>KTHN-73 "Reds"</name>
       <species>Robot</species>
       <occupation>Sewage System Maintenance</occupation>
@@ -30,6 +36,9 @@
 	      <skill>Whack</skill>
         <skill>Heal</skill>
       </active>
+      <passive>
+        <skill>Repair</skill>
+      </passive>
     </skills>
 
     <equipment>
@@ -38,15 +47,16 @@
     </equipment>
 
     <commands>
-      <command>Move</command>
       <command>Weapon Skill</command>
       <command>Magic Skill</command>
       <command>Overdrive</command>
     </commands>
   
   </character>
+  
+  
 
-  <character name="Phil" title="Independent Journalist" type="player" sprite="phil">
+  <character name="Phil" title="Independent Journalist" type="humanoid" sprite="phil">
 
     <profile>
       <description>Well, who could this incredibly talented, intelligent, and good-looking journalist be? Oh, that's right- it's me!</description>
@@ -77,15 +87,16 @@
     </equipment>
 
     <commands>
-      <command>Move</command>
       <command>Weapon Skill</command>
       <command>Magic Skill</command>
       <command>Report</command>
     </commands>
   
   </character>
+  
+  
 
-  <character name="Gereth" type="player">
+  <character name="Gereth" title="Combat Mechanic" type="humanoid" sprite="gereth">
 
     <profile>
       <description></description>
@@ -111,8 +122,10 @@
     </skills>
     
   </character>
+  
+  
 
-  <character name="Kharna" type="player">
+  <character name="Kharna" title="Bounty Hunter" type="humanoid" sprite="kharna">
 
     <profile>
       <description></description>
@@ -134,113 +147,93 @@
         <skill>Punch</skill>
       </active>
     </skills>
+
+    <commands>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+    </commands>
     
   </character>
   
-  <character name="debug" type="player" sprite="phil">
+  
+  
+  <!--
+  DEBUG CHARACTERS
+  Characters who aren't meant to be in the game, and are to serve primarily for debugging purposes.
+    -->
 
-    <profile>
-      <description>The OG worthless nobody.</description>
-      <name>Debug</name>
-      <species>????????</species>
-      <occupation>Waste of memory</occupation>
-    </profile>
-    
+  <character name="Debug Spellsword" title="Spellsword" type="humanoid" sprite="phil">
+
     <stats>
-      <stat name="HP">50</stat>
-      <stat name="SP">5</stat>
-      <stat name="Attack">5</stat>
-      <stat name="Magic">5</stat>
-    </stats>
-    
-    <skills>
-      <active>
-        <skill>Punch</skill>
-      </active>
-    </skills>
-
-    <commands>
-      <command>Move</command>
-      <command>Weapon Skill</command>
-      <command>Magic Skill</command>
-    </commands>
-    
-  </character>
-
-  <character name="Debug 1" title="Human Wizard" type="player" sprite="phil">
-
-    <profile>
-      <description>Worthless nobody #1.</description>
-      <name>Debug 1, Human Wizard</name>
-      <species>Human?</species>
-      <occupation>Wizard</occupation>
-    </profile>
-    
-    <stats>
-      <stat name="HP">42</stat>
+      <stat name="HP">60</stat>
       <stat name="SP">45</stat>
-      <stat name="Attack">5</stat>
-      <stat name="Magic">7</stat>
-      <stat name="Speed">6</stat>
-    </stats>
-    
-    <skills>
-      <active>
-        <skill>Punch</skill>
-        <skill>Flame</skill>
-        <skill>Frost</skill>
-        <skill>Thunder</skill>
-        <skill>Acid</skill>
-        <skill>Heal</skill>
-      </active>
-    </skills>
-
-    <commands>
-      <command>Move</command>
-      <command>Weapon Skill</command>
-      <command>Magic Skill</command>
-    </commands>
-    
-  </character>
-
-  <character name="Debug 2" title="Human Brawler" type="player" sprite="phil">
-
-    <profile>
-      <description>Worthless nobody #2.</description>
-      <name>Debug 2, Human Brawler</name>
-      <species>Human??</species>
-      <occupation>Brawler</occupation>
-    </profile>
-    
-    <stats>
-      <stat name="HP">80</stat>
-      <stat name="SP">35</stat>
       <stat name="Attack">6</stat>
-      <stat name="Magic">3</stat>
+      <stat name="Magic">7</stat>
+      <stat name="Speed">5</stat>
     </stats>
-    
-    <skills>
-      <active>
-        <skill>Punch</skill>
-        <skill>Slash</skill>
-        <skill>Stab</skill>
-        <skill>Bash</skill>
-        <skill>Shoot</skill>
-        <skill>Flame</skill>
-      </active>
-    </skills>
 
     <equipment>
-      <weapon>Warhammer of Zillyhoo</weapon>
-      <body>Divine Pantaloons</body>
+      <weapon>Saber</weapon>
+      <body>Clothes</body>
     </equipment>
-    
+
     <commands>
-      <command>Move</command>
       <command>Weapon Skill</command>
       <command>Magic Skill</command>
+      <command>Imbue</command>
     </commands>
-    
+
+    <skills>
+      <active>
+        <skill>Punch</skill>
+        <skill>Burn</skill>
+        <skill>Burn All</skill>
+        <skill>Disintegrate</skill>
+        <skill>Disintegrate All</skill>
+      </active>
+      <passive>
+        <skill>Fire +33%</skill>
+      </passive>
+    </skills>
+
+  </character>
+  
+
+
+  <character name="Debug Blood Mage" title="Blood Mage" type="humanoid" sprite="phil">
+
+    <stats>
+      <stat name="HP">50</stat>
+      <stat name="SP">60</stat>
+      <stat name="Attack">4</stat>
+      <stat name="Magic">8</stat>
+      <stat name="Speed">5</stat>
+    </stats>
+
+    <equipment>
+      <weapon>Saber</weapon>
+      <body>Uniform</body>
+    </equipment>
+
+    <commands>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+      <command>Sacrifice</command>
+    </commands>
+
+    <skills>
+      <active>
+        <skill>Punch</skill>
+        <skill>Burn</skill>
+        <skill>Burn All</skill>
+        <skill>Disintegrate</skill>
+        <skill>Disintegrate All</skill>
+      </active>
+      <passive>
+        <skill>Offensive Magic Range +4</skill>
+      </passive>
+    </skills>
+
   </character>
   
   

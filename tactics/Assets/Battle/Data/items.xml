@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <items>
+  
+  <!-- SWORDS -->
+
+  <weapon name="Saber" type="Sword" />
+  
+  
 
   <!-- HAMMERS -->
   
@@ -19,11 +25,18 @@
   
   
   <!-- BODY EQUIPMENT -->
-  
-  <body name="Clothes" slots="1" />
-  <body name="Uniform" slots="1" />
 
-  <body name="Divine Pantaloons" slots="4">
+  <body name="Clothes">
+    <stat name="Passive Slots">1</stat>
+  </body>
+
+  <body name="Uniform">
+    <stat name="Passive Slots">1</stat>
+  </body>
+
+  <body name="Divine Pantaloons">
+    <stat name="Passive Slots">99</stat>
+    
     <stat name="Resist Physical">99</stat>
     <stat name="Resist Fire">99</stat>
     <stat name="Resist Ice">99</stat>

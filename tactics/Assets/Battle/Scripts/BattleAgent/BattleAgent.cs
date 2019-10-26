@@ -6,6 +6,40 @@ public class BattleAgent
 {
     public readonly Character BaseCharacter;
 
+    private BattleUnit m_Unit;
+
+    /// <summary>
+    /// The unit that the agent is a part of.
+    /// </summary>
+    public BattleUnit Unit
+    {
+        get
+        {
+            return m_Unit;
+        }
+
+        set
+        {
+            if (m_Unit != null) m_Unit.Remove(this);
+            
+            m_Unit = value;
+            m_Unit.Add(this);
+        }
+    }
+
+    private BattleBehaviour m_DefaultBehaviour;
+
+    /// <summary>
+    /// The behaviour of the agent.
+    /// </summary>
+    public BattleBehaviour Behaviour
+    {
+        get
+        {
+            return m_DefaultBehaviour;
+        }
+    }
+
     /// <summary>
     /// The coordinates of the agent.
     /// </summary>
@@ -19,11 +53,14 @@ public class BattleAgent
     public int SP;
     public int CP;
 
+    private Dictionary<string, int> m_TempStats = new Dictionary<string, int>();
+
     public int this[string stat]
     {
         get
         {
-            int s = BaseCharacter[stat];
+            int s = m_TempStats.ContainsKey(stat) ? m_TempStats[stat] : 0;
+            s += BaseCharacter[stat];
 
             foreach (StatusInstance status in StatusEffects.Values)
                 s += status[stat];
@@ -43,33 +80,42 @@ public class BattleAgent
                     return s > 100 ? 100 : s;
             }
         }
+
+        set
+        {
+            m_TempStats[stat] = value;
+        }
     }
 
     public Dictionary<Status, StatusInstance> StatusEffects = new Dictionary<Status, StatusInstance>();
 
 
-    private BattleBehaviour m_DefaultBehaviour;
-
-    public BattleBehaviour Behaviour
-    {
-        get
-        {
-            return m_DefaultBehaviour;
-        }
-
-        set
-        {
-            m_DefaultBehaviour = value;
-        }
-    }
+    
 
 
-    public BattleAgent(Character baseCharacter)
+    public BattleAgent(Character baseCharacter, BattleBehaviour behaviour)
     {
         BaseCharacter = baseCharacter;
+        m_DefaultBehaviour = behaviour;
 
         HP = this["HP"];
         SP = this["SP"];
+        
+        foreach (Skill skill in BaseCharacter.ActiveSkills)
+        {
+            if (this["Skill: " + skill.Type] == 0) this["Skill: " + skill.Type] = 1;
+        }
+        
+        foreach (Status status in BaseCharacter.PassiveSkills)
+        {
+            if (status != null)
+            {
+                StatusEffects.Add(status, new StatusInstance(status, int.MaxValue));
+
+                BattleEvent eventInfo = new BattleEvent(BattleEvent.Type.FirstInflictedWithStatus);
+                status.OnTrigger(new StatusEvent(eventInfo, status, StatusEffects[status], this));
+            }
+        }
     }
 
     public void Damage(BattleDamageEvent eventInfo)

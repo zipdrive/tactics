@@ -20,11 +20,17 @@
     /// </summary>
     public int Power;
 
+    /// <summary>
+    /// How many (positive) points of resistance to ignore.
+    /// </summary>
+    public int IgnoreResistance;
+
     public BattleSkillEvent(Type type, BattleAgent user, BattleAgent target, Skill skill) : base(type)
     {
         User = user;
         Target = target;
         Skill = skill;
         Power = Skill.BasePower(user);
+        IgnoreResistance = 0;
     }
 }

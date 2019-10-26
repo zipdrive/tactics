@@ -22,4 +22,6 @@ public abstract class BattleCommandSelection
     public string id;
 
     public abstract BattleMenu Construct(BattleAgent agent, Dictionary<string, object> selections);
+
+    public abstract List<object> Options(BattleAgent agent, Dictionary<string, object> selections);
 }

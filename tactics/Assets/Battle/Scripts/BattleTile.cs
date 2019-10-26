@@ -43,18 +43,21 @@ public class BattleTile : BattleGroundTerrain
             try
             {
                 Actor = Instantiate((BattleActor)AssetHolder.Objects["actor"], ground.transform);
-                Actor.Agent = new BattleAgent(AssetHolder.Characters[characterInfo.GetAttribute("name")]);
-
-                if (characterInfo.HasAttribute("behaviour"))
-                {
-                    Actor.Agent.Behaviour = BattleBehaviour.Parse(characterInfo.GetAttribute("behaviour"), Actor.Agent);
-                }
-
+                Actor.Agent = new BattleAgent(AssetHolder.Characters[characterInfo.GetAttribute("name")],
+                    characterInfo.HasAttribute("behaviour") ? 
+                    BattleBehaviour.Parse(characterInfo.GetAttribute("behaviour")) : null);
                 Actor.Agent.Coordinates = new Vector2Int(x, y);
             }
-            catch
+            catch (System.Exception e)
             {
-                Actor = null;
+                string id = characterInfo.HasAttribute("name") ? characterInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                Debug.Log("Tile unable to load character \"" + id + "\"\n" + e);
+
+                if (Actor != null)
+                {
+                    GameObject.Destroy(Actor);
+                    Actor = null;
+                }
             }
         }
     }

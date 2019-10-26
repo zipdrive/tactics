@@ -27,6 +27,6 @@ public class Equipment : Item
         Slot = slot;
 
         foreach (XmlElement statInfo in equipmentInfo.SelectNodes("stat"))
-            m_Stats[statInfo.GetAttribute("stat")] = int.Parse(statInfo.InnerText.Trim());
+            m_Stats[statInfo.GetAttribute("name")] = int.Parse(statInfo.InnerText.Trim());
     }
 }

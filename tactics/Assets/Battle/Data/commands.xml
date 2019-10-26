@@ -91,7 +91,7 @@
 
     <action>
       <damage to="HP" percentage="0.2" />
-      <skill id="skill" target="target" power="Power: Sacrifice" />
+      <skill id="skill" target="target" power="Power:Sacrifice" />
     </action>
   </command>
   

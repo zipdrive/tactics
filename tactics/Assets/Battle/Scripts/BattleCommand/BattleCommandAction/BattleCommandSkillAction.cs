@@ -58,6 +58,8 @@ public class BattleCommandSkillAction : BattleCommandAction
             target = Skill.GetTarget(m_Target, agent, range);
         }
 
-        return new BattleSkillAction(agent, skill, target, 0.01f * (m_Power.Equals("") ? agent["Power: " + skill.Element] : agent[m_Power]), m_SPCost, m_HPCost);
+        return new BattleSkillAction(agent, skill, target, 
+            0.01f * (m_Power.Equals("") ? agent["Power:" + skill.Element] : agent[m_Power]), 
+            m_SPCost, m_HPCost);
     }
 }

@@ -20,8 +20,8 @@ public class Skill : IComparable<Skill>
                 return new BattleManhattanPathZone(agent.Coordinates, 1, agent["Move"], agent["Jump"]);
             default:
                 int min = 0;
-                if (range.Equals("Range: Weapon [Melee]")) min = 1;
-                if (range.Equals("Range: Weapon [Ranged]")) min = 2;
+                if (range.Equals("Range:Weapon [Melee]")) min = 1;
+                else if (range.Equals("Range:Weapon [Ranged]")) min = 2;
                 return new BattleManhattanDistanceZone(agent.Coordinates, min, agent[range]);
         }
     }
@@ -70,13 +70,13 @@ public class Skill : IComparable<Skill>
         Target = skillInfo.HasAttribute("target") ? skillInfo.GetAttribute("target").Trim() : "Single";
         if (Target.Equals("Radius"))
         {
-            Target = "AoE: " + Type;
+            Target = "AoE:" + Type;
         }
 
         Range = skillInfo.HasAttribute("range") ? skillInfo.GetAttribute("range").Trim() : "Radius";
         if (Range.Equals("Radius"))
         {
-            Range = "Range: " + Type;
+            Range = "Range:" + Type;
         }
 
 
@@ -106,7 +106,7 @@ public class Skill : IComparable<Skill>
 
     public int Cost(BattleAgent user)
     {
-        return Mathf.CeilToInt(0.01f * m_Cost * (100 - user["Cost: " + Type]));
+        return Mathf.CeilToInt(0.01f * m_Cost * (100 - user["Cost:" + Type]));
     }
 
     public int BasePower(BattleAgent user)

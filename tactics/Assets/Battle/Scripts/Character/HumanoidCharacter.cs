@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 
-public class PlayerCharacter : Character
+public class HumanoidCharacter : Character
 {
     Weapon m_Primary;
     Weapon m_Secondary;
@@ -96,8 +96,20 @@ public class PlayerCharacter : Character
     }
 
 
-    public PlayerCharacter(XmlElement characterInfo) : base(characterInfo)
+    public HumanoidCharacter(XmlElement characterInfo) : base(characterInfo)
     {
-        // TODO
+        m_PassiveSkills = new Status[this["Passive Slots"]];
+
+        int passiveSkillIndex = 0;
+        foreach (XmlElement skillInfo in characterInfo.SelectNodes("skills/passive/skill"))
+        {
+            if (passiveSkillIndex < m_PassiveSkills.Length)
+            {
+                if (!AssetHolder.Effects.TryGetValue("Passive:" + skillInfo.InnerText.Trim(), out m_PassiveSkills[passiveSkillIndex++]))
+                    m_PassiveSkills[--passiveSkillIndex] = null;
+                else UnityEngine.Debug.Log("[HumanoidCharacter] Passive skill \"" + skillInfo.InnerText.Trim() + "\" added successfully.");
+            }
+            else UnityEngine.Debug.Log("[HumanoidCharacter] Passive skill \"" + skillInfo.InnerText.Trim() + "\" exceeds number of passive skill slots on character " + Name + "!");
+        }
     }
 }

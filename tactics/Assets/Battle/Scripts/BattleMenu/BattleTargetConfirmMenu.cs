@@ -28,11 +28,13 @@ public class BattleTargetConfirmMenu : BattleMenu
     public override void Construct()
     {
         m_Manager.grid.TargetedAreas.Set(m_Targets);
+        BattleSelector.Frozen = true;
     }
 
     public override void Destruct()
     {
         m_Manager.grid.TargetedAreas.Clear();
+        BattleSelector.Frozen = false;
     }
 
     public override UpdateResult Update()
@@ -42,17 +44,8 @@ public class BattleTargetConfirmMenu : BattleMenu
 
         if (Input.GetButtonDown("Submit"))
         {
-            Vector2Int selection = m_Manager.grid.Selector.SelectedTile;
-            if (selection == m_Targets.Center)
-            {
-                m_Selections[m_ID] = m_Targets;
-                return UpdateResult.Completed;
-            }
-            else if (m_Manager.grid.SelectableZone[selection] && m_Targets != m_Manager.grid.SelectableZone)
-            {
-                m_Targets.Center = selection;
-                m_Manager.grid.TargetedAreas.Set(m_Targets);
-            }
+            m_Selections[m_ID] = m_Targets;
+            return UpdateResult.Completed;
         }
 
         return UpdateResult.InProgress;

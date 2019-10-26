@@ -19,7 +19,16 @@ public class InflictSkillEffect : SkillEffect
         float baseDuration = m_Power * eventInfo.Power;
 
         if (status.Resistible)
-            baseDuration *= 0.01f * (100 - eventInfo.Target["Resist " + status.Element]);
+        {
+            int resist = eventInfo.Target["Resist " + status.Element];
+            
+            if (resist > 0)
+            {
+                resist = resist < eventInfo.IgnoreResistance ? 0 : resist - eventInfo.IgnoreResistance;
+            }
+
+            baseDuration *= 0.01f * (100 - resist);
+        }
 
         int duration = Mathf.FloorToInt(baseDuration);
         if (Random.Range(0f, 1f) < baseDuration - duration)

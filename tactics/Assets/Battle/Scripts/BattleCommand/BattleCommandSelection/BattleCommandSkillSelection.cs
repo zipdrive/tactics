@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 
 public class BattleCommandSkillSelection : BattleCommandSelection
@@ -34,5 +36,10 @@ public class BattleCommandSkillSelection : BattleCommandSelection
     public override BattleMenu Construct(BattleAgent agent, Dictionary<string, object> selections)
     {
         return new BattleSkillElementListMenu(new TypeSkillFilter(agent.BaseCharacter, Type), id, SPCost, HPCost);
+    }
+
+    public override List<object> Options(BattleAgent agent, Dictionary<string, object> selections)
+    {
+        return new List<object>(new TypeSkillFilter(agent.BaseCharacter, Type));
     }
 }

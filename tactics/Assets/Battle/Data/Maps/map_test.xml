@@ -1,42 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<grid width="10" height="10">
-
-  <water level="1" />
-
-  <tiles x="1" y="1">
-    <tile texture="sample" height="2">
-      <character name="Reds" behaviour="manual" />
-    </tile>
-  </tiles>
+<grid width="6" height="10">
 
   <tiles x="2" y="1">
-    <tile texture="sample" height="3">
-      <character name="Debug 2" behaviour="berserk" />
+    <tile texture="sample" height="2">
+      <character name="Debug Blood Mage" />
     </tile>
   </tiles>
 
-  <tiles x="0" y="0" width="3" height="3">
-    <tile texture="sample" height="2" />
+  <tiles x="3" y="1">
+    <tile texture="sample" height="2">
+      <character name="Debug Spellsword" />
+    </tile>
   </tiles>
   
-  <tiles x="6" y="6">
-    <tile texture="sample" height="4">
-      <character name="Phil" behaviour="manual" />
+
+  <tiles x="2" y="8">
+    <tile texture="sample" height="2">
+      <character name="Debug Spellsword" behaviour="offense" />
     </tile>
   </tiles>
 
-  <tiles x="7" y="5">
-    <tile texture="sample" height="3">
-      <character name="Debug 1" behaviour="berserk" />
+  <tiles x="3" y="8">
+    <tile texture="sample" height="2">
+      <character name="Debug Blood Mage" behaviour="offense" />
     </tile>
   </tiles>
   
-  <tiles x="5" y="5" width="4" height="3">
-    <tile texture="sample" height="3" />
-  </tiles>
     
-  <tiles x="0" y="0" width="10" height="10">
+  <tiles x="0" y="0" width="6" height="10">
     <tile texture="sample" height="1" />
   </tiles>
 

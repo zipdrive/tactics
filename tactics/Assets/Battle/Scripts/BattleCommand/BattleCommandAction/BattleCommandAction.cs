@@ -10,6 +10,8 @@ public abstract class BattleCommandAction
     {
         switch (actionInfo.Name)
         {
+            case "damage": // Lose a percentage of max health
+                return new BattleCommandDamageAction(actionInfo);
             case "move": // Move
                 return new BattleCommandMoveAction(actionInfo);
             case "skill": // Use a skill
@@ -17,8 +19,6 @@ public abstract class BattleCommandAction
             case "end": // End turn
                 return new BattleCommandEndTurnAction();
             /*
-            case "damage": // Take damage
-                return null;
             case "item": // Use an item
                 return null;
             case "mix": // Mix two reagents

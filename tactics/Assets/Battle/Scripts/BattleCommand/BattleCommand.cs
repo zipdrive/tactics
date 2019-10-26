@@ -51,6 +51,25 @@ public class BattleCommand
 
     public bool Enabled(BattleAgent agent)
     {
+        foreach (BattleCommandSelection selection in Selections)
+        {
+            if (selection is BattleCommandSkillSelection)
+                if (selection.Options(agent, new Dictionary<string, object>()).Count == 0)
+                    return false;
+        }
+
+        if (Expends == Type.Move) return agent["Turn: Move"] > 0;
+        if (Expends == Type.Action) return agent["Turn: Action"] > 0;
         return true;
+    }
+
+    public BattleAction Construct(BattleAgent agent, Dictionary<string, object> selections)
+    {
+        List<BattleAction> sequence = new List<BattleAction>();
+
+        foreach (BattleCommandAction action in Actions)
+            sequence.Add(action.Construct(agent, selections));
+
+        return sequence.Count == 1 ? sequence[0] : new BattleSequenceAction(sequence);
     }
 }

@@ -11,8 +11,12 @@ public class BattleAgentReportUI : MonoBehaviour
     public Text profileSpecies;
     public Text profileOccupation;
 
-    public Text hp;
-    public Text sp;
+    public RectTransform hpBar;
+    public Text hpLabel;
+
+    public RectTransform spBar;
+    public Text spLabel;
+
     public Text attack;
     public Text magic;
     public Text speed;
@@ -30,13 +34,19 @@ public class BattleAgentReportUI : MonoBehaviour
     {
         portrait.sprite = agent.BaseCharacter.Sprite.Portrait;
 
-        profileName.text = agent.BaseCharacter.ProfileName;
-        profileSpecies.text = agent.BaseCharacter.ProfileSpecies;
-        profileOccupation.text = agent.BaseCharacter.ProfileOccupation;
-        profileDescription.text = agent.BaseCharacter.ProfileDescription;
+        profileName.text = agent.BaseCharacter.Profile["name"];
+        profileSpecies.text = agent.BaseCharacter.Profile["species"];
+        profileOccupation.text = agent.BaseCharacter.Profile["occupation"];
+        profileDescription.text = agent.BaseCharacter.Profile["description"];
 
-        hp.text = agent.HP + "/" + agent["HP"];
-        sp.text = agent.SP + "/" + agent["SP"];
+        hpBar.anchorMax = new Vector2(Mathf.Clamp((float)agent.HP / agent["HP"], 0f, 1f), 1f);
+        hpBar.sizeDelta = new Vector2(0f, hpBar.sizeDelta.y);
+        hpLabel.text = agent.HP + "/" + agent["HP"];
+
+        spBar.anchorMax = new Vector2(Mathf.Clamp((float)agent.SP / agent["SP"], 0f, 1f), 1f);
+        spBar.sizeDelta = new Vector2(0f, spBar.sizeDelta.y);
+        spLabel.text = agent.SP + "/" + agent["SP"];
+
         attack.text = agent["Attack"].ToString();
         magic.text = agent["Magic"].ToString();
         speed.text = agent["Speed"].ToString();

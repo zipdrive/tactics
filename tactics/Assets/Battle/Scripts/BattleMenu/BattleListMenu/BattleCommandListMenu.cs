@@ -59,18 +59,14 @@ public class BattleCommandListMenu : BattleListMenu
     {
         public readonly BattleCommand command;
 
-        public CommandOption(BattleCommand command, bool canMove, bool canAct)
+        public CommandOption(BattleCommand command)
         {
             this.command = command;
 
             labels = new string[] { command.Label };
-
-            if (command.Expends == BattleCommand.Type.Move) enabled = canMove;
-            else if (command.Expends == BattleCommand.Type.Action) enabled = canAct;
-            else enabled = true;
-            enabled = enabled & command.Enabled(m_Agent);
-
             description = new string[] { command.Description };
+
+            enabled = command.Enabled(m_Agent);
         }
 
         public override UpdateResult OnSelect(BattleMenu menu)
@@ -88,17 +84,19 @@ public class BattleCommandListMenu : BattleListMenu
     }
 
 
-    public BattleCommandListMenu(BattleManager manager, BattleAgent agent, bool canMove, bool canAct)
+    public BattleCommandListMenu(BattleManager manager, BattleAgent agent)
     {
         m_Manager = manager;
         m_Agent = agent;
 
+        Add(new CommandOption(AssetHolder.Commands["Move"]));
+
         foreach (BattleCommand command in m_Agent.BaseCharacter.Commands)
         {
-            Add(new CommandOption(command, canMove, canAct));
+            Add(new CommandOption(command));
         }
 
-        Add(new CommandOption(AssetHolder.Commands["End Turn"], canMove, canAct));
+        Add(new CommandOption(AssetHolder.Commands["End Turn"]));
     }
 
     public override void Construct()
@@ -139,12 +137,14 @@ public class BattleCommandListMenu : BattleListMenu
                 Destruct();
 
                 // Construct final decision using m_Command.Actions
-                List<BattleAction> sequence = new List<BattleAction>();
+                decision = m_Command.Construct(m_Agent, m_Selections);
 
-                foreach (BattleCommandAction action in m_Command.Actions)
-                    sequence.Add(action.Construct(m_Agent, m_Selections));
+                if (m_Command.Expends != BattleCommand.Type.None)
+                {
+                    string turn = "Turn: " + m_Command.Expends;
+                    --m_Agent[turn];
+                }
 
-                decision = sequence.Count == 1 ? sequence[0] : new BattleSequenceAction(sequence);
                 return result;
             }
             else

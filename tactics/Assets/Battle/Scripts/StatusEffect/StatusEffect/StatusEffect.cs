@@ -26,8 +26,12 @@ public abstract class StatusEffect
                 return new ExhaustibleStatusEffect(effectInfo);
             case "random":
                 return new ProbabilisticStatusEffect(effectInfo);
+            case "reflect":
+                return new ReflectStatusEffect(effectInfo);
             case "repeat":
                 return new RepeaterStatusEffect(effectInfo);
+            case "resistance":
+                return new ResistanceStatusEffect(effectInfo);
         }
 
         throw new System.IO.FileLoadException("[StatusEffect] Unrecognized effect type \"" + effectInfo.Name + "\"");

@@ -7,6 +7,7 @@ using System.Xml;
 
 public class BattleGrid : MonoBehaviour
 {
+    public static float CameraScale = 1.5f;
     public static float CameraSpeed = 0.05f;
 
     public static float RotationSpeed = 90f;
@@ -78,16 +79,21 @@ public class BattleGrid : MonoBehaviour
 
                     XmlElement tile = tiles["tile"];
 
-                    for (int i = x + w; i >= x; --i)
+                    for (int i = x + w; i >= x && i >= 0; --i)
                     {
-                        for (int j = y + h; j >= y; --j)
+                        if (i >= Width) i = Width - 1;
+                        else
                         {
-                            if (this[i, j] == null)
+                            for (int j = y + h; j >= y && j >= 0; --j)
                             {
-                                this[i, j] = Instantiate(tilePrefab, transform);
-                                this[i, j].name = "Tile (" + i + ", " + j + ")";
-                                this[i, j].transform.localPosition = new Vector3(i, j);
-                                this[i, j].Load(tile, i, j);
+                                if (j >= Height) j = Height - 1;
+                                else if (this[i, j] == null)
+                                {
+                                    this[i, j] = Instantiate(tilePrefab, transform);
+                                    this[i, j].name = "Tile (" + i + ", " + j + ")";
+                                    this[i, j].transform.localPosition = new Vector3(i, j);
+                                    this[i, j].Load(tile, i, j);
+                                }
                             }
                         }
                     }
@@ -190,7 +196,7 @@ public class BattleGrid : MonoBehaviour
             else if (Mathf.RoundToInt(zr1)/90 != Mathf.RoundToInt(zr2)/90)
             {
                 transform.localEulerAngles = new Vector3(0f, 0f, Mathf.Round(zr2 / 90f) * 90f);
-                transform.position = transform.rotation * -Selector.Cursor.transform.localPosition;
+                transform.localPosition = transform.localRotation * -Selector.Cursor.transform.localPosition * CameraScale;
 
                 m_Rotation = 0f;
             }
@@ -219,9 +225,11 @@ public class BattleGrid : MonoBehaviour
                 }
             }
         }
-        
+
         // TODO fix the weird jump that the camera does after rotation
-        transform.position -= CameraSpeed * (transform.position + (transform.rotation * Selector.Cursor.transform.localPosition));
+        transform.localScale = new Vector3(CameraScale, CameraScale, CameraScale);
+        transform.localPosition -= CameraSpeed * (transform.localPosition + 
+            (transform.localRotation * Selector.Cursor.transform.localPosition * CameraScale));
     }
 
     public bool IsSelectable(int x, int y)
