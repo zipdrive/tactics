@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Behaviour that focuses on dealing damage.
@@ -50,6 +51,55 @@ public class BattleOffensiveBehaviour : BattleBehaviour
             if (agent["Turn:Move"] > 0)
             {
                 // Move within range
+
+                int nearestDist = int.MaxValue;
+                BattleAgent nearest = null;
+                foreach (BattleAgent other in manager.agents)
+                {
+                    int dist = PathFinder.ManhattanDistance(agent.Coordinates, other.Coordinates);
+                    if (agent.Unit.Opposes(other.Unit) && 
+                        dist < nearestDist)
+                    {
+                        nearestDist = dist;
+                        nearest = other;
+                    }
+                }
+
+                int optDist; // TODO this section but better
+                if (agent["Attack"] > agent["Magic"])
+                {
+                    optDist = 1;
+                }
+                else
+                {
+                    optDist = agent["Range:Magic [Offense]"] + agent["AoE:Magic [Offense]"];
+                }
+
+                List<Vector2Int> points = new List<Vector2Int>();
+                BattleManhattanDistanceZone moveRange = Skill.GetRange("Move", agent);
+                int closestDiff = int.MaxValue;
+                foreach (Vector2Int point in moveRange)
+                {
+                    int dist = PathFinder.ManhattanDistance(nearest.Coordinates, point);
+                    int diff = dist > optDist ? dist - optDist : optDist - dist;
+                    if (diff <= closestDiff)
+                    {
+                        if (diff < closestDiff)
+                        {
+                            closestDiff = diff;
+                            points = new List<Vector2Int>();
+                        }
+                        points.Add(point);
+                    }
+                }
+
+                if (points.Count > 0)
+                {
+                    // TODO pick point that closest target is facing furthest away from
+                    selections = new Dictionary<string, object>();
+                    selections["destination"] = new BattleManhattanDistanceZone(points[rand.Next() % points.Count], 0, 0);
+                    return AssetHolder.Commands["Move"];
+                }
             }
         }
         else if (agent["Turn:Move"] > 0)

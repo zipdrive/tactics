@@ -7,9 +7,9 @@ public class PathFinder
     private class Node : IComparable<Node>
     {
         public Vector2Int Coordinates;
-        public float ExpectedDistance;
+        public int ExpectedDistance;
 
-        public Node(Vector2Int coordinates, float expectedDistance)
+        public Node(Vector2Int coordinates, int expectedDistance)
         {
             Coordinates = coordinates;
             ExpectedDistance = expectedDistance;
@@ -36,6 +36,12 @@ public class PathFinder
         m_Grid = grid;
     }
 
+    public static int ManhattanDistance(Vector2Int point1, Vector2Int point2)
+    {
+        Vector2Int d = point1 - point2;
+        return (d.x < 0 ? -d.x : d.x) + (d.y < 0 ? -d.y : d.y);
+    }
+
     /// <summary>
     /// Calculate a path from source to destination using A*.
     /// </summary>
@@ -48,7 +54,7 @@ public class PathFinder
     public static bool AStar(Vector2Int source, Vector2Int destination, out Stack<Vector2Int> path, int maxClimb = int.MaxValue, int maxLength = int.MaxValue)
     {
         List<Node> open = new List<Node>();
-        open.Add(new Node(source, (source - destination).magnitude));
+        open.Add(new Node(source, ManhattanDistance(source, destination)));
         HashSet<Vector2Int> closed = new HashSet<Vector2Int>();
 
         Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();
@@ -89,12 +95,12 @@ public class PathFinder
                                 if (node.Coordinates == neighbor)
                                 {
                                     isInOpen = true;
-                                    node.ExpectedDistance = d + (neighbor - destination).magnitude;
+                                    node.ExpectedDistance = d + ManhattanDistance(neighbor, destination);
                                     break;
                                 }
                             }
                             if (!isInOpen)
-                                open.Add(new Node(neighbor, d + (neighbor - destination).magnitude));
+                                open.Add(new Node(neighbor, d + ManhattanDistance(neighbor, destination)));
                         }
                     }
                 }
