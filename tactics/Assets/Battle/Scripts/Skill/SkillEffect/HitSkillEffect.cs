@@ -55,7 +55,7 @@ public class HitSkillEffect : SkillEffect
         }
         else
         {
-            Debug.Log("Miss!");
+            eventInfo.Manager.Add(new BattleShowAgentMessage(eventInfo.Time, eventInfo.Manager, eventInfo.Target, "Miss"));
         }
     }
 }

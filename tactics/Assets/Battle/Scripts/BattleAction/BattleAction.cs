@@ -2,5 +2,5 @@
 {
     public BattleAgent Agent;
 
-    public abstract void Execute(BattleManager manager, int time);
+    public abstract void Execute(BattleManager manager, BattleQueueTime time);
 }

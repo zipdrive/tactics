@@ -2,9 +2,9 @@
 
 public abstract class BattleQueueMember : IComparable<BattleQueueMember>
 {
-    public int time;
+    public BattleQueueTime time;
 
-    public BattleQueueMember(int time)
+    public BattleQueueMember(BattleQueueTime time)
     {
         this.time = time;
     }

@@ -2,7 +2,7 @@
 {
     private BattleAction m_Action;
 
-    public BattleActionExecution(int time, BattleAction action) : base(time)
+    public BattleActionExecution(BattleQueueTime time, BattleAction action) : base(time)
     {
         m_Action = action;
     }

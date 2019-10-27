@@ -13,7 +13,7 @@ public class BattleMoveAction : BattleAction
         this.destination = destination;
     }
 
-    public override void Execute(BattleManager manager, int time)
+    public override void Execute(BattleManager manager, BattleQueueTime time)
     {
         // Find a path using A*
         Stack<Vector2Int> steps;

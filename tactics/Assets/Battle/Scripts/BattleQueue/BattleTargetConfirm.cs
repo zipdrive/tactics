@@ -6,7 +6,7 @@ public class BattleTargetConfirm : BattleQueueMember
     private BattleManhattanDistanceZone m_Target;
     private float m_Duration;
 
-    public BattleTargetConfirm(int time, BattleZone range, BattleManhattanDistanceZone target) : base(time)
+    public BattleTargetConfirm(BattleQueueTime time, BattleZone range, BattleManhattanDistanceZone target) : base(time)
     {
         m_Range = range;
         m_Target = target;
@@ -27,7 +27,7 @@ public class BattleTargetConfirm : BattleQueueMember
     {
         m_Duration += Time.deltaTime;
 
-        if (m_Duration > 2f * BattleTargetSelect.AnimationSpeed)
+        if (m_Duration > 2f * Settings.AITargetSpeed)
         {
             manager.grid.SelectableZone = null;
             manager.grid.TargetedAreas.Clear();

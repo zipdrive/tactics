@@ -2,6 +2,8 @@
 
 public class BattleActor : BattleObject2D
 {
+    public BattleActorMessageText MessageTextPrefab;
+
     public BattleAgent Agent;
 
     private Transform m_GridTransform;

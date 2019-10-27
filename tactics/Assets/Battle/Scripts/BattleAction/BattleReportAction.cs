@@ -7,8 +7,8 @@
         m_Agent = agent;
     }
 
-    public override void Execute(BattleManager manager, int time)
+    public override void Execute(BattleManager manager, BattleQueueTime time)
     {
-        manager.Add(new BattleShowAgentReport(time - 1, m_Agent));
+        manager.Add(new BattleShowAgentReport(time - 1f, m_Agent));
     }
 }

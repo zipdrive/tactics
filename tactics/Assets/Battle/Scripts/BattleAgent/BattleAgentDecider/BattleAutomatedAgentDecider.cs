@@ -32,8 +32,8 @@ public class BattleAutomatedAgentDecider : BattleAgentDecider
                     BattleManhattanDistanceZone range = Skill.GetRange(rangeType, m_Agent);
                     BattleManhattanDistanceZone target = selections[targetSelection.id] as BattleManhattanDistanceZone;
 
-                    m_Manager.Add(new BattleTargetSelect(t++, range));
-                    m_Manager.Add(new BattleTargetConfirm(t++, range, target));
+                    m_Manager.Add(new BattleTargetSelect(new BattleQueueTime(t, ++t), range));
+                    m_Manager.Add(new BattleTargetConfirm(new BattleQueueTime(t, ++t), range, target));
                 }
             }
 

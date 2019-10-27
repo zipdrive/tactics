@@ -2,12 +2,10 @@
 
 public class BattleTargetSelect : BattleQueueMember
 {
-    public static float AnimationSpeed = 0.5f;
-
     private BattleZone m_Range;
     private float m_Duration;
 
-    public BattleTargetSelect(int time, BattleZone range) : base(time)
+    public BattleTargetSelect(BattleQueueTime time, BattleZone range) : base(time)
     {
         m_Range = range;
     }
@@ -22,7 +20,7 @@ public class BattleTargetSelect : BattleQueueMember
     {
         m_Duration += Time.deltaTime;
 
-        if (m_Duration > AnimationSpeed)
+        if (m_Duration > Settings.AITargetSpeed)
         {
             manager.grid.SelectableZone = null;
             return true;

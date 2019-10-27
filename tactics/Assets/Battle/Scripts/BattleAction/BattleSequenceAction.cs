@@ -9,10 +9,11 @@ public class BattleSequenceAction : BattleAction
         Sequence = new List<BattleAction>(sequence);
     }
 
-    public override void Execute(BattleManager manager, int time)
+    public override void Execute(BattleManager manager, BattleQueueTime time)
     {
-        int t = time - Sequence.Count - 2;
+        BattleQueueTime.Generator t = new BattleQueueTime.FiniteGenerator(time, Sequence.Count);
+
         foreach (BattleAction action in Sequence)
-            manager.Add(new BattleActionExecution(t++, action));
+            manager.Add(new BattleActionExecution(t.Generate(), action));
     }
 }

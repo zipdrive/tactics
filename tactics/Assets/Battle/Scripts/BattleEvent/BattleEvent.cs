@@ -53,8 +53,20 @@
     /// </summary>
     public Type Event;
 
-    public BattleEvent(Type eventType)
+    /// <summary>
+    /// The manager of the battle.
+    /// </summary>
+    public BattleManager Manager;
+
+    /// <summary>
+    /// The time when the event takes place.
+    /// </summary>
+    public BattleQueueTime Time;
+
+    public BattleEvent(Type eventType, BattleManager manager, BattleQueueTime time)
     {
         Event = eventType;
+        Manager = manager;
+        Time = time;
     }
 }

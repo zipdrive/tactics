@@ -25,7 +25,7 @@
     /// </summary>
     public int IgnoreResistance;
 
-    public BattleSkillEvent(Type type, BattleAgent user, BattleAgent target, Skill skill) : base(type)
+    public BattleSkillEvent(Type type, BattleManager manager, BattleQueueTime time, BattleAgent user, BattleAgent target, Skill skill) : base(type, manager, time)
     {
         User = user;
         Target = target;

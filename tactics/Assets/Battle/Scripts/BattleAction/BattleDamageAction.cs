@@ -13,9 +13,18 @@ public class BattleDamageAction : BattleAction
         m_Damage = damage;
     }
 
-    public override void Execute(BattleManager manager, int time)
+    public override void Execute(BattleManager manager, BattleQueueTime time)
     {
-        BattleDamageEvent eventInfo = new BattleDamageEvent(BattleEvent.Type.BeforeTakeDamage, m_Agent, m_Element, m_Damage);
+        BattleDamageEvent eventInfo = new BattleDamageEvent(
+            BattleEvent.Type.BeforeTakeDamage, 
+            manager,
+            time,
+            m_Agent, 
+            m_Element, 
+            m_Damage
+            );
+
         m_Agent.Damage(eventInfo);
+        manager.Add(new BattleShowAgentMessage(time, manager, m_Agent, eventInfo.Damage.ToString()));
     }
 }

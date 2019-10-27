@@ -9,7 +9,7 @@ public class BattleAgentDecision : BattleQueueMember
     private BattleAgent m_Agent;
     private BattleAgentDecider m_Decider;
 
-    public BattleAgentDecision(int time, BattleAgent agent) : base(time)
+    public BattleAgentDecision(BattleQueueTime time, BattleAgent agent) : base(time)
     {
         m_Agent = agent;
         m_Decider = null;
@@ -23,7 +23,7 @@ public class BattleAgentDecision : BattleQueueMember
             {
                 m_Agent["Turn:Move"] = 1;
                 m_Agent["Turn:Action"] = 1;
-                m_Agent.OnTrigger(new BattleEvent(BattleEvent.Type.BeforeTurn));
+                m_Agent.OnTrigger(new BattleEvent(BattleEvent.Type.BeforeTurn, manager, time));
 
                 if (m_Agent.Behaviour == null)
                     m_Decider = new BattleManualAgentDecider(m_Agent);
@@ -44,9 +44,11 @@ public class BattleAgentDecision : BattleQueueMember
 
         if (decision != null)
         {
-            --time;
+            BattleQueueTime.Generator t = new BattleQueueTime.FiniteGenerator(time - 1, 2);
+            decision.Execute(manager, t.Generate());
+
+            time = t.Generate();
             manager.Add(this);
-            decision.Execute(manager, time);
             
             return true;
         }

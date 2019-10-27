@@ -5,7 +5,7 @@ public class BattleShowAgentReport : BattleQueueMember
     private BattleAgent m_Agent;
     private BattleAgentReportUI m_ReportUI;
 
-    public BattleShowAgentReport(int time, BattleAgent agent) : base(time)
+    public BattleShowAgentReport(BattleQueueTime time, BattleAgent agent) : base(time)
     {
         m_Agent = agent;
         m_ReportUI = GameObject.Find("Battle Agent Report UI").GetComponent<BattleAgentReportUI>();

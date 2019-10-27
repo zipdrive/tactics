@@ -3,6 +3,7 @@ using System.Xml;
 
 public class Status
 {
+    public readonly string Name;
     public readonly Element Element;
     public readonly bool Resistible;
 
@@ -11,6 +12,8 @@ public class Status
 
     public Status(XmlElement statusInfo)
     {
+        Name = statusInfo.GetAttribute("name");
+
         if (!statusInfo.HasAttribute("element") ||
             !System.Enum.TryParse(statusInfo.GetAttribute("element"), out Element))
             Element = Element.Null;

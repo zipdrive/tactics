@@ -2,11 +2,11 @@
 
 public class BattleClock : BattleQueueMember
 {
-    public BattleClock(int time) : base(time) { }
+    public BattleClock() : base(new BattleQueueTime(0f, 1f)) { }
 
     public override void QStart(BattleManager manager)
     {
-        BattleEvent eventInfo = new BattleEvent(BattleEvent.Type.Tick);
+        BattleEvent eventInfo = new BattleEvent(BattleEvent.Type.Tick, manager, time);
 
         foreach (BattleAgent agent in manager.agents)
         {
@@ -23,7 +23,7 @@ public class BattleClock : BattleQueueMember
 
     public override bool QUpdate(BattleManager manager)
     {
-        ++time;
+        time += 1f;
         manager.Add(this);
         return true;
     }

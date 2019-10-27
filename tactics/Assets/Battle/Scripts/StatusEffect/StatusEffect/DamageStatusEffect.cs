@@ -19,6 +19,8 @@ public class DamageStatusEffect : StatusEffect
     {
         eventInfo.Target.Damage(new BattleDamageEvent(
             BattleEvent.Type.BeforeTakeDamage, 
+            eventInfo.Event.Manager,
+            eventInfo.Event.Time,
             eventInfo.Target, 
             m_Element, 
             m_Damage

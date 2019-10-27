@@ -14,7 +14,7 @@ public class BattleWalk : BattleQueueMember
     private Vector2Int m_Direction;
     private Vector3 m_Velocity;
 
-    public BattleWalk(Vector2Int coordinates, Vector2Int direction, int time) : base(time)
+    public BattleWalk(Vector2Int coordinates, Vector2Int direction, BattleQueueTime time) : base(time)
     {
         m_Source = coordinates;
         m_Direction = direction;

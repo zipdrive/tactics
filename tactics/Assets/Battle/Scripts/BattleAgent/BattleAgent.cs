@@ -112,7 +112,7 @@ public class BattleAgent
             {
                 StatusEffects.Add(status, new StatusInstance(status, int.MaxValue));
 
-                BattleEvent eventInfo = new BattleEvent(BattleEvent.Type.FirstInflictedWithStatus);
+                BattleEvent eventInfo = new BattleEvent(BattleEvent.Type.FirstInflictedWithStatus, GameObject.FindObjectOfType<BattleManager>(), new BattleQueueTime(float.NegativeInfinity, 0f));
                 status.OnTrigger(new StatusEvent(eventInfo, status, StatusEffects[status], this));
             }
         }

@@ -2,7 +2,7 @@
 {
     public T Action;
 
-    public BattleActionEvent(Type eventType, T action) : base(eventType)
+    public BattleActionEvent(Type eventType, BattleManager manager, BattleQueueTime time, T action) : base(eventType, manager, time)
     {
         Action = action;
     }

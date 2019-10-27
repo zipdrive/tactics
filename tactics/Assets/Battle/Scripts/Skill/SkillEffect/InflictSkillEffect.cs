@@ -49,18 +49,20 @@ public class InflictSkillEffect : SkillEffect
 
             if (beginEvent)
             {
-                BattleEvent beginEventInfo = new BattleEvent(BattleEvent.Type.FirstInflictedWithStatus);
+                BattleEvent beginEventInfo = new BattleEvent(BattleEvent.Type.FirstInflictedWithStatus, eventInfo.Manager, eventInfo.Time);
                 status.OnTrigger(new StatusEvent(
-                    beginEventInfo, 
-                    status, 
-                    eventInfo.Target.StatusEffects[status], 
+                    beginEventInfo,
+                    status,
+                    eventInfo.Target.StatusEffects[status],
                     eventInfo.Target)
                     );
             }
 
-            Debug.Log("[InflictSkillEffect] " + eventInfo.Target.BaseCharacter.Name + " inflicted with " + m_StatusEffect + " for " + duration + " ticks.");
+            eventInfo.Manager.Add(new BattleShowAgentMessage(eventInfo.Time, eventInfo.Manager, eventInfo.Target, status.Name));
         }
         else
-            Debug.Log("[InflictSkillEffect] Miss!");
+        {
+            eventInfo.Manager.Add(new BattleShowAgentMessage(eventInfo.Time, eventInfo.Manager, eventInfo.Target, "Miss"));
+        }
     }
 }

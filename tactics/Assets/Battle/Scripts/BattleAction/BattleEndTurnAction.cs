@@ -9,9 +9,9 @@ public class BattleEndTurnAction : BattleAction
         m_Agent = agent;
     }
 
-    public override void Execute(BattleManager manager, int time)
+    public override void Execute(BattleManager manager, BattleQueueTime time)
     {
-        m_Agent.OnTrigger(new BattleEvent(BattleEvent.Type.AfterTurn));
+        m_Agent.OnTrigger(new BattleEvent(BattleEvent.Type.AfterTurn, manager, time));
 
         m_Agent.CP -= 60;
         if (m_Agent["Turn:Move"] <= 0) m_Agent.CP -= 15;

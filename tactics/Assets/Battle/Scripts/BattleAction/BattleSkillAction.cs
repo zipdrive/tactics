@@ -20,8 +20,10 @@ public class BattleSkillAction : BattleAction
         HPCost = hpcost;
     }
 
-    public override void Execute(BattleManager manager, int time)
+    public override void Execute(BattleManager manager, BattleQueueTime time)
     {
+        BattleQueueTime.Generator t = new BattleQueueTime.InfiniteGenerator(time);
+
         int hpcost = Mathf.RoundToInt(HPCost * Skill.Cost(Agent));
         int spcost = Mathf.RoundToInt(SPCost * Skill.Cost(Agent));
 
@@ -36,14 +38,26 @@ public class BattleSkillAction : BattleAction
             {
                 BattleAgent target = tile.Actor.Agent;
 
-                BattleSkillEvent eventInfo = new BattleSkillEvent(BattleEvent.Type.BeforeUseSkill, Agent, target, Skill);
+                BattleSkillEvent eventInfo = new BattleSkillEvent(
+                    BattleEvent.Type.BeforeUseSkill,
+                    manager,
+                    t.Generate(),
+                    Agent, 
+                    target, 
+                    Skill
+                    );
+
                 eventInfo.Power = Mathf.RoundToInt(eventInfo.Power * Power);
                 Agent.OnTrigger(eventInfo);
+                
+                eventInfo.Time = t.Generate();
                 eventInfo.Event = BattleEvent.Type.BeforeTargetedBySkill;
                 target.OnTrigger(eventInfo);
-
+                
+                eventInfo.Time = t.Generate();
                 Skill.Execute(eventInfo);
-
+                
+                eventInfo.Time = t.Generate();
                 eventInfo.Event = BattleEvent.Type.AfterTargetedBySkill;
                 target.OnTrigger(eventInfo);
             }

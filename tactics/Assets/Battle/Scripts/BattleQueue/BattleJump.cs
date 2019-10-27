@@ -17,7 +17,7 @@ public class BattleJump : BattleQueueMember
 
     private float a, b, t;
 
-    public BattleJump(Vector2Int coordinates, Vector2Int direction, int time) : base(time)
+    public BattleJump(Vector2Int coordinates, Vector2Int direction, BattleQueueTime time) : base(time)
     {
         m_Source = coordinates;
         m_Direction = direction;

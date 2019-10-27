@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Battle\Effects\Feedback\BattleActorMessageText.cs" />
      <Compile Include="Assets\Battle\Scripts\AssetHolder.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleDamageAction.cs" />
@@ -104,6 +105,8 @@
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleClock.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleJump.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueMember.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueTime\BattleQueueTime.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleShowAgentMessage.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleShowAgentReport.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleTargetConfirm.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleTargetSelect.cs" />
@@ -157,19 +160,37 @@
      <Compile Include="Assets\Battle\UI\BattleMenuUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleSelectableAreaUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleTargetedAreaUI.cs" />
+     <Compile Include="Assets\Settings.cs" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\Battle\Data\commands.xml" />
      <None Include="Assets\Battle\Data\Maps\map_test1.txt" />
      <None Include="Assets\Battle\Data\effects.xml" />
      <None Include="Assets\Battle\Data\skills1.xml" />
      <None Include="Assets\Battle\Data\skills2.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\Battle\Data\Maps\map_test.txt" />
      <None Include="Assets\Battle\Data\sprites.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\Battle\Data\items.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\Battle\Data\characters.xml" />
      <None Include="Assets\Battle\Data\skills.xml" />
      <None Include="Assets\Battle\Data\Maps\map_test.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\Battle\Data\effects1.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\Battle\Data\characters.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Zach/Documents/GitHub/tactics/tactics/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
