@@ -28,6 +28,7 @@ public class StatusTriggerExecutor : StatusEffectExecutor
                     BattleEvent.Type.BeforeTargetedBySkill;
                 break;
             case "damaged":
+            case "healed":
                 m_Event = effectsInfo.HasAttribute("trigger") && effectsInfo.GetAttribute("trigger").Equals("after") ?
                     BattleEvent.Type.AfterTakeDamage :
                     BattleEvent.Type.BeforeTakeDamage;

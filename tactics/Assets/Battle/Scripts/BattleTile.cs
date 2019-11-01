@@ -29,6 +29,18 @@ public class BattleTile : BattleGroundTerrain
     public void Load(XmlElement tileInfo, int x, int y)
     {
         // TODO texture attribute
+        
+        if (tileInfo.HasAttribute("texture"))
+        {
+            // set sides
+            Material sideMaterial;
+            if (AssetHolder.Tiles.TryGetValue(tileInfo.GetAttribute("texture") + " side", out sideMaterial))
+            {
+                foreach (MeshRenderer side in sides)
+                    side.sharedMaterial = sideMaterial;
+            }
+        }
+
         Height = int.Parse(tileInfo.GetAttribute("height"));
 
         XmlElement terrainInfo = tileInfo.SelectSingleNode("terrain") as XmlElement;

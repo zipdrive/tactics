@@ -107,9 +107,7 @@ public class HumanoidCharacter : Character
             {
                 if (!AssetHolder.Effects.TryGetValue("Passive:" + skillInfo.InnerText.Trim(), out m_PassiveSkills[passiveSkillIndex++]))
                     m_PassiveSkills[--passiveSkillIndex] = null;
-                else UnityEngine.Debug.Log("[HumanoidCharacter] Passive skill \"" + skillInfo.InnerText.Trim() + "\" added successfully.");
             }
-            else UnityEngine.Debug.Log("[HumanoidCharacter] Passive skill \"" + skillInfo.InnerText.Trim() + "\" exceeds number of passive skill slots on character " + Name + "!");
         }
     }
 }

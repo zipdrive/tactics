@@ -10,7 +10,7 @@ public class AssetHolder : MonoBehaviour
 
     public static Dictionary<string, BattleSprite> Sprites = new Dictionary<string, BattleSprite>();
 
-    public static Dictionary<string, Sprite> Tiles = new Dictionary<string, Sprite>();
+    public static Dictionary<string, Material> Tiles = new Dictionary<string, Material>();
     public static Dictionary<string, BattleObject> Objects = new Dictionary<string, BattleObject>();
 
     public static Dictionary<string, BattleCommand> Commands = new Dictionary<string, BattleCommand>();
@@ -105,6 +105,19 @@ public class AssetHolder : MonoBehaviour
             }
 
             // Tiles
+            string[] tileGUIDs = AssetDatabase.FindAssets("t:Material", new string[] { "Assets/Battle/Tiles/Sprites/Materials" });
+            foreach (string tileGUID in tileGUIDs)
+            {
+                string tileAssetPath = AssetDatabase.GUIDToAssetPath(tileGUID);
+                Material tileMaterial = AssetDatabase.LoadAssetAtPath<Material>(tileAssetPath);
+
+                if (tileMaterial != null)
+                {
+                    Tiles[tileMaterial.name] = tileMaterial;
+                }
+            }
+
+            /*
             string[] spriteGUIDs = AssetDatabase.FindAssets("t:Sprite");
             foreach (string spriteGUID in spriteGUIDs)
             {
@@ -118,6 +131,7 @@ public class AssetHolder : MonoBehaviour
                     }
                 }
             }
+            */
 
             // Objects
             string[] objectGUIDs = AssetDatabase.FindAssets("object");

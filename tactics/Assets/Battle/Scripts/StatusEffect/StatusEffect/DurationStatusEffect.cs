@@ -13,6 +13,6 @@ public class DurationStatusEffect : StatusEffect
 
     public override void Execute(StatusEvent eventInfo)
     {
-        eventInfo.Status.Duration += m_Duration;
+        eventInfo.Status["Duration"] += m_Duration;
     }
 }

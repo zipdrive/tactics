@@ -3,7 +3,6 @@
 public class StatusInstance
 {
     public readonly Element Element;
-    public int Duration;
     public bool Exhaustible = true;
 
     private Dictionary<string, int> m_Bonus = new Dictionary<string, int>();
@@ -24,6 +23,6 @@ public class StatusInstance
     public StatusInstance(Status status, int duration)
     {
         Element = status.Element;
-        Duration = duration;
+        m_Bonus["Duration"] = duration;
     }
 }

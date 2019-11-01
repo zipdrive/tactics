@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 2088933973750113735}
   - component: {fileID: 4139718463062686947}
   - component: {fileID: 4315487996436335377}
+  - component: {fileID: 6461328706569889304}
   m_Layer: 5
   m_Name: Battle Menu Option
   m_TagString: Untagged
@@ -215,6 +216,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6461328706569889304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3175779937296229955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba80d1ae423d9846a04639f3952793b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Description: []
 --- !u!1 &4917764487018142206
 GameObject:
   m_ObjectHideFlags: 0

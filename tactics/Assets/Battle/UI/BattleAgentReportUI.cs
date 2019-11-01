@@ -4,6 +4,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class BattleAgentReportUI : MonoBehaviour
 {
+    public Image background;
     public Image portrait;
 
     public Text profileDescription;
@@ -32,6 +33,8 @@ public class BattleAgentReportUI : MonoBehaviour
 
     public void Show(BattleAgent agent)
     {
+        background.color = Settings.TextBoxColor;
+
         portrait.sprite = agent.BaseCharacter.Sprite.Portrait;
 
         profileName.text = agent.BaseCharacter.Profile["name"];
@@ -58,11 +61,13 @@ public class BattleAgentReportUI : MonoBehaviour
 
         m_Anim.SetBool("Show", true);
         BattleSelector.Frozen = true;
+        BattleAgentUI.Shown = false;
     }
 
     public void Hide()
     {
         m_Anim.SetBool("Show", false);
         BattleSelector.Frozen = false;
+        BattleAgentUI.Shown = true;
     }
 }

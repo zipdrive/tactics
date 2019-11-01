@@ -11,7 +11,11 @@ public class RepeaterStatusEffect : StatusEffectExecutor
 
     public override void Execute(StatusEvent eventInfo)
     {
-        for (int k = m_Number.Equals("duration") ? eventInfo.Status.Duration : int.Parse(m_Number); k > 0; --k)
+        int num = 0;
+        if (!int.TryParse(m_Number, out num))
+            num = eventInfo.Status[m_Number];
+
+        for (int k = num; k > 0; --k)
             base.Execute(eventInfo);
     }
 }

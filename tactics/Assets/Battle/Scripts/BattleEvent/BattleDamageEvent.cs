@@ -1,5 +1,12 @@
 ﻿public class BattleDamageEvent : BattleEvent
 {
+    public enum DamageTo
+    {
+        HP,
+        SP,
+        CP
+    }
+
     /// <summary>
     /// The target of the damage.
     /// </summary>
@@ -15,10 +22,16 @@
     /// </summary>
     public int Damage;
 
-    public BattleDamageEvent(Type type, BattleManager manager, BattleQueueTime time, BattleAgent target, Element element, int damage) : base(type, manager, time)
+    /// <summary>
+    /// What stat the damage affects.
+    /// </summary>
+    public DamageTo Affects;
+
+    public BattleDamageEvent(Type type, BattleManager manager, BattleQueueTime time, BattleAgent target, Element element, int damage, DamageTo affects = DamageTo.HP) : base(type, manager, time)
     {
         Target = target;
         Element = element;
         Damage = damage;
+        Affects = affects;
     }
 }

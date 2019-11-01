@@ -4,6 +4,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class BattleAgentUI : MonoBehaviour
 {
+    public static bool Shown = true;
+
+    public Image background;
+
     public Image portrait;
     public Text nameLabel;
     public Text titleLabel;
@@ -45,6 +49,8 @@ public class BattleAgentUI : MonoBehaviour
 
     void Update()
     {
+        background.color = Settings.TextBoxColor;
+
         if (m_Agent != null)
         {
             hpBar.anchorMax = new Vector2(Mathf.Clamp((float)m_Agent.HP / m_Agent["HP"], 0f, 1f), 1f);
@@ -55,5 +61,7 @@ public class BattleAgentUI : MonoBehaviour
             spBar.sizeDelta = new Vector2(0f, spBar.sizeDelta.y);
             spLabel.text = m_Agent.SP + "/" + m_Agent["SP"];
         }
+
+        m_Animator.SetBool("Show", Shown);
     }
 }

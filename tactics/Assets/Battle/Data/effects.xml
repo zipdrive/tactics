@@ -21,6 +21,32 @@
   </effect>
   
   
+  
+  <!--
+  INNATE STATUS EFFECTS
+  ???????
+    -->
+
+  <effect name="Critical">
+    <begin>
+      <bonus stat="Speed">-99</bonus>
+    </begin>
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <healed trigger="after">
+      <duration>-99</duration>
+    </healed>
+  </effect>
+
+  <effect name="KO">
+    <begin>
+      <bonus stat="Speed">-99</bonus>
+    </begin>
+  </effect>
+  
+  
+  
   <!--
   CORROSION STATUS EFFECTS
   Revolve around doing damage or reducing stats over a (generally long) period of time. 
@@ -29,10 +55,16 @@
   <!-- Deals high HP damage over a medium period of time. -->
   <effect name="Acid" element="Corrosion" resist="false">
     <tick>
-      <random probability="0.45" resist="true">
-        <damage element="Corrosion" to="HP" />
+      <random probability="0.45">
+        <bonus stat="Count:Damage" />
       </random>
     </tick>
+    <turn>
+      <damage element="Corrosion" to="HP">Count:Damage</damage>
+      <repeat number="Count:Damage">
+        <bonus stat="Count:Damage">-1</bonus>
+      </repeat>
+    </turn>
   </effect>
   
   

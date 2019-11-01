@@ -38,27 +38,14 @@ public class DamageSkillEffect : SkillEffect
         float critical = baseCritical;
 
         // Trigger pre-events
-        BattleQueueTime.Generator time = new BattleQueueTime.FiniteGenerator(eventInfo.Time, 3);
-
         BattleDamageEvent damageEventInfo = new BattleDamageEvent(
             BattleEvent.Type.BeforeTakeDamage, 
             eventInfo.Manager,
-            time.Generate(),
+            eventInfo.Time,
             eventInfo.Target, 
             m_Element,
             Random.Range(0f, 1f) < critical ? 2 * Mathf.RoundToInt(damage) : Mathf.RoundToInt(damage)
             );
-        damageEventInfo.Target.OnTrigger(damageEventInfo);
-
-        damageEventInfo.Time = time.Generate();
         eventInfo.Target.Damage(damageEventInfo);
-
-        // Show damage taken
-        eventInfo.Manager.Add(new BattleShowAgentMessage(damageEventInfo.Time, damageEventInfo.Manager, damageEventInfo.Target, damageEventInfo.Damage.ToString()));
-
-        // Trigger post-events
-        damageEventInfo.Time = time.Generate();
-        damageEventInfo.Event = BattleEvent.Type.AfterTakeDamage;
-        eventInfo.Target.OnTrigger(damageEventInfo);
     }
 }

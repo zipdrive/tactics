@@ -150,6 +150,7 @@
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\Skill StatusEffect\ReflectStatusEffect.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\Skill StatusEffect\ResistanceStatusEffect.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\StatusEffect.cs" />
+     <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\StatusTrigger\StatusDamageTriggerExecutor.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\StatusTrigger\StatusSkillTriggerExecutor.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffect\StatusTrigger\StatusTriggerExecutor.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffectExecutor.cs" />
@@ -157,9 +158,13 @@
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusInstance.cs" />
      <Compile Include="Assets\Battle\UI\BattleAgentReportUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleAgentUI.cs" />
-     <Compile Include="Assets\Battle\UI\BattleMenuUI.cs" />
+     <Compile Include="Assets\Battle\UI\BattleOption.cs" />
+     <Compile Include="Assets\Battle\UI\BattleOptionList.cs" />
+     <Compile Include="Assets\Battle\UI\BattleOverScreen.cs" />
      <Compile Include="Assets\Battle\UI\BattleSelectableAreaUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleTargetedAreaUI.cs" />
+     <Compile Include="Assets\Generic\UI\GenericOption.cs" />
+     <Compile Include="Assets\Generic\UI\GenericOptionList.cs" />
      <Compile Include="Assets\Settings.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

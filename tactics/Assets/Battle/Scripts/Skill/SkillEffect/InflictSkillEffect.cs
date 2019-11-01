@@ -36,29 +36,7 @@ public class InflictSkillEffect : SkillEffect
 
         if (duration > 0)
         {
-            bool beginEvent = true;
-
-            if (eventInfo.Target.StatusEffects.ContainsKey(status))
-            {
-                if (eventInfo.Target.StatusEffects[status].Duration > 0) beginEvent = false;
-
-                eventInfo.Target.StatusEffects[status].Duration += duration;
-            }
-            else
-                eventInfo.Target.StatusEffects.Add(status, new StatusInstance(status, duration));
-
-            if (beginEvent)
-            {
-                BattleEvent beginEventInfo = new BattleEvent(BattleEvent.Type.FirstInflictedWithStatus, eventInfo.Manager, eventInfo.Time);
-                status.OnTrigger(new StatusEvent(
-                    beginEventInfo,
-                    status,
-                    eventInfo.Target.StatusEffects[status],
-                    eventInfo.Target)
-                    );
-            }
-
-            eventInfo.Manager.Add(new BattleShowAgentMessage(eventInfo.Time, eventInfo.Manager, eventInfo.Target, status.Name));
+            eventInfo.Target.Inflict(status, duration, eventInfo.Time, m_StatusEffect);
         }
         else
         {

@@ -14,7 +14,8 @@ public abstract class StatusEffect
             case "target":
                 return new StatusSkillTriggerExecutor(effectInfo);
             case "damaged":
-                return new StatusTriggerExecutor(effectInfo); // TODO
+            case "healed":
+                return new StatusDamageTriggerExecutor(effectInfo);
 
             case "bonus":
                 return new BonusStatusEffect(effectInfo);

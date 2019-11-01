@@ -12,12 +12,15 @@ public class BonusStatusEffect : StatusEffect
 
         if (!int.TryParse(effectInfo.InnerText.Trim(), out m_Bonus))
         {
-            m_Bonus = 0;
+            m_Bonus = 1;
         }
     }
 
     public override void Execute(StatusEvent eventInfo)
     {
         eventInfo.Status[m_Stat] += m_Bonus;
+
+        // TODO bonuses to maximum HP increase HP
+        // penalties to maximum HP only affect current HP if new maximum is lower than current
     }
 }

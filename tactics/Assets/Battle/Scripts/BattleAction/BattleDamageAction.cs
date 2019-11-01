@@ -25,6 +25,5 @@ public class BattleDamageAction : BattleAction
             );
 
         m_Agent.Damage(eventInfo);
-        manager.Add(new BattleShowAgentMessage(time, manager, m_Agent, eventInfo.Damage.ToString()));
     }
 }

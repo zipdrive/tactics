@@ -110,26 +110,126 @@ public class BattleAgent
         {
             if (status != null)
             {
-                StatusEffects.Add(status, new StatusInstance(status, int.MaxValue));
-
-                BattleEvent eventInfo = new BattleEvent(BattleEvent.Type.FirstInflictedWithStatus, GameObject.FindObjectOfType<BattleManager>(), new BattleQueueTime(float.NegativeInfinity, 0f));
-                status.OnTrigger(new StatusEvent(eventInfo, status, StatusEffects[status], this));
+                Inflict(status, int.MaxValue, new BattleQueueTime(float.NegativeInfinity, 0f));
             }
         }
     }
 
+    /// <summary>
+    /// Cause the agent to take damage.
+    /// </summary>
+    /// <param name="eventInfo">Information about the damage to be taken</param>
     public void Damage(BattleDamageEvent eventInfo)
     {
-        if (HP - eventInfo.Damage > this["HP"])
-            HP = this["HP"];
-        else if (HP - eventInfo.Damage < 0)
-            HP = 0;
-        else
-            HP -= eventInfo.Damage;
+        BattleQueueTime.Generator time = new BattleQueueTime.FiniteGenerator(eventInfo.Time, 3);
+
+        string message = eventInfo.Damage < 0 ? (-eventInfo.Damage).ToString() : eventInfo.Damage.ToString();
+        Color color = Color.white;
         
-        Debug.Log("[BattleAgent] " + BaseCharacter.Name + " took " + eventInfo.Damage + " " + eventInfo.Element.ToString().ToLower() + " damage!");
+        // Pre-events
+        eventInfo.Event = BattleEvent.Type.BeforeTakeDamage;
+        eventInfo.Time = time.Generate();
+        OnTrigger(eventInfo);
+
+        // CP damage
+        if (eventInfo.Affects == BattleDamageEvent.DamageTo.CP)
+        {
+            CP -= eventInfo.Damage;
+            if (CP < 0) CP = 0;
+            if (CP > 100) CP = 100;
+
+            message += " CP";
+        }
+
+        // SP damage
+        if (eventInfo.Affects == BattleDamageEvent.DamageTo.SP)
+        {
+            SP -= eventInfo.Damage;
+            if (SP < 0) SP = 0;
+            if (SP > this["SP"]) SP = this["SP"];
+
+            message += " SP";
+        }
+
+        // HP damage
+        if (eventInfo.Affects == BattleDamageEvent.DamageTo.HP)
+        {
+            int hp = HP - eventInfo.Damage;
+
+            if (hp <= 0)
+            {
+                if (HP > 0) // Inflict critical status
+                    Inflict(AssetHolder.Effects["Critical"], 1, time.Generate(), "Critical");
+                else if (eventInfo.Damage > 1) // Inflict KO status
+                    Inflict(AssetHolder.Effects["KO"], int.MaxValue, time.Generate(), "KO");
+
+                HP = 0;
+                CP = 0;
+
+                message = "";
+            }
+            else
+            {
+                if (hp > this["HP"])
+                {
+                    HP = this["HP"];
+                }
+                else
+                {
+                    HP = hp;
+                }
+            }
+        }
+
+        // Show damage taken
+        if (!message.Equals(""))
+        {
+            eventInfo.Manager.Add(new BattleShowAgentMessage(
+              time.Generate(),
+              eventInfo.Manager,
+              this,
+              message,
+              color
+              ));
+        }
+
+        // Post-effects
+        eventInfo.Event = BattleEvent.Type.AfterTakeDamage;
+        eventInfo.Time = time.Generate();
+        OnTrigger(eventInfo);
     }
 
+    /// <summary>
+    /// Inflict the agent with a status effect.
+    /// </summary>
+    /// <param name="status">The status effect to inflict</param>
+    /// <param name="duration">The duration of the status effect</param>
+    public void Inflict(Status status, int duration, BattleQueueTime time, string message = "")
+    {
+        BattleManager manager = GameObject.FindObjectOfType<BattleManager>();
+
+        if (StatusEffects.ContainsKey(status))
+        {
+            StatusEffects[status]["Duration"] += duration;
+        }
+        else
+        {
+            StatusEffects[status] = new StatusInstance(status, duration);
+
+            BattleEvent eventInfo = new BattleEvent(BattleEvent.Type.FirstInflictedWithStatus, manager, time);
+            status.OnTrigger(new StatusEvent(eventInfo, status, StatusEffects[status], this));
+        }
+
+        if (!message.Equals(""))
+        {
+            manager.Add(new BattleShowAgentMessage(time, manager, this, message));
+        }
+    }
+
+    /// <summary>
+    /// Update any status effects that may respond to an event
+    /// </summary>
+    /// <param name="eventInfo">The event in question</param>
     public void OnTrigger(BattleEvent eventInfo)
     {
         List<Status> statusEffects = new List<Status>(StatusEffects.Keys);

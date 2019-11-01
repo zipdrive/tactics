@@ -588,10 +588,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82913581563f77428e2fac3e407e399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionPrefab: {fileID: 4315487996436335377, guid: 73ed1205baa09fb43b3f5af198fadc96,
+  Alignment: 1
+  List: {fileID: 3103216529607166107}
+  OptionPrefab: {fileID: 6461328706569889304, guid: 73ed1205baa09fb43b3f5af198fadc96,
     type: 3}
-  optionListBox: {fileID: 3103216529607166107}
-  descriptionBox: {fileID: 1150683771708356163}
-  heightController: {fileID: 6131043550375375410}
-  Index: 0
-  maxNumberOptionsShown: 6
+  Interactable: 1
+  DescriptionBox: {fileID: 1150683771708356163}
+  HeightController: {fileID: 6131043550375375410}

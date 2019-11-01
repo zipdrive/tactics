@@ -32,8 +32,57 @@ public class BattleSkillElementListMenu : BattleListMenu
             labels = new string[] { element };
             enabled = true;
 
-            // TODO description
-            description = new string[] { "This is an element." };
+            string desc;
+            switch (element)
+            {
+                case "Martial":
+                    desc = "Martial arts techniques.";
+                    break;
+                case "Blunt":
+                    desc = "Combat techniques that use a bludgeoning weapon.";
+                    break;
+                case "Slashing":
+                    desc = "Combat techniques that use a slashing weapon.";
+                    break;
+                case "Piercing":
+                    desc = "Combat techniques that use a piercing weapon.";
+                    break;
+                case "Ranged":
+                    desc = "Combat techniques that use a ranged weapon.";
+                    break;
+                case "Shield":
+                    desc = "Defensive techniques that use a shield.";
+                    break;
+                case "Fire":
+                    desc = "Magic of heat and flame.";
+                    break;
+                case "Ice":
+                    desc = "Magic of cold and ice.";
+                    break;
+                case "Lightning":
+                    desc = "Magic of electricity.";
+                    break;
+                case "Corrosion":
+                    desc = "Magic of acid, corrosion, and decay.";
+                    break;
+                case "Air":
+                    desc = "Magic of clouds and wind.";
+                    break;
+                case "Bio":
+                    desc = "Magic that manipulates the body.";
+                    break;
+                case "Anima":
+                    desc = "Magic that manipulates the soul, mind, and emotion.";
+                    break;
+                case "Time":
+                    desc = "Magic that warps space and time.";
+                    break;
+                default:
+                    desc = "This is an element.";
+                    break;
+            }
+            
+            description = new string[] { desc };
         }
 
         public override UpdateResult OnSelect(BattleMenu menu)

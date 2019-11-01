@@ -7,6 +7,8 @@ using System.Xml;
 
 public class BattleGrid : MonoBehaviour
 {
+    public static string NextMapFile = "map_test";
+
     public static float CameraScale = 1.5f;
     public static float CameraSpeed = 0.05f;
 
@@ -161,15 +163,13 @@ public class BattleGrid : MonoBehaviour
 
     public BattleAgentUI agentUI;
 
-    public string filename;
-
     // Start is called before the first frame update
     void Start()
     {
         PathFinder.Init(this);
 
         // Load and render tiles
-        datafile = filename;
+        datafile = "Assets/Battle/Data/Maps/" + NextMapFile + ".xml";
 
         // Set angles and shit
         ViewAngle = transform.rotation.eulerAngles.x;
@@ -230,8 +230,7 @@ public class BattleGrid : MonoBehaviour
                 }
             }
         }
-
-        // TODO fix the weird jump that the camera does after rotation
+        
         transform.localScale = new Vector3(CameraScale, CameraScale, CameraScale);
         transform.localPosition -= CameraSpeed * (transform.localPosition + 
             (transform.localRotation * Selector.Cursor.transform.localPosition * CameraScale));

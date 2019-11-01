@@ -5,7 +5,8 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     public Transform battleMenus;
-    public BattleMenuUI battleMenuPrefab;
+    public BattleOptionList battleOptionListPrefab;
+    public BattleOverScreen battleOverScreen;
 
     public BattleGrid grid;
     public List<BattleAgent> agents = new List<BattleAgent>();
@@ -46,5 +47,110 @@ public class BattleManager : MonoBehaviour
     {
         m_Queue.Add(member);
         m_Queue.Sort();
+    }
+
+    /// <summary>
+    /// Check for if the battle has been won or lost.
+    /// </summary>
+    public void Check()
+    {
+        Dictionary<string, BattleUnit> units = BattleUnit.GetAll();
+
+        bool battleOver;
+
+        if (units.ContainsKey("enemy"))
+        {
+            // End battle if all enemies have been incapacitated.
+
+            battleOver = true;
+            foreach (BattleAgent enemyAgent in units["enemy"])
+            {
+                if (enemyAgent["Speed"] > 0)
+                {
+                    battleOver = false;
+                    break;
+                }
+            }
+
+            if (battleOver)
+            {
+                EndBattle(true, "This battle is over!");
+            }
+        }
+
+        if (units.ContainsKey("player"))
+        {
+            // End battle if all players have been incapacitated.
+
+            battleOver = true;
+            foreach (BattleAgent playerAgent in units["player"])
+            {
+                if (playerAgent["Speed"] > 0)
+                {
+                    battleOver = false;
+                    break;
+                }
+            }
+
+            if (battleOver)
+            {
+                EndBattle(false, "");
+            }
+        }
+
+        if (units.ContainsKey("rescue"))
+        {
+            // End battle if any unit to rescue is incapacitated.
+
+            battleOver = false;
+            string agentName = "";
+            foreach (BattleAgent rescueAgent in units["rescue"])
+            {
+                if (rescueAgent["Speed"] == 0)
+                {
+                    battleOver = true;
+                    agentName = rescueAgent.BaseCharacter.Name;
+                    break;
+                }
+            }
+
+            if (battleOver)
+            {
+                EndBattle(false, "You failed to save " + agentName + ".");
+            }
+        }
+
+        if (units.ContainsKey("civilian"))
+        {
+            // End battle if any civilian is harmed.
+
+            battleOver = false;
+            foreach (BattleAgent civilianAgent in units["civilian"])
+            {
+                if (civilianAgent.HP < civilianAgent["HP"])
+                {
+                    battleOver = true;
+                    break;
+                }
+            }
+
+            if (battleOver)
+            {
+                EndBattle(false, "A civilian was harmed.");
+            }
+        }
+    }
+
+    public void EndBattle(bool success, string message)
+    {
+        // Show battle completed screen
+        battleOverScreen.gameObject.SetActive(true);
+        battleOverScreen.success = success;
+        battleOverScreen.message = message;
+
+        BattleAgentUI.Shown = false;
+
+        // Destroy the BattleManager
+        GameObject.Destroy(this);
     }
 }

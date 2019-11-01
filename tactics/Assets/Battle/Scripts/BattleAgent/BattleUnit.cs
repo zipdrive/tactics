@@ -19,6 +19,11 @@ public class BattleUnit : IEnumerable<BattleAgent>
         return m_Units[unit];
     }
 
+    public static Dictionary<string, BattleUnit> GetAll()
+    {
+        return m_Units;
+    }
+
 
     private HashSet<BattleAgent> m_Agents = new HashSet<BattleAgent>();
     private HashSet<BattleUnit> m_Opposed = new HashSet<BattleUnit>();

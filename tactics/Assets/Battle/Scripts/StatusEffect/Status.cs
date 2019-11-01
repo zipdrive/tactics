@@ -42,7 +42,7 @@ public class Status
 
     private void Exhaust(StatusInstance status, BattleAgent target)
     {
-        if (status.Exhaustible && status.Duration <= 0)
+        if (status.Exhaustible && status["Duration"] <= 0)
             target.StatusEffects.Remove(this);
     }
 }

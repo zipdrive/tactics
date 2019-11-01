@@ -19,16 +19,17 @@ public abstract class BattleListMenu : BattleMenu
     private List<Option> m_Options = new List<Option>();
     private int m_Index;
 
-    protected BattleMenuUI m_UI;
+    protected BattleOptionList m_UI;
 
 
     public override void Construct()
     {
-        m_UI = GameObject.Instantiate(m_Manager.battleMenuPrefab, m_Manager.battleMenus);
+        m_UI = GameObject.Instantiate(m_Manager.battleOptionListPrefab, m_Manager.battleMenus);
 
         foreach (Option option in m_Options)
         {
             m_UI.Add(option.enabled, option.labels);
+            m_UI[m_UI.Count - 1].Description = option.description;
         }
 
         m_UI.Index = m_Index;
@@ -50,6 +51,7 @@ public abstract class BattleListMenu : BattleMenu
             if (result == UpdateResult.Canceled)
             {
                 Next = null;
+                m_UI.Interactable = true;
                 m_UI.ShowDescription(m_Options[m_Index].description);
                 return UpdateResult.InProgress;
             }
@@ -57,6 +59,8 @@ public abstract class BattleListMenu : BattleMenu
         }
         else
         {
+            m_Index = m_UI.Index;
+
             if (Input.GetButtonDown("Cancel") || (Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") < 0f))
             {
                 Destruct();
@@ -66,32 +70,10 @@ public abstract class BattleListMenu : BattleMenu
             {
                 if (m_Options[m_Index].enabled)
                 {
+                    m_UI.Interactable = false;
                     m_UI.HideDescription();
                     return m_Options[m_Index].OnSelect(this);
                 }
-            }
-            else if (Input.GetButtonDown("Vertical"))
-            {
-                if (Input.GetAxis("Vertical") > 0f)
-                {
-                    if (--m_Index < 0)
-                    {
-                        m_Index = 0;
-                    }
-
-                    m_UI.ScrollUp();
-                }
-                else
-                {
-                    if (++m_Index >= m_Options.Count)
-                    {
-                        m_Index = m_Options.Count - 1;
-                    }
-
-                    m_UI.ScrollDown();
-                }
-
-                m_UI.ShowDescription(m_Options[m_Index].description);
             }
         }
 
