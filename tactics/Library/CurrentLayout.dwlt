@@ -70,10 +70,10 @@ MonoBehaviour:
     y: 0
     width: 588
     height: 947
-  m_MinSize: {x: 234, y: 474}
+  m_MinSize: {x: 234, y: 374}
   m_MaxSize: {x: 10004, y: 14024}
   vertical: 1
-  controlID: 59
+  controlID: 54
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,10 +142,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 711, y: 474}
-  m_MaxSize: {x: 18006, y: 14024}
+  m_MinSize: {x: 713, y: 448}
+  m_MaxSize: {x: 18008, y: 14024}
   vertical: 0
-  controlID: 12
+  controlID: 33
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -188,10 +188,10 @@ MonoBehaviour:
     y: 0
     width: 871
     height: 947
-  m_MinSize: {x: 202, y: 424}
-  m_MaxSize: {x: 4002, y: 8024}
+  m_MinSize: {x: 202, y: 448}
+  m_MaxSize: {x: 4002, y: 8048}
   vertical: 1
-  controlID: 13
+  controlID: 34
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -211,14 +211,14 @@ MonoBehaviour:
     y: 0
     width: 588
     height: 394
-  m_MinSize: {x: 200, y: 200}
+  m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 17}
+  m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 17}
   - {fileID: 13}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -238,8 +238,8 @@ MonoBehaviour:
     y: 0
     width: 461
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 74}
+  m_MaxSize: {x: 4002, y: 4024}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -561,7 +561,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: e0f9ffffbafbffffd62b0000e42d0000
+      m_ExpandedIDs: 4a300000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -658,20 +658,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Battle/Effects/Feedback
+    - Assets/Battle/Tiles/Sprites/Materials
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Battle/Effects/Feedback
+  - Assets/Battle/Tiles/Sprites/Materials
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Zach\Documents\GitHub\tactics\tactics
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 60.410366}
-    m_SelectedIDs: 8e270000
-    m_LastClickedID: 10126
-    m_ExpandedIDs: 000000003a2700004a27000060270000622700006c27000078270000e82700003e28000046280000c028000012290000362900003a290000462900008c290000062a0000b42a000000ca9a3b
+    scrollPos: {x: 0, y: 240.838}
+    m_SelectedIDs: 98270000
+    m_LastClickedID: 10136
+    m_ExpandedIDs: 0000000010270000222700003a2700003c2700004627000054270000ce270000242800002c280000a8280000fa28000020290000242900003029000076290000f0290000a02a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -699,7 +699,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003a2700004a270000602700006227000078270000e82700003e28000046280000c028000012290000362900003a290000462900008c290000062a0000b42a0000
+    m_ExpandedIDs: 0000000010270000222700003a2700003c2700004627000054270000ce270000242800002c280000a8280000fa28000020290000242900003029000076290000f0290000a02a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -730,18 +730,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: be3e0000c00f0000ea31000000000000e22b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Materials
-      m_OriginalName: Materials
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 12088
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 2}
     m_CreateAssetUtility:
@@ -860,14 +860,14 @@ MonoBehaviour:
     height: 386
   m_PersistentViewDataDictionary: {fileID: 0}
   m_WindowGUID: 4ed8e5e80da8a7f43af60e22c7a76128
-  m_SceneLighting: 1
+  m_SceneLighting: 0
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.8787383, y: -1.1128325, z: -0.42898083}
+    m_Target: {x: 0, y: 0, z: -0.25}
     speed: 2
-    m_Value: {x: -0.8787383, y: -1.1128325, z: -0.42898083}
+    m_Value: {x: 0, y: 0, z: -0.25}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -895,13 +895,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.2742416, y: -0.0077863974, z: 0.0022205615, w: 0.96162677}
+    m_Target: {x: -0.2381386, y: -0.24504557, z: -0.062229116, w: 0.9377475}
     speed: 2
-    m_Value: {x: 0.2742416, y: -0.0077863974, z: 0.0022205615, w: 0.96162677}
+    m_Value: {x: -0.2381386, y: -0.24504557, z: -0.062229116, w: 0.9377475}
   m_Size:
-    m_Target: 10.2676525
+    m_Target: 2.475001
     speed: 2
-    m_Value: 10.2676525
+    m_Value: 2.475001
   m_Ortho:
     m_Target: 0
     speed: 2

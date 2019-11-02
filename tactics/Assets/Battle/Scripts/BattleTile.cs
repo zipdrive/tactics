@@ -32,9 +32,20 @@ public class BattleTile : BattleGroundTerrain
         
         if (tileInfo.HasAttribute("texture"))
         {
+            string textureID = tileInfo.GetAttribute("texture");
+
+            // set ground surface
+            Material surfaceMaterial;
+            if (AssetHolder.Tiles.TryGetValue(textureID + " surface", out surfaceMaterial))
+            {
+                MeshRenderer renderer = ground.GetComponent<MeshRenderer>();
+                if (renderer != null)
+                    renderer.sharedMaterial = surfaceMaterial;
+            }
+
             // set sides
             Material sideMaterial;
-            if (AssetHolder.Tiles.TryGetValue(tileInfo.GetAttribute("texture") + " side", out sideMaterial))
+            if (AssetHolder.Tiles.TryGetValue(textureID + " side", out sideMaterial))
             {
                 foreach (MeshRenderer side in sides)
                     side.sharedMaterial = sideMaterial;

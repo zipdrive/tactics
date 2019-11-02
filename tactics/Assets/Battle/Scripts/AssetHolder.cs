@@ -175,7 +175,7 @@ public class AssetHolder : MonoBehaviour
 
                 if (tileMaterial != null)
                 {
-                    Tiles[tileMaterial.name] = tileMaterial;
+                    Tiles[tileMaterial.name.Substring(5)] = tileMaterial;
                 }
             }
 
