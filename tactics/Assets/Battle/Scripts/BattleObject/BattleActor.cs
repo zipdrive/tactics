@@ -2,6 +2,7 @@
 
 public class BattleActor : BattleObject2D
 {
+    public MeshRenderer SpecialEffectsPrefab;
     public BattleActorMessageText MessageTextPrefab;
 
     public BattleAgent Agent;

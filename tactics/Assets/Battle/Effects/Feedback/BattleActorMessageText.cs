@@ -18,6 +18,8 @@ public class BattleActorMessageText : MonoBehaviour
 
     void Update()
     {
+        transform.localScale = new Vector3(transform.parent.localScale.x, 1f);
+
         duration += Time.deltaTime;
 
         if (duration > Settings.MessageSpeed)

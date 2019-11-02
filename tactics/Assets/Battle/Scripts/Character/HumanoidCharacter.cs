@@ -105,7 +105,7 @@ public class HumanoidCharacter : Character
         {
             if (passiveSkillIndex < m_PassiveSkills.Length)
             {
-                if (!AssetHolder.Effects.TryGetValue("Passive:" + skillInfo.InnerText.Trim(), out m_PassiveSkills[passiveSkillIndex++]))
+                if (!AssetHolder.StatusEffects.TryGetValue("Passive:" + skillInfo.InnerText.Trim(), out m_PassiveSkills[passiveSkillIndex++]))
                     m_PassiveSkills[--passiveSkillIndex] = null;
             }
         }

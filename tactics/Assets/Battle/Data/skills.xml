@@ -102,7 +102,7 @@
   Magic of heat and flame.
     -->
   
-  <skill name="Burn" type="Magic [Offense]" element="Fire" target="Radius">
+  <skill name="Burn" type="Magic [Offense]" element="Fire" target="Radius" animation="burn">
     <description>
       Scorch targets with searing heat.
       Effect: Deals fire damage.
@@ -112,7 +112,7 @@
     </effects>
   </skill>
   
-  <skill name="Burn All" type="Magic [Offense]" element="Fire" target="All">
+  <skill name="Burn All" type="Magic [Offense]" element="Fire" target="All" animation="burn">
     <description>
       Scorch everyone in range with searing heat.
       Effect: Deals fire damage.
@@ -129,7 +129,7 @@
   Magic of acid and corrosion.
     -->
   
-  <skill name="Disintegrate" type="Magic [Offense]" element="Corrosion" target="Radius">
+  <skill name="Disintegrate" type="Magic [Offense]" element="Corrosion" target="Radius" animation="disintegrate">
     <description>
       Splash targets with strong acid.
       Effect: Deals corrosion damage over time.
@@ -139,7 +139,7 @@
     </effects>
   </skill>
   
-  <skill name="Disintegrate All" type="Magic [Offense]" element="Corrosion" target="All">
+  <skill name="Disintegrate All" type="Magic [Offense]" element="Corrosion" target="All" animation="disintegrate">
     <description>
       Cover everyone within range in strong acid.
       Effect: Deals corrosion damage over time.
@@ -156,7 +156,7 @@
   Magic of biological processes.
     -->
   
-  <skill name="Heal" type="Magic [Support]" element="Bio" target="Radius">
+  <skill name="Heal" type="Magic [Support]" element="Bio" target="Radius" animation="heal">
     <description>
       Heals the wounds of the targets.
       Effect: Restores HP.
@@ -166,7 +166,7 @@
     </effects>
   </skill>
   
-  <skill name="Heal All" type="Magic [Support]" element="Bio" target="All">
+  <skill name="Heal All" type="Magic [Support]" element="Bio" target="All" animation="heal">
     <description>
       Heals the wounds of everyone within range.
       Effect: Restores HP.

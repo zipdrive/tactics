@@ -108,6 +108,7 @@
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueTime\BattleQueueTime.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleShowAgentMessage.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleShowAgentReport.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleSpecialEffectAnimation.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleTargetConfirm.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleTargetSelect.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleWalk.cs" />
@@ -177,6 +178,7 @@
      <None Include="Assets\Battle\Data\Maps\map_test.txt" />
      <None Include="Assets\Battle\Data\sprites.xml" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+     <None Include="Assets\Battle\Data\animations.xml" />
      <None Include="Assets\Battle\Data\items.xml" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />

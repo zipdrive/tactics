@@ -17,15 +17,23 @@ public class BattleSpriteAnimation
     }
 
     private List<Frame> m_Frames = new List<Frame>();
-    private float duration = 0f;
+    private float m_Duration = 0f;
+
+    public float Duration
+    {
+        get
+        {
+            return m_Duration;
+        }
+    }
 
     public Material this[float time]
     {
         get
         {
-            if (time >= duration)
+            if (time >= m_Duration)
             {
-                return this[time - (duration * Mathf.Floor(time / duration))];
+                return this[time - (m_Duration * Mathf.Floor(time / m_Duration))];
             }
             else
             {
@@ -39,7 +47,7 @@ public class BattleSpriteAnimation
 
     public void Add(Material texture, float duration)
     {
-        this.duration += duration;
-        m_Frames.Add(new Frame(texture, this.duration));
+        m_Duration += duration;
+        m_Frames.Add(new Frame(texture, m_Duration));
     }
 }

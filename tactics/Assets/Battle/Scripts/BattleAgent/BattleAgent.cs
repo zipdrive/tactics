@@ -159,9 +159,9 @@ public class BattleAgent
             if (hp <= 0)
             {
                 if (HP > 0) // Inflict critical status
-                    Inflict(AssetHolder.Effects["Critical"], 1, time.Generate(), "Critical");
+                    Inflict(AssetHolder.StatusEffects["Critical"], 1, time.Generate(), "Critical");
                 else if (eventInfo.Damage > 1) // Inflict KO status
-                    Inflict(AssetHolder.Effects["KO"], int.MaxValue, time.Generate(), "KO");
+                    Inflict(AssetHolder.StatusEffects["KO"], int.MaxValue, time.Generate(), "KO");
 
                 HP = 0;
                 CP = 0;

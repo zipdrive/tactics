@@ -14,7 +14,7 @@ public class InflictSkillEffect : SkillEffect
 
     public override void Execute(BattleSkillEvent eventInfo)
     {
-        Status status = AssetHolder.Effects[m_StatusEffect];
+        Status status = AssetHolder.StatusEffects[m_StatusEffect];
         
         float baseDuration = m_Power * eventInfo.Power;
 

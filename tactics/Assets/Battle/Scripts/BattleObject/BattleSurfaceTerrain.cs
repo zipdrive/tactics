@@ -33,7 +33,7 @@ public class BattleSurfaceTerrain : BattleTerrain
     {
         get
         {
-            return inflicts.Equals("") ? null : AssetHolder.Effects[inflicts];
+            return inflicts.Equals("") ? null : AssetHolder.StatusEffects[inflicts];
         }
     }
 }

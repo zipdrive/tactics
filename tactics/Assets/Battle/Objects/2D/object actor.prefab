@@ -105,5 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebbe551ca78a6446b904c3d9c8edb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpecialEffectsPrefab: {fileID: 6455916084674166067, guid: 477c49cf4b15ba847948ca42ed26c747,
+    type: 3}
   MessageTextPrefab: {fileID: 3971264638257821082, guid: cf55c6f8706804d489fc9db315753c68,
     type: 3}

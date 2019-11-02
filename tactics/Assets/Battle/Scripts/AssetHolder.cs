@@ -9,13 +9,14 @@ public class AssetHolder : MonoBehaviour
     public static bool AssetsLoaded = false;
 
     public static Dictionary<string, BattleSprite> Sprites = new Dictionary<string, BattleSprite>();
+    public static Dictionary<string, BattleSpriteAnimation> SpecialEffects = new Dictionary<string, BattleSpriteAnimation>();
 
     public static Dictionary<string, Material> Tiles = new Dictionary<string, Material>();
     public static Dictionary<string, BattleObject> Objects = new Dictionary<string, BattleObject>();
 
     public static Dictionary<string, BattleCommand> Commands = new Dictionary<string, BattleCommand>();
 
-    public static Dictionary<string, Status> Effects = new Dictionary<string, Status>();
+    public static Dictionary<string, Status> StatusEffects = new Dictionary<string, Status>();
     public static Dictionary<string, Skill> Skills = new Dictionary<string, Skill>();
     public static Dictionary<string, Item> Items = new Dictionary<string, Item>();
     public static Dictionary<string, Character> Characters = new Dictionary<string, Character>();
@@ -104,6 +105,67 @@ public class AssetHolder : MonoBehaviour
                 Error("[AssetHolder] Unable to load sprites from \"Assets/Battle/Data/sprites.xml\".\n" + e);
             }
 
+            // Effect animations (for skills and stuff)
+            XmlDocument animationsDoc = new XmlDocument();
+            animationsDoc.PreserveWhitespace = false;
+
+            try
+            {
+                animationsDoc.Load("Assets/Battle/Data/animations.xml");
+                XmlElement root = animationsDoc["animations"];
+
+                foreach (XmlElement animationInfo in root.SelectNodes("animation"))
+                {
+                    try
+                    {
+                        string animationName = animationInfo.GetAttribute("name");
+                        Dictionary<string, Material> images = new Dictionary<string, Material>();
+
+                        string[] imageGUIDs = AssetDatabase.FindAssets(
+                            animationName, new string[] { "Assets/Battle/Effects/Sprites/Materials" });
+                        string imagesPath = "Assets/Battle/Effects/Sprites/Materials/effect " + animationName + " ";
+
+                        foreach (string imageGUID in imageGUIDs)
+                        {
+                            string path = AssetDatabase.GUIDToAssetPath(imageGUID);
+
+                            if (path.StartsWith(imagesPath))
+                            {
+                                string imageName = path.Substring(imagesPath.Length, path.Length - imagesPath.Length - 4);
+                                Material image = AssetDatabase.LoadAssetAtPath<Material>(path);
+
+                                if (image != null)
+                                {
+                                    images[imageName] = image;
+                                }
+                            }
+                        }
+
+                        BattleSpriteAnimation animation = new BattleSpriteAnimation();
+                        float animationSpeed;
+                        if (!float.TryParse(animationInfo.GetAttribute("speed"), out animationSpeed))
+                            animationSpeed = 0.035f;
+
+                        int frame = 1;
+                        while (images.ContainsKey(frame.ToString()))
+                        {
+                            animation.Add(images[(frame++).ToString()], animationSpeed); // TODO variable frame length
+                        }
+
+                        SpecialEffects.Add(animationName, animation);
+                    }
+                    catch (Exception e)
+                    {
+                        string id = animationInfo.HasAttribute("name") ? animationInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                        Error("[AssetHolder] Unable to load animation \"" + id + "\".\n" + e);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Error("[AssetHolder] Unable to load animations from \"Assets/Battle/Data/animations.xml\".\n" + e);
+            }
+
             // Tiles
             string[] tileGUIDs = AssetDatabase.FindAssets("t:Material", new string[] { "Assets/Battle/Tiles/Sprites/Materials" });
             foreach (string tileGUID in tileGUIDs)
@@ -185,7 +247,7 @@ public class AssetHolder : MonoBehaviour
                 {
                     try
                     {
-                        Effects.Add(statusInfo.GetAttribute("name"), new Status(statusInfo));
+                        StatusEffects.Add(statusInfo.GetAttribute("name"), new Status(statusInfo));
                     }
                     catch (Exception e)
                     {

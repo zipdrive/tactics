@@ -46,7 +46,8 @@ public class Skill : IComparable<Skill>
     public string Element;
     public string Range;
     public string Target;
-    
+
+    public BattleSpriteAnimation Animation = null;
     public List<SkillEffect> Effects = new List<SkillEffect>();
 
     private int m_Cost;
@@ -78,6 +79,15 @@ public class Skill : IComparable<Skill>
         if (Range.Equals("Radius"))
         {
             Range = "Range:" + Type;
+        }
+
+        if (skillInfo.HasAttribute("animation"))
+        {
+            string animationID = skillInfo.GetAttribute("animation");
+            if (AssetHolder.SpecialEffects.ContainsKey(animationID))
+            {
+                Animation = AssetHolder.SpecialEffects[animationID];
+            }
         }
 
 
