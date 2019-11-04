@@ -60,6 +60,7 @@ public class BattleTile : BattleGroundTerrain
             surface = Instantiate((BattleSurfaceTerrain)AssetHolder.Objects["terrain " + terrainInfo.GetAttribute("name")], ground.transform);
         }
 
+        /*
         XmlElement characterInfo = tileInfo.SelectSingleNode("character") as XmlElement;
         if (characterInfo != null)
         {
@@ -84,6 +85,7 @@ public class BattleTile : BattleGroundTerrain
                 }
             }
         }
+        */
     }
 
     public virtual bool IsSelectable()

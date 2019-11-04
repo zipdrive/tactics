@@ -130,6 +130,6 @@ public abstract class BattleAgentDecider
             }
         }
 
-        return new BattleMoveAction(m_Agent.Coordinates, destination);
+        return new BattleMoveAction(m_Agent, destination);
     }
 }

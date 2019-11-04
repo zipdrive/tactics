@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BattleMoveAction : BattleAction
 {
-    private Vector2Int m_Source;
+    private BattleAgent m_Agent;
     public readonly Vector2Int destination;
 
-    public BattleMoveAction(Vector2Int source, Vector2Int destination)
+    public BattleMoveAction(BattleAgent agent, Vector2Int destination)
     {
-        m_Source = source;
+        m_Agent = agent;
         this.destination = destination;
     }
 
@@ -17,7 +17,7 @@ public class BattleMoveAction : BattleAction
     {
         // Find a path using A*
         Stack<Vector2Int> steps;
-        PathFinder.AStar(m_Source, destination, out steps, manager.grid[m_Source].Actor.Agent["Jump"]);
+        PathFinder.AStar(m_Agent.Coordinates, destination, out steps, m_Agent["Jump"]);
 
         // Push each step in path
         BattleGrid grid = manager.grid;

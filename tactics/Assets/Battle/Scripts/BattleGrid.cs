@@ -9,8 +9,8 @@ public class BattleGrid : MonoBehaviour
 {
     public static string NextMapFile = "map_test";
 
-    public static float CameraScale = 1.5f;
-    public static float CameraSpeed = 0.05f;
+    public float CameraScale = 1.5f;
+    public float CameraSpeed = 1f;
 
     public static float RotationSpeed = 90f;
     private static float ViewAngle;
@@ -58,57 +58,38 @@ public class BattleGrid : MonoBehaviour
     public int Width { get { return m_Width; } }
     public int Height { get { return m_Tiles.Length / m_Width; } }
 
-    public string datafile
+    public XmlElement info
     {
         set
         {
-            XmlDocument src = new XmlDocument();
-            src.PreserveWhitespace = false;
-            try
+            m_Width = int.Parse(value.GetAttribute("width"));
+            m_Tiles = new BattleTile[m_Width * int.Parse(value.GetAttribute("height"))];
+
+            foreach (XmlElement tiles in value.SelectNodes("tiles"))
             {
-                src.Load(value);
+                int x = int.Parse(tiles.GetAttribute("x"));
+                int y = int.Parse(tiles.GetAttribute("y"));
+                int w = tiles.HasAttribute("dx") ? int.Parse(tiles.GetAttribute("dx")) - 1 : 0;
+                int h = tiles.HasAttribute("dy") ? int.Parse(tiles.GetAttribute("dy")) - 1 : 0;
 
-                XmlNode root = src["map"];
-
-                BattleUnit.Reset();
-                // TODO load units (outside of default "player" and "enemy")
-
-                XmlElement gridInfo = root.SelectSingleNode("grid") as XmlElement;
-                m_Width = int.Parse(gridInfo.GetAttribute("width"));
-                m_Tiles = new BattleTile[m_Width * int.Parse(gridInfo.GetAttribute("height"))];
-
-                foreach (XmlElement tiles in gridInfo.SelectNodes("tiles"))
+                for (int i = x + w; i >= x && i >= 0; --i)
                 {
-                    int x = int.Parse(tiles.GetAttribute("x"));
-                    int y = int.Parse(tiles.GetAttribute("y"));
-                    int w = tiles.HasAttribute("width") ? int.Parse(tiles.GetAttribute("width")) - 1 : 0;
-                    int h = tiles.HasAttribute("height") ? int.Parse(tiles.GetAttribute("height")) - 1 : 0;
-
-                    XmlElement tile = tiles["tile"];
-
-                    for (int i = x + w; i >= x && i >= 0; --i)
+                    if (i >= Width) i = Width - 1;
+                    else
                     {
-                        if (i >= Width) i = Width - 1;
-                        else
+                        for (int j = y + h; j >= y && j >= 0; --j)
                         {
-                            for (int j = y + h; j >= y && j >= 0; --j)
+                            if (j >= Height) j = Height - 1;
+                            else if (this[i, j] == null)
                             {
-                                if (j >= Height) j = Height - 1;
-                                else if (this[i, j] == null)
-                                {
-                                    this[i, j] = Instantiate(tilePrefab, transform);
-                                    this[i, j].name = "Tile (" + i + ", " + j + ")";
-                                    this[i, j].transform.localPosition = new Vector3(i, j);
-                                    this[i, j].Load(tile, i, j);
-                                }
+                                this[i, j] = Instantiate(tilePrefab, transform);
+                                this[i, j].name = "Tile (" + i + ", " + j + ")";
+                                this[i, j].transform.localPosition = new Vector3(i, j);
+                                this[i, j].Load(tiles, i, j);
                             }
                         }
                     }
                 }
-            }
-            catch (System.Exception e)
-            {
-                throw new FileLoadException("\n[BattleGrid] Could not load map from file \"" + value + "\":\n" + e);
             }
 
             // Clean up: destroy tile sides that won't ever be seen
@@ -141,6 +122,7 @@ public class BattleGrid : MonoBehaviour
     }
 
     public BattleSelector Selector;
+
     public BattleSelectableAreaUI SelectableAreas;
     public BattleTargetedAreaUI TargetedAreas;
 
@@ -168,13 +150,15 @@ public class BattleGrid : MonoBehaviour
     {
         PathFinder.Init(this);
 
-        // Load and render tiles
-        datafile = "Assets/Battle/Data/Maps/" + NextMapFile + ".xml";
-
         // Set angles and shit
         ViewAngle = transform.rotation.eulerAngles.x;
         RotationAxis = Quaternion.AngleAxis(ViewAngle, new Vector3(1f, 0f)) * new Vector3(0f, 0f, -1f);
         YAxisScale = RotationAxis.y;
+
+        // Set position
+        Selector.SelectedTile = new Vector2Int(Width / 2, Height / 2);
+        Selector.Snap();
+        transform.localPosition = -Selector.Cursor.transform.localPosition * CameraScale;
     }
 
     // Update is called once per frame
@@ -190,7 +174,7 @@ public class BattleGrid : MonoBehaviour
         {
             float zr1 = transform.localRotation.eulerAngles.z;
 
-            Vector3 center = new Vector3(m_CenterTile.x, m_CenterTile.y);
+            //Vector3 center = new Vector3(m_CenterTile.x, m_CenterTile.y);
             transform.RotateAround(new Vector3(), RotationAxis, m_Rotation * RotationSpeed * Time.deltaTime);
 
             float zr2 = transform.localRotation.eulerAngles.z;
@@ -201,7 +185,7 @@ public class BattleGrid : MonoBehaviour
             else if (Mathf.RoundToInt(zr1)/90 != Mathf.RoundToInt(zr2)/90)
             {
                 transform.localEulerAngles = new Vector3(0f, 0f, Mathf.Round(zr2 / 90f) * 90f);
-                transform.localPosition = transform.localRotation * -Selector.Cursor.transform.localPosition * CameraScale;
+                transform.localPosition = transform.localRotation * -Selector.Cursor.localPosition * CameraScale;
 
                 m_Rotation = 0f;
             }
@@ -233,7 +217,7 @@ public class BattleGrid : MonoBehaviour
         
         transform.localScale = new Vector3(CameraScale, CameraScale, CameraScale);
         transform.localPosition -= CameraSpeed * (transform.localPosition + 
-            (transform.localRotation * Selector.Cursor.transform.localPosition * CameraScale));
+            (transform.localRotation * Selector.Cursor.localPosition * CameraScale));
     }
 
     public bool IsSelectable(int x, int y)

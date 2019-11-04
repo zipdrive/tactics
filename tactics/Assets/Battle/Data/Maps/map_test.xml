@@ -3,35 +3,38 @@
 <map>
   <grid width="6" height="10">
 
-    <tiles x="2" y="1">
-      <tile texture="sample" height="2">
-        <character name="Debug Blood Mage" unit="player" />
-      </tile>
-    </tiles>
-
-    <tiles x="3" y="1">
-      <tile texture="sample" height="2">
-        <character name="Debug Spellsword" unit="player" />
-      </tile>
-    </tiles>
-
-
-    <tiles x="2" y="8">
-      <tile texture="sample" height="2">
-        <character name="Debug Spellsword" unit="enemy" behaviour="offense" />
-      </tile>
-    </tiles>
-
-    <tiles x="3" y="8">
-      <tile texture="sample" height="2">
-        <character name="Debug Blood Mage" unit="enemy" behaviour="offense" />
-      </tile>
-    </tiles>
-
-
-    <tiles x="0" y="0" width="6" height="10">
-      <tile texture="sewerwater" height="1" />
-    </tiles>
+    <tiles x="0" y="1" dx="6" 
+           texture="sewerwater" height="2" 
+    />
+    <tiles x="0" y="8" dx="6" 
+           texture="sewerwater" height="2" 
+    />
+    
+    <tiles x="0" y="0" dx="6" dy="10" 
+           texture="sample" height="1" 
+    />
 
   </grid>
+
+  <battle id="debug">
+    
+    <character name="Debug Journalist" x="2" y="1" unit="player" />
+    <character name="Debug Blood Mage" x="3" y="1" unit="player" />
+    
+    <character name="Debug Berserker" x="2" y="8" unit="enemy" behaviour="offense" />
+    <character name="Debug Spellsword" x="3" y="8" unit="enemy" behaviour="offense" />
+    
+    <cutscene trigger="begin">
+      
+      <text character="Debug Blood Mage">hi i am generic blood mage</text>
+      <text character="Debug Berserker">hi i am generic berserker</text>
+      
+      <move character="Debug Berserker" x="4" y="7" />
+      
+      <text character="Debug Berserker">i just moved</text>
+      <text character="Debug Journalist">yes you did</text>
+    
+    </cutscene>
+  
+  </battle>
 </map>

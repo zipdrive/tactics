@@ -57,6 +57,7 @@
      <Compile Include="Assets\Battle\Scripts\AssetHolder.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleDamageAction.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleAction\BattleDialogueAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleEndTurnAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleMoveAction.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleAction\BattleReportAction.cs" />
@@ -106,6 +107,7 @@
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleJump.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueMember.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleQueueTime\BattleQueueTime.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleShowAgentDialogue.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleShowAgentMessage.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleShowAgentReport.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleSpecialEffectAnimation.cs" />
@@ -157,6 +159,7 @@
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEffectExecutor.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusEvent.cs" />
      <Compile Include="Assets\Battle\Scripts\StatusEffect\StatusInstance.cs" />
+     <Compile Include="Assets\Battle\UI\BattleAgentDialogueUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleAgentReportUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleAgentUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleOption.cs" />

@@ -9,6 +9,7 @@ public class BattleSelector : MonoBehaviour
     public static float SelectionSpeed = 30f;
     public static bool SelectionSnap = false;
 
+    public static bool Shown = true;
     public static bool Frozen = false;
 
     public Transform Cursor;
@@ -23,7 +24,11 @@ public class BattleSelector : MonoBehaviour
         set
         {
             m_SelectedTile = value;
-            m_Grid.agentUI.Agent = m_Grid[value].Actor == null ? null : m_Grid[value].Actor.Agent;
+
+            if (m_Grid[value] != null)
+            {
+                m_Grid.agentUI.Agent = m_Grid[value].Actor == null ? null : m_Grid[value].Actor.Agent;
+            }
         }
     }
     public Vector3 Velocity;
@@ -37,6 +42,7 @@ public class BattleSelector : MonoBehaviour
     
     void Update()
     {
+        Cursor.gameObject.SetActive(Shown);
         Cursor.localPosition += Velocity * SelectionSpeed * Time.deltaTime;
 
         if ((Cursor.localPosition.x > SelectedTile.x && Velocity.x > 0f)

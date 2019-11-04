@@ -14,6 +14,6 @@ public class BattleCommandMoveAction : BattleCommandAction
     {
         BattleManhattanDistanceZone destination = selections[m_Target] as BattleManhattanDistanceZone;
 
-        return new BattleMoveAction(agent.Coordinates, destination.Center);
+        return new BattleMoveAction(agent, destination.Center);
     }
 }

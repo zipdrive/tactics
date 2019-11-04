@@ -212,7 +212,7 @@
 
     <equipment>
       <weapon>Saber</weapon>
-      <body>Uniform</body>
+      <body>Clothes</body>
     </equipment>
 
     <commands>
@@ -234,6 +234,69 @@
       </passive>
     </skills>
 
+  </character>
+
+
+  <character name="Debug Journalist" title="Journalist" type="humanoid" sprite="phil">
+
+    <stats>
+      <stat name="HP">60</stat>
+      <stat name="SP">50</stat>
+      <stat name="Attack">5</stat>
+      <stat name="Magic">5</stat>
+      <stat name="Speed">7</stat>
+    </stats>
+
+    <equipment>
+      <weapon>Crossbow</weapon>
+      <body>Clothes</body>
+    </equipment>
+
+    <commands>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+      <command>Report</command>
+    </commands>
+
+    <skills>
+      <active>
+        <skill>Punch</skill>
+        <skill>Shoot</skill>
+      </active>
+    </skills>
+    
+  </character>
+
+
+  <character name="Debug Berserker" title="Berserker" type="humanoid" sprite="phil">
+
+    <stats>
+      <stat name="HP">75</stat>
+      <stat name="SP">30</stat>
+      <stat name="Attack">8</stat>
+      <stat name="Magic">3</stat>
+      <stat name="Speed">5</stat>
+    </stats>
+
+    <equipment>
+      <weapon>Saber</weapon>
+      <body>Clothes</body>
+    </equipment>
+
+    <commands>
+      <command>Weapon Skill</command>
+      <command>Magic Skill</command>
+      <command>Berserk</command>
+    </commands>
+
+    <skills>
+      <active>
+        <skill>Punch</skill>
+        <skill>Slash</skill>
+        <skill>Stab</skill>
+      </active>
+    </skills>
+    
   </character>
   
   

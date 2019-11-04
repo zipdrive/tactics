@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6172142152510456211}
   - component: {fileID: 5294102636139438801}
   - component: {fileID: 5966790933794064742}
+  - component: {fileID: 2005858573007355977}
   m_Layer: 0
   m_Name: object actor
   m_TagString: Untagged
@@ -109,3 +110,22 @@ MonoBehaviour:
     type: 3}
   MessageTextPrefab: {fileID: 3971264638257821082, guid: cf55c6f8706804d489fc9db315753c68,
     type: 3}
+--- !u!95 &2005858573007355977
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966790933794064743}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0ad0e5317d437048ae307456e06f647, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
