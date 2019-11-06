@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<campaigns>
+
+  <campaign name="Neshtenia"></campaign>
+
+  <campaign name="Harrendal">
+
+    <join character="Dave" type="active" />
+    <battle map="scarlands" id="cult" />
+
+    <menu next="Erdrech Crag">
+      <shop enabled="false" />
+    </menu>
+
+    <battle map="erdrech" id="cult" />
+    <cutscene map="scarlands" id="post-erdrech" />
+    
+  </campaign>
+  
+</campaigns>

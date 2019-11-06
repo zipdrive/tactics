@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(Animator))]
 public class GenericOption : MonoBehaviour
@@ -22,30 +23,37 @@ public class GenericOption : MonoBehaviour
                 new Color(1f, 1f, 1f, 0.847f) :
                 new Color(0.75f * Settings.TextBoxColor.r, 0.75f * Settings.TextBoxColor.g, 0.75f * Settings.TextBoxColor.b, 0.847f);
             
-            foreach (Text label in m_Labels)
+            foreach (TextMeshProUGUI label in m_Labels)
             {
                 label.color = labelColor;
             }
         }
     }
 
+    private bool m_Highlighted;
     public bool Highlighted
     {
+        get
+        {
+            return m_Highlighted;
+        }
+
         set
         {
             if (m_Animator == null) m_Animator = GetComponent<Animator>();
 
-            m_Animator.SetBool("Highlighted", value);
+            m_Highlighted = value;
+            m_Animator.SetBool("Highlighted", m_Highlighted);
         }
     }
 
-    private Text[] m_LabelText;
-    private Text[] m_Labels
+    private TextMeshProUGUI[] m_LabelText;
+    private TextMeshProUGUI[] m_Labels
     {
         get
         {
             if (m_LabelText == null)
-                m_LabelText = GetComponentsInChildren<Text>();
+                m_LabelText = GetComponentsInChildren<TextMeshProUGUI>();
             return m_LabelText;
         }
     }
@@ -69,7 +77,7 @@ public class GenericOption : MonoBehaviour
     }
 
     
-    void Start()
+    protected virtual void Start()
     {
         Image background = GetComponent<Image>();
         if (background != null)
