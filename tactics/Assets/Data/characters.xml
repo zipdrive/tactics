@@ -162,7 +162,7 @@
   Characters who aren't meant to be in the game, and are to serve primarily for debugging purposes.
     -->
 
-  <character name="Debug Spellsword" title="Spellsword" type="humanoid" sprite="phil">
+  <character id="Debug Spellsword" name="Debug" title="Spellsword" type="humanoid" sprite="phil">
 
     <stats>
       <stat name="HP">60</stat>
@@ -200,7 +200,7 @@
   
 
 
-  <character name="Debug Blood Mage" title="Blood Mage" type="humanoid" sprite="phil">
+  <character id="Debug Blood Mage" name="Debug" title="Blood Mage" type="humanoid" sprite="phil">
 
     <stats>
       <stat name="HP">50</stat>
@@ -237,7 +237,7 @@
   </character>
 
 
-  <character name="Debug Journalist" title="Journalist" type="humanoid" sprite="phil">
+  <character id="Debug Journalist" name="Debug" title="Journalist" type="humanoid" sprite="phil">
 
     <stats>
       <stat name="HP">60</stat>
@@ -268,7 +268,7 @@
   </character>
 
 
-  <character name="Debug Berserker" title="Berserker" type="humanoid" sprite="phil">
+  <character id="Debug Berserker" name="Debug" title="Berserker" type="humanoid" sprite="phil">
 
     <stats>
       <stat name="HP">75</stat>

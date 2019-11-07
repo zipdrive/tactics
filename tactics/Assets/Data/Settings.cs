@@ -20,7 +20,7 @@ public class Settings
     /// <summary>
     /// How quickly dialogue is displayed.
     /// </summary>
-    public static float TextSpeed = 1f;
+    public static float TextSpeed = 30f;
 
     /// <summary>
     /// What color the text boxes are.

@@ -11,6 +11,8 @@ public class BattleManager : MonoBehaviour
     public BattleOptionList battleOptionListPrefab;
     public BattleOverScreen battleOverScreen;
 
+    public BattleAgentDialogueUI dialogue;
+
     public BattleGrid grid;
     public List<BattleAgent> agents = new List<BattleAgent>();
 
@@ -26,7 +28,7 @@ public class BattleManager : MonoBehaviour
 
         try
         {
-            mapDoc.Load("Assets/Battle/Data/Maps/" + NextMapFile + ".xml");
+            mapDoc.Load("Assets/Data/Maps/" + NextMapFile + ".xml");
             XmlNode root = mapDoc.SelectSingleNode("map");
 
             grid.info = root.SelectSingleNode("grid") as XmlElement;
@@ -94,11 +96,11 @@ public class BattleManager : MonoBehaviour
                                 {
                                     if (sceneInfo.Name.Equals("move"))
                                     {
-                                        string character = sceneInfo.GetAttribute("character");
+                                        Character character = AssetHolder.Characters[sceneInfo.GetAttribute("character")];
                                         BattleAgent target = null;
                                         foreach (BattleAgent agent in agents)
                                         {
-                                            if (agent.BaseCharacter.Name.Equals(character))
+                                            if (agent.BaseCharacter == character)
                                             {
                                                 target = agent;
                                                 break;
@@ -120,11 +122,11 @@ public class BattleManager : MonoBehaviour
                                     }
                                     else if (sceneInfo.Name.Equals("text"))
                                     {
-                                        string character = sceneInfo.GetAttribute("character");
+                                        Character character = AssetHolder.Characters[sceneInfo.GetAttribute("character")];
                                         BattleAgent target = null;
                                         foreach (BattleAgent agent in agents)
                                         {
-                                            if (agent.BaseCharacter.Name.Equals(character))
+                                            if (agent.BaseCharacter == character)
                                             {
                                                 target = agent;
                                                 break;

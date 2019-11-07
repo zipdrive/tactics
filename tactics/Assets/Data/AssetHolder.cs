@@ -376,7 +376,11 @@ public class AssetHolder : MonoBehaviour
                 {
                     try
                     {
-                        Characters[characterInfo.GetAttribute("name")] = Character.Parse(characterInfo);
+                        string id = characterInfo.HasAttribute("id") ?
+                            characterInfo.GetAttribute("id") :
+                            characterInfo.GetAttribute("name");
+
+                        Characters[id] = Character.Parse(characterInfo);
                     }
                     catch (Exception e)
                     {

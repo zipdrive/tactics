@@ -25,6 +25,9 @@
     <character name="Debug Spellsword" x="3" y="8" unit="enemy" behaviour="offense" />
     
     <cutscene trigger="begin">
+
+      <text character="Debug Blood Mage">i am going to take a long pause&lt;pause=30&gt; and then resume speaking</text>
+      <text character="Debug Blood Mage">&lt;speed=0.5&gt;this text is &lt;speed=0.25&gt;slow &lt;speed=2.0&gt;but this text is fast</text>
       
       <text character="Debug Blood Mage">hi i am generic blood mage</text>
       <text character="Debug Berserker">hi i am generic berserker</text>

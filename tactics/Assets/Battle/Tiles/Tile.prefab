@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 0
-  difficulty: 0
+  difficulty: 1
   inflicts: 
 --- !u!1 &2512987269725328402
 GameObject:

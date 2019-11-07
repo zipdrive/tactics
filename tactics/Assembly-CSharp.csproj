@@ -174,12 +174,13 @@
      <Compile Include="Assets\Data\Campaign\CampaignMenuScene.cs" />
      <Compile Include="Assets\Data\Campaign\CampaignScene.cs" />
      <Compile Include="Assets\Data\Campaign\CampaignUnjoinScene.cs" />
+     <Compile Include="Assets\Data\Settings.cs" />
      <Compile Include="Assets\Generic\UI\CampaignOption\CampaignLoadNextOption.cs" />
      <Compile Include="Assets\Generic\UI\GenericOption.cs" />
      <Compile Include="Assets\Generic\UI\GenericOptionList.cs" />
      <Compile Include="Assets\Menu\Scripts\AnimatorTriggerOption.cs" />
+     <Compile Include="Assets\Menu\Scripts\MenuManager.cs" />
      <Compile Include="Assets\Menu\Scripts\TransitionMenuUI.cs" />
-     <Compile Include="Assets\Settings.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\Data\commands.xml" />

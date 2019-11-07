@@ -19,11 +19,14 @@ public class TransitionMenuUI : GenericOptionList<AnimatorTriggerOption>
         Add(true, "Party");
         m_Options[0].trigger = "Party";
 
-        Add(true, "Shop");
+        Add(MenuManager.Menu.ShopEnabled, "Shop");
         m_Options[1].trigger = "Shop";
 
-        Add(true, "Missions");
-        m_Options[2].trigger = "Missions";
+        if (false) // TODO?
+        {
+            Add(true, "Missions");
+            m_Options[2].trigger = "Missions";
+        }
 
         Add(true, "Settings");
         m_Options[3].trigger = "Fade";

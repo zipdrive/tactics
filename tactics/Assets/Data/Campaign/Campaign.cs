@@ -91,14 +91,14 @@ public class Campaign
                             );
                             break;
                         case "menu":
-                            m_Scenes.Add(new CampaignMenuScene());
+                            m_Scenes.Add(new CampaignMenuScene(sceneInfo));
                             break;
                     }
                 }
                 catch (System.Exception e)
                 {
                     // TODO
-                    UnityEngine.Debug.Log("[Campaign] Unable to load \"" + sceneInfo.OuterXml + "\".");
+                    UnityEngine.Debug.Log("[Campaign] Unable to load \"" + sceneInfo.OuterXml + "\".\n" + e);
                 }
             }
         }

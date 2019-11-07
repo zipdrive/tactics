@@ -20,18 +20,18 @@ public class BattleShowAgentDialogue : BattleQueueMember
 
         BattleAgentUI.Shown = false;
 
-        m_UI = GameObject.FindObjectOfType<BattleAgentDialogueUI>();
+        m_UI = manager.dialogue;
         m_UI.Shown = true;
 
         m_UI.speaker.text = m_Speaker.BaseCharacter.Name;
-        m_UI.text = m_Text;
+        m_UI.Text = m_Text;
     }
 
     public override bool QUpdate(BattleManager manager)
     {
         if (Input.GetButtonDown("Submit"))
         {
-            if (m_UI.dialogue.text.Equals(m_Text))
+            if (m_UI.Finished)
             {
                 BattleAgentUI.Shown = true;
 
