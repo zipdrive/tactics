@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(RectTransform))]
 public class BattleOptionList : GenericOptionList<BattleOption>
@@ -72,7 +73,7 @@ public class BattleOptionList : GenericOptionList<BattleOption>
     {
         DescriptionBox.gameObject.SetActive(true);
 
-        Text[] descriptionLabels = DescriptionBox.GetComponentsInChildren<Text>();
+        TextMeshProUGUI[] descriptionLabels = DescriptionBox.GetComponentsInChildren<TextMeshProUGUI>();
         for (int k = 0; k < descriptionLabels.Length; ++k)
         {
             if (k < description.Length)

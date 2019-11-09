@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
-using UnityEditor;
 
 public class AssetHolder : MonoBehaviour
 {
@@ -37,16 +36,23 @@ public class AssetHolder : MonoBehaviour
 
             try
             {
-                spritesDoc.Load("Assets/Data/sprites.xml");
+                spritesDoc.Load(Application.dataPath + "/Resources/Data/sprites.xml");
                 XmlElement root = spritesDoc["sprites"];
+
+                Material[] imageList = Resources.LoadAll<Material>("Battle/Objects/2D/Materials");
+                Dictionary<string, Material> images = new Dictionary<string, Material>();
+                foreach (Material image in imageList)
+                {
+                    images[image.name] = image;
+                }
 
                 foreach (XmlElement spriteInfo in root.ChildNodes)
                 {
                     try
                     {
                         string spriteName = spriteInfo.GetAttribute("name");
-                        Dictionary<string, Material> images = new Dictionary<string, Material>();
 
+                        /*
                         string[] imageGUIDs = AssetDatabase.FindAssets(
                             spriteName, new string[] { "Assets/Battle/Objects/2D/Sprites/Materials" });
                         string imagesPath = "Assets/Battle/Objects/2D/Sprites/Materials/" + spriteName + " ";
@@ -66,6 +72,7 @@ public class AssetHolder : MonoBehaviour
                                 }
                             }
                         }
+                        */
 
                         /*
                         foreach (XmlElement imageInfo in spriteInfo["images"].ChildNodes)
@@ -78,14 +85,23 @@ public class AssetHolder : MonoBehaviour
                         */
 
                         BattleSprite sprite = new BattleSprite();
-                        sprite.Portrait = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Battle/Portraits/" + (spriteInfo.HasAttribute("portrait") ? spriteInfo.GetAttribute("portrait") : spriteName) + ".png");
+                        sprite.Portrait = Resources.Load<Sprite>("Portraits/" + (spriteInfo.HasAttribute("portrait") ? spriteInfo.GetAttribute("portrait") : spriteName));
 
                         foreach (XmlElement animationInfo in spriteInfo.SelectNodes("animations/animation"))
                         {
                             BattleSpriteAnimation animation = new BattleSpriteAnimation();
 
                             foreach (XmlElement frameInfo in animationInfo.ChildNodes)
-                                animation.Add(images[frameInfo.InnerText.Trim()], float.Parse(frameInfo.GetAttribute("duration")));
+                            {
+                                string frameImage = spriteName + " " + frameInfo.InnerText.Trim();
+                                if (images.ContainsKey(frameImage))
+                                {
+                                    animation.Add(
+                                      images[frameImage],
+                                      float.Parse(frameInfo.GetAttribute("duration"))
+                                  );
+                                }
+                            }
 
                             sprite.Add(
                                 animationInfo.GetAttribute("direction").CompareTo("front") == 0, 
@@ -105,7 +121,7 @@ public class AssetHolder : MonoBehaviour
             }
             catch (Exception e)
             {
-                Error("[AssetHolder] Unable to load sprites from \"Assets/Data/sprites.xml\".\n" + e);
+                Error("[AssetHolder] Unable to load sprites from \"Resources/Data/sprites.xml\".\n" + e);
             }
 
             // Effect animations (for skills and stuff)
@@ -114,14 +130,20 @@ public class AssetHolder : MonoBehaviour
 
             try
             {
-                animationsDoc.Load("Assets/Data/animations.xml");
+                animationsDoc.Load(Application.dataPath + "/Resources/Data/animations.xml");
                 XmlElement root = animationsDoc["animations"];
+
+                Material[] imageList = Resources.LoadAll<Material>("Battle/Effects/Materials");
+                Dictionary<string, Material> images = new Dictionary<string, Material>();
+                foreach (Material image in imageList)
+                    images[image.name] = image;
 
                 foreach (XmlElement animationInfo in root.SelectNodes("animation"))
                 {
                     try
                     {
-                        string animationName = animationInfo.GetAttribute("name");
+                        string animationName = "effect " + animationInfo.GetAttribute("name") + " ";
+                        /*
                         Dictionary<string, Material> images = new Dictionary<string, Material>();
 
                         string[] imageGUIDs = AssetDatabase.FindAssets(
@@ -143,6 +165,7 @@ public class AssetHolder : MonoBehaviour
                                 }
                             }
                         }
+                        */
 
                         BattleSpriteAnimation animation = new BattleSpriteAnimation();
                         float animationSpeed;
@@ -152,7 +175,7 @@ public class AssetHolder : MonoBehaviour
                         int frame = 1;
                         while (images.ContainsKey(frame.ToString()))
                         {
-                            animation.Add(images[(frame++).ToString()], animationSpeed); // TODO variable frame length
+                            animation.Add(images[animationName + (frame++).ToString()], animationSpeed); // TODO variable frame length
                         }
 
                         SpecialEffects.Add(animationName, animation);
@@ -166,10 +189,11 @@ public class AssetHolder : MonoBehaviour
             }
             catch (Exception e)
             {
-                Error("[AssetHolder] Unable to load animations from \"Assets/Data/animations.xml\".\n" + e);
+                Error("[AssetHolder] Unable to load animations from \"Resources/Data/animations.xml\".\n" + e);
             }
 
             // Tiles
+            /*
             string[] tileGUIDs = AssetDatabase.FindAssets("t:Material", new string[] { "Assets/Battle/Tiles/Sprites/Materials" });
             foreach (string tileGUID in tileGUIDs)
             {
@@ -181,6 +205,7 @@ public class AssetHolder : MonoBehaviour
                     Tiles[tileMaterial.name.Substring(5)] = tileMaterial;
                 }
             }
+            */
 
             /*
             string[] spriteGUIDs = AssetDatabase.FindAssets("t:Sprite");
@@ -199,6 +224,11 @@ public class AssetHolder : MonoBehaviour
             */
 
             // Objects
+            BattleObject[] objectList = Resources.LoadAll<BattleObject>("Battle/Objects");
+            foreach (BattleObject obj in objectList)
+                Objects[obj.name.StartsWith("object ") ? obj.name.Substring(7) : obj.name] = obj;
+
+            /*
             string[] objectGUIDs = AssetDatabase.FindAssets("object");
             foreach (string objectGUID in objectGUIDs)
             {
@@ -209,6 +239,7 @@ public class AssetHolder : MonoBehaviour
                     Objects[obj.name.Remove(0, 7)] = obj;
                 }
             }
+            */
 
             // Commands
             XmlDocument commandsDoc = new XmlDocument();
@@ -216,7 +247,7 @@ public class AssetHolder : MonoBehaviour
 
             try
             {
-                commandsDoc.Load("Assets/Data/commands.xml");
+                commandsDoc.Load(Application.dataPath + "/Resources/Data/commands.xml");
                 XmlNode root = commandsDoc["commands"];
 
                 foreach (XmlElement commandInfo in root.SelectNodes("command"))
@@ -234,7 +265,7 @@ public class AssetHolder : MonoBehaviour
             }
             catch (Exception e)
             {
-                Error("[AssetHolder] Unable to load commands from \"Assets/Data/commands.xml\".\n" + e);
+                Error("[AssetHolder] Unable to load commands from \"Resources/Data/commands.xml\".\n" + e);
             }
 
             // Status effects
@@ -243,7 +274,7 @@ public class AssetHolder : MonoBehaviour
 
             try
             {
-                effectsDoc.Load("Assets/Data/effects.xml");
+                effectsDoc.Load(Application.dataPath + "/Resources/Data/effects.xml");
                 XmlElement root = effectsDoc["effects"];
 
                 foreach (XmlElement statusInfo in root.SelectNodes("effect"))
@@ -261,7 +292,7 @@ public class AssetHolder : MonoBehaviour
             }
             catch (Exception e)
             {
-                Error("[AssetHolder] Unable to load status effects from \"Assets/Data/effects.xml\".\n" + e);
+                Error("[AssetHolder] Unable to load status effects from \"Resources/Data/effects.xml\".\n" + e);
             }
 
             // Skills
@@ -270,7 +301,7 @@ public class AssetHolder : MonoBehaviour
 
             try
             {
-                skillsDoc.Load("Assets/Data/skills.xml");
+                skillsDoc.Load(Application.dataPath + "/Resources/Data/skills.xml");
                 XmlElement root = skillsDoc["skills"];
 
                 int index = 1;
@@ -290,7 +321,7 @@ public class AssetHolder : MonoBehaviour
             }
             catch (Exception e)
             {
-                Error("[AssetHolder] Unable to load skills from \"Assets/Data/skills.xml\".\n" + e);
+                Error("[AssetHolder] Unable to load skills from \"Resources/Data/skills.xml\".\n" + e);
             }
 
             // Items
@@ -299,7 +330,7 @@ public class AssetHolder : MonoBehaviour
 
             try
             {
-                itemsDoc.Load("Assets/Data/items.xml");
+                itemsDoc.Load(Application.dataPath + "/Resources/Data/items.xml");
                 XmlElement root = itemsDoc["items"];
 
                 foreach (XmlElement weaponInfo in root.SelectNodes("weapon"))
@@ -360,7 +391,7 @@ public class AssetHolder : MonoBehaviour
             }
             catch (Exception e)
             {
-                Error("[AssetHolder] Unable to load items from \"Assets/Data/items.xml\".\n" + e);
+                Error("[AssetHolder] Unable to load items from \"Resources/Data/items.xml\".\n" + e);
             }
 
             // Characters
@@ -369,7 +400,7 @@ public class AssetHolder : MonoBehaviour
 
             try
             {
-                characterDoc.Load("Assets/Data/characters.xml");
+                characterDoc.Load(Application.dataPath + "/Resources/Data/characters.xml");
                 XmlElement root = characterDoc["characters"];
 
                 foreach (XmlElement characterInfo in root.SelectNodes("character"))
@@ -391,7 +422,7 @@ public class AssetHolder : MonoBehaviour
             }
             catch (Exception e)
             {
-                Error("\n[AssetHolder] Unable to load characters from \"Assets/Data/characters.xml\".\n" + e);
+                Error("\n[AssetHolder] Unable to load characters from \"Resources/Data/characters.xml\".\n" + e);
             }
         }
 
@@ -401,7 +432,7 @@ public class AssetHolder : MonoBehaviour
 
         try
         {
-            campaignsDoc.Load("Assets/Data/campaigns.xml");
+            campaignsDoc.Load(Application.dataPath + "/Resources/Data/campaigns.xml");
             XmlNode root = campaignsDoc["campaigns"];
 
             foreach (XmlElement campaignInfo in root.SelectNodes("campaign"))
@@ -422,7 +453,7 @@ public class AssetHolder : MonoBehaviour
         }
         catch (Exception e)
         {
-            Error("\n[AssetHolder] Unable to load campaigns from \"Assets/Data/campaigns.xml\".\n" + e);
+            Error("\n[AssetHolder] Unable to load campaigns from \"Resources/Data/campaigns.xml\".\n" + e);
         }
     }
 

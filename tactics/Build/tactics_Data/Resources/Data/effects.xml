@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<effects>
+  
+  
+  <!--
+  DEBUG STATUS EFFECTS
+  Status effects that are meant to test various features.
+    -->
+
+  <effect name="Debug:Target ">
+    <target element="Fire">
+      <damage power="1" />
+    </target>
+  </effect>
+
+  <effect name="Debug:Reflect Magic">
+    <target type="Magic">
+      <reflect />
+    </target>
+  </effect>
+  
+  
+  
+  <!--
+  INNATE STATUS EFFECTS
+  ???????
+    -->
+
+  <effect name="Critical">
+    <begin>
+      <bonus stat="Speed">-99</bonus>
+    </begin>
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <healed trigger="after">
+      <duration>-99</duration>
+    </healed>
+  </effect>
+
+  <effect name="KO">
+    <begin>
+      <bonus stat="Speed">-99</bonus>
+    </begin>
+  </effect>
+  
+  
+  
+  <!--
+  CORROSION STATUS EFFECTS
+  Revolve around doing damage or reducing stats over a (generally long) period of time. 
+  -->
+  
+  <!-- Deals high HP damage over a medium period of time. -->
+  <effect name="Acid" element="Corrosion" resist="false">
+    <tick>
+      <random probability="0.45">
+        <bonus stat="Count:Damage" />
+      </random>
+    </tick>
+    <turn>
+      <damage element="Corrosion" to="HP">Count:Damage</damage>
+      <repeat number="Count:Damage">
+        <bonus stat="Count:Damage">-1</bonus>
+      </repeat>
+    </turn>
+  </effect>
+  
+  
+  
+  <!--
+  TIME STATUS EFFECTS
+  Generally revolve around altering Speed.
+    -->
+
+  <effect name="Reflect">
+    <tick>
+      <duration>0</duration>
+    </tick>
+    <target trigger="before" type="Magic [Offense]">
+      <duration />
+      <reflect />
+    </target>
+  </effect>
+
+
+
+  <!--
+  PASSIVE SKILLS
+  Passive skills for characters to have.
+    -->
+
+  <effect name="Passive:Offensive Magic Range +2" description="Increase the range of offensive magic skills by 2.">
+    <begin>
+      <bonus stat="Range:Magic [Offense]">2</bonus>
+    </begin>
+  </effect>
+
+  <effect name="Passive:Offensive Magic Range +4" description="Increase the range of offensive magic skills by 4.">
+    <begin>
+      <bonus stat="Range:Magic [Offense]">4</bonus>
+    </begin>
+  </effect>
+
+  <effect name="Passive:Offensive Magic AoE +1" description="Increase the area of effect of offensive magic skills by 1.">
+    <begin>
+      <bonus stat="AoE:Magic [Offense]">1</bonus>
+    </begin>
+  </effect>
+
+  <effect name="Passive:Offensive Magic AoE +2" description="Increase the area of effect of offensive magic skills by 2.">
+    <begin>
+      <bonus stat="AoE:Magic [Offense]">2</bonus>
+    </begin>
+  </effect>
+
+  <effect name="Passive:Fire +33%" description="Fire magic skills are 33% more powerful.">
+    <begin>
+      <bonus stat="Power:Fire">33</bonus>
+    </begin>
+  </effect>
+
+  <effect name="Passive:Fire +67%" description="Fire magic skills are 67% more powerful.">
+    <begin>
+      <bonus stat="Power:Fire">67</bonus>
+    </begin>
+  </effect>
+
+  <effect name="Passive:Repair" description="Bio magic support skills ignore bio resistance.">
+    <use type="Magic [Support]" element="Bio">
+      <resistance ignore="999" />
+    </use>
+  </effect>
+    
+  
+  
+</effects>

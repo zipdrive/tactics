@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class BattleOverScreen : MonoBehaviour
 {
-    public Text mainText;
-    public Text subtitleText;
+    public TextMeshProUGUI mainText;
+    public TextMeshProUGUI subtitleText;
 
     public bool success
     {

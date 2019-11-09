@@ -117,13 +117,25 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
             }
             else
             {
-                string axis = Alignment.ToString();
-                if (Input.GetButtonDown(axis))
+                if (Alignment == Layout.Horizontal)
                 {
-                    if (Input.GetAxis(axis) < 0f)
-                        ++Index;
-                    else
-                        --Index;
+                    if (Input.GetButtonDown("Horizontal"))
+                    {
+                        if (Input.GetAxis("Horizontal") < 0f)
+                            --Index;
+                        else
+                            ++Index;
+                    }
+                }
+                else
+                {
+                    if (Input.GetButtonDown("Vertical"))
+                    {
+                        if (Input.GetAxis("Vertical") < 0f)
+                            ++Index;
+                        else
+                            --Index;
+                    }
                 }
             }
         }

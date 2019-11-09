@@ -29,10 +29,10 @@ public class TransitionMenuUI : GenericOptionList<AnimatorTriggerOption>
         }
 
         Add(true, "Settings");
-        m_Options[3].trigger = "Fade";
+        m_Options[m_Options.Count - 1].trigger = "Fade";
 
         Add(true, "Main Menu");
-        m_Options[4].trigger = "Fade";
+        m_Options[m_Options.Count - 1].trigger = "Fade";
 
         base.Start();
     }

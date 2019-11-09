@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<skills>
+    
+  <!--
+  MARTIAL WEAPON
+  Barehanded skills.
+    -->
+
+  <skill name="Punch" type="Weapon [Melee]" element="Martial">
+    <description>
+      Punch a target with your bare fist.
+      Effect: Low damage with low accuracy.
+    </description>
+    <effects>
+      <hit accuracy="0">
+        <damage element="Physical" power="0.25" critical="0.01" />
+      </hit>
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  BLUNT WEAPON
+  Blunt weapon techniques.
+    -->
+
+  <skill name="Whack" type="Weapon [Melee]" element="Blunt">
+    <description>
+      Bash a target with a blunt weapon.
+      Effect: High damage with low accuracy.
+    </description>
+    <effects>
+      <hit accuracy="-1">
+        <damage element="Physical" power="0.4" critical="0.01" />
+      </hit>
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  SLASHING WEAPON
+  Slashing weapon techniques.
+    -->
+
+  <skill name="Slash" type="Weapon [Melee]" element="Slashing">
+    <description>
+      Slash a target with an edged weapon.
+      Effect: Good damage with good accuracy.
+    </description>
+    <effects>
+      <hit accuracy="0">
+        <damage element="Physical" power="0.3" critical="0.05" />
+      </hit>
+    </effects>
+  </skill>
+
+
+
+  <!--
+  PIERCING WEAPON
+  Piercing weapon techniques.
+    -->
+
+  <skill name="Stab" type="Weapon [Melee]" element="Piercing">
+    <description>
+      Stab a target with a piercing weapon.
+      Effect: Low damage with a high chance for a critical hit.
+    </description>
+    <effects>
+      <hit accuracy="0">
+        <damage element="Physical" power="0.275" critical="0.15" />
+      </hit>
+    </effects>
+  </skill>
+
+
+
+  <!--
+  RANGED WEAPON
+  Ranged weapon techniques.
+    -->
+
+  <skill name="Shoot" type="Weapon [Ranged]" element="Ranged">
+    <description>
+      Fire a ranged weapon at the target.
+      Effect: Low damage with high accuracy.
+    </description>
+    <effects>
+      <hit accuracy="4">
+        <damage element="Physical" power="0.275" critical="0.05" />
+      </hit>
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  FIRE MAGIC
+  Magic of heat and flame.
+    -->
+  
+  <skill name="Burn" type="Magic [Offense]" element="Fire" target="Radius" animation="burn">
+    <description>
+      Scorch targets with searing heat.
+      Effect: Deals fire damage.
+    </description>
+    <effects cost="15">
+      <damage element="Fire" power="0.5" />
+    </effects>
+  </skill>
+  
+  <skill name="Burn All" type="Magic [Offense]" element="Fire" target="All" animation="burn">
+    <description>
+      Scorch everyone in range with searing heat.
+      Effect: Deals fire damage.
+    </description>
+    <effects cost="30">
+      <damage element="Fire" power="0.5" />
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  CORROSION MAGIC
+  Magic of acid and corrosion.
+    -->
+  
+  <skill name="Disintegrate" type="Magic [Offense]" element="Corrosion" target="Radius" animation="disintegrate">
+    <description>
+      Splash targets with strong acid.
+      Effect: Deals corrosion damage over time.
+    </description>
+    <effects cost="15">
+      <inflict status="Acid" power="1.45" />
+    </effects>
+  </skill>
+  
+  <skill name="Disintegrate All" type="Magic [Offense]" element="Corrosion" target="All" animation="disintegrate">
+    <description>
+      Cover everyone within range in strong acid.
+      Effect: Deals corrosion damage over time.
+    </description>
+    <effects cost="30">
+      <inflict status="Acid" power="1.45" />
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  BIO MAGIC
+  Magic of biological processes.
+    -->
+  
+  <skill name="Heal" type="Magic [Support]" element="Bio" target="Radius" animation="heal">
+    <description>
+      Heals the wounds of the targets.
+      Effect: Restores HP.
+    </description>
+    <effects cost="15">
+      <damage element="Bio" power="-0.4" />
+    </effects>
+  </skill>
+  
+  <skill name="Heal All" type="Magic [Support]" element="Bio" target="All" animation="heal">
+    <description>
+      Heals the wounds of everyone within range.
+      Effect: Restores HP.
+    </description>
+    <effects cost="30">
+      <damage element="Bio" power="-0.4" />
+    </effects>
+  </skill>
+  
+  
+  
+  <!--
+  COMMANDS
+  Commands that are specific to certain characters.
+    -->
+
+  <skill name="Command:Report" range="All">
+    <description>
+      Observe the details of the target.
+    </description>
+    <effects>
+      <report />
+    </effects>
+  </skill>
+  
+</skills>

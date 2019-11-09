@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<campaigns>
+
+  <campaign name="Inertia">
+    <description>
+      A robot has an encounter with a journalist that pulls them into an investigation of a series of mysterious disappearances.
+    </description>
+
+    <scenes>
+      
+    </scenes>
+  </campaign>
+
+  <campaign name="Popeslayer">
+    <description>
+      
+    </description>
+
+    <scenes>
+      <join character="Dave" type="active" />
+      <battle map="scarlands" id="cult" />
+
+      <menu next="Erdrech Crag">
+        <shop enabled="false" />
+      </menu>
+
+      <battle map="erdrech" id="cult" />
+      <cutscene map="scarlands" id="post-erdrech" />
+    </scenes>
+  </campaign>
+  
+</campaigns>

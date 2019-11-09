@@ -28,7 +28,7 @@ public class BattleManager : MonoBehaviour
 
         try
         {
-            mapDoc.Load("Assets/Data/Maps/" + NextMapFile + ".xml");
+            mapDoc.Load(Application.dataPath + "/Resources/Data/Maps/" + NextMapFile + ".xml");
             XmlNode root = mapDoc.SelectSingleNode("map");
 
             grid.info = root.SelectSingleNode("grid") as XmlElement;
@@ -57,7 +57,7 @@ public class BattleManager : MonoBehaviour
                             else
                                 behaviour = new BattleOffensiveBehaviour();
 
-                            Character character = AssetHolder.Characters[characterInfo.GetAttribute("name")];
+                            Character character = AssetHolder.Characters[characterInfo.GetAttribute("id")];
                             BattleAgent agent = new BattleAgent(character, behaviour);
                             agent.Coordinates = new Vector2Int(
                                 int.Parse(characterInfo.GetAttribute("x")),
@@ -135,9 +135,18 @@ public class BattleManager : MonoBehaviour
 
                                         if (target != null)
                                         {
-                                            cutsceneSequence.Add(
-                                                new BattleDialogueAction(target, sceneInfo.InnerText.Trim())
-                                            );
+                                            if (sceneInfo.HasAttribute("name"))
+                                            {
+                                                cutsceneSequence.Add(
+                                                    new BattleDialogueAction(target, sceneInfo.GetAttribute("name"), sceneInfo.InnerText.Trim())
+                                                );
+                                            }
+                                            else
+                                            {
+                                                cutsceneSequence.Add(
+                                                    new BattleDialogueAction(target, sceneInfo.InnerText.Trim())
+                                                );
+                                            }
                                         }
                                     }
                                 }

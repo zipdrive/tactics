@@ -38,7 +38,7 @@ public class BattleAgentUI : MonoBehaviour
                 nameLabel.text = value.BaseCharacter.Name;
                 titleLabel.text = value.BaseCharacter.Title;
 
-                m_Animator.SetBool("Show", true);
+                m_Animator.SetBool("Show", true & Shown);
             }
         }
     }
@@ -63,6 +63,6 @@ public class BattleAgentUI : MonoBehaviour
             spLabel.text = m_Agent.SP + "/" + m_Agent["SP"];
         }
 
-        m_Animator.SetBool("Show", Shown);
+        if (!Shown) m_Animator.SetBool("Show", false);
     }
 }

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<map>
+  <grid width="6" height="10">
+
+    <tiles x="0" y="1" dx="6" 
+           texture="sewerwater" height="2" 
+    />
+    <tiles x="0" y="8" dx="6" 
+           texture="sewerwater" height="2" 
+    />
+    
+    <tiles x="0" y="0" dx="6" dy="10" 
+           texture="sample" height="1" 
+    />
+
+  </grid>
+
+  <battle id="debug">
+    
+    <character id="Debug Journalist" x="2" y="1" unit="player" />
+    <character id="Debug Blood Mage" x="3" y="1" unit="player" />
+    
+    <character id="Debug Berserker" x="2" y="8" unit="enemy" behaviour="offense" />
+    <character id="Debug Spellsword" x="3" y="8" unit="enemy" behaviour="offense" />
+    
+    <cutscene trigger="begin">
+
+      <text character="Debug Blood Mage">i am going to take a long pause&lt;pause=30&gt; and then resume speaking</text>
+      <text character="Debug Blood Mage">this text is &lt;speed=0.5&gt;slow &lt;speed=2.0&gt;but this text is fast</text>
+      <text character="Debug Blood Mage" name="???">now i'm hiding my name</text>
+      
+      <text character="Debug Blood Mage">hi i am generic blood mage</text>
+      <text character="Debug Berserker">hi i am generic berserker</text>
+      
+      <move character="Debug Berserker" x="4" y="7" />
+      
+      <text character="Debug Berserker">i just moved</text>
+      <text character="Debug Journalist">yes you did</text>
+    
+    </cutscene>
+  
+  </battle>
+</map>

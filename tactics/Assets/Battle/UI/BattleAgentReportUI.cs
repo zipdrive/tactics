@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(Animator))]
 public class BattleAgentReportUI : MonoBehaviour
@@ -7,22 +8,20 @@ public class BattleAgentReportUI : MonoBehaviour
     public Image background;
     public Image portrait;
 
-    public Text profileDescription;
-    public Text profileName;
-    public Text profileSpecies;
-    public Text profileOccupation;
+    public TextMeshProUGUI profileDescription;
+    public TextMeshProUGUI profileName;
+    public TextMeshProUGUI profileSpecies;
+    public TextMeshProUGUI profileOccupation;
 
     public RectTransform hpBar;
-    public Text hpLabel;
+    public TextMeshProUGUI hpLabel;
 
     public RectTransform spBar;
-    public Text spLabel;
+    public TextMeshProUGUI spLabel;
 
-    public Text attack;
-    public Text magic;
-    public Text speed;
+    public TextMeshProUGUI stats;
 
-    public Text[] resistances;
+    public TextMeshProUGUI[] resistances;
 
     private Animator m_Anim;
 
@@ -35,7 +34,7 @@ public class BattleAgentReportUI : MonoBehaviour
     {
         background.color = Settings.TextBoxColor;
 
-        portrait.sprite = agent.BaseCharacter.Sprite.Portrait;
+        //portrait.sprite = agent.BaseCharacter.Sprite.Portrait;
 
         profileName.text = agent.BaseCharacter.Profile["name"];
         profileSpecies.text = agent.BaseCharacter.Profile["species"];
@@ -50,11 +49,9 @@ public class BattleAgentReportUI : MonoBehaviour
         spBar.sizeDelta = new Vector2(0f, spBar.sizeDelta.y);
         spLabel.text = agent.SP + "/" + agent["SP"];
 
-        attack.text = agent["Attack"].ToString();
-        magic.text = agent["Magic"].ToString();
-        speed.text = agent["Speed"].ToString();
+        stats.text = agent["Attack"] + "\n" + agent["Magic"] + "\n" + agent["Speed"];
 
-        foreach (Text resistance in resistances)
+        foreach (TextMeshProUGUI resistance in resistances)
         {
             resistance.text = agent[resistance.name] + @"%";
         }

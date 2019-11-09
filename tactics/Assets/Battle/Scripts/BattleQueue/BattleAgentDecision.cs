@@ -35,6 +35,7 @@ public class BattleAgentDecision : BattleQueueMember
 
             m_Decider.Start();
 
+            BattleAgentUI.Shown = true;
             BattleSelector.Shown = true;
             manager.grid.Selector.SelectedTile = m_Agent.Coordinates;
         }
