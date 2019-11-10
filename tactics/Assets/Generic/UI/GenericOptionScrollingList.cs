@@ -60,4 +60,14 @@ public class GenericOptionScrollingList<T> : GenericOptionList<T> where T : Gene
             }
         }
     }
+
+    public override void Clear()
+    {
+        base.Clear();
+
+        if (scrollRect.horizontal)
+            scrollRect.horizontalScrollbar.value = 0f;
+        if (scrollRect.vertical)
+            scrollRect.verticalScrollbar.value = 0f;
+    }
 }

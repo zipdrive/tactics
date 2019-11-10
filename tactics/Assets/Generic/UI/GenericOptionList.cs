@@ -60,7 +60,7 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
     }
 
 
-    public void Clear()
+    public virtual void Clear()
     {
         foreach (T option in m_Options)
         {
@@ -71,13 +71,20 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
         m_Index = 0;
     }
 
-    public void Add(bool enabled, params string[] labels)
+    public T Add(bool enabled, params string[] labels)
     {
         T option = Instantiate<T>(OptionPrefab, List);
         option.Enabled = enabled;
         option.Labels = labels;
 
         m_Options.Add(option);
+        return option;
+    }
+
+    public void Add(T customOption)
+    {
+        customOption.transform.parent = List;
+        m_Options.Add(customOption);
     }
 
     public void Reset()

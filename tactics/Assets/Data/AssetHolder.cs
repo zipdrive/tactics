@@ -26,7 +26,7 @@ public class AssetHolder : MonoBehaviour
     public static Dictionary<string, Equipment> Equipment = new Dictionary<string, Equipment>();
     public static Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
 
-    void Start()
+    void Awake()
     {
         if (!AssetsLoaded)
         {
@@ -424,36 +424,38 @@ public class AssetHolder : MonoBehaviour
             {
                 Error("\n[AssetHolder] Unable to load characters from \"Resources/Data/characters.xml\".\n" + e);
             }
-        }
 
-        // Campaigns
-        XmlDocument campaignsDoc = new XmlDocument();
-        campaignsDoc.PreserveWhitespace = false;
+            // Campaigns
+            XmlDocument campaignsDoc = new XmlDocument();
+            campaignsDoc.PreserveWhitespace = false;
 
-        try
-        {
-            campaignsDoc.Load(Application.dataPath + "/Resources/Data/campaigns.xml");
-            XmlNode root = campaignsDoc["campaigns"];
-
-            foreach (XmlElement campaignInfo in root.SelectNodes("campaign"))
+            try
             {
-                try
+                campaignsDoc.Load(Application.dataPath + "/Resources/Data/campaigns.xml");
+                XmlNode root = campaignsDoc["campaigns"];
+
+                foreach (XmlElement campaignInfo in root.SelectNodes("campaign"))
                 {
-                    if (campaignInfo.HasAttribute("type") && !campaignInfo.GetAttribute("type").Equals("main"))
-                        SideCampaigns[campaignInfo.GetAttribute("name")] = new Campaign(campaignInfo);
-                    else
-                        MainCampaigns.Add(new Campaign(campaignInfo));
-                }
-                catch (Exception e)
-                {
-                    string id = campaignInfo.HasAttribute("name") ? campaignInfo.GetAttribute("name") : "UNKNOWN_NAME";
-                    Error("[AssetHolder] Unable to load campaign \"" + id + "\".\n" + e);
+                    try
+                    {
+                        if (campaignInfo.HasAttribute("type") && !campaignInfo.GetAttribute("type").Equals("main"))
+                            SideCampaigns[campaignInfo.GetAttribute("name")] = new Campaign(campaignInfo);
+                        else
+                            MainCampaigns.Add(new Campaign(campaignInfo));
+                    }
+                    catch (Exception e)
+                    {
+                        string id = campaignInfo.HasAttribute("name") ? campaignInfo.GetAttribute("name") : "UNKNOWN_NAME";
+                        Error("[AssetHolder] Unable to load campaign \"" + id + "\".\n" + e);
+                    }
                 }
             }
-        }
-        catch (Exception e)
-        {
-            Error("\n[AssetHolder] Unable to load campaigns from \"Resources/Data/campaigns.xml\".\n" + e);
+            catch (Exception e)
+            {
+                Error("\n[AssetHolder] Unable to load campaigns from \"Resources/Data/campaigns.xml\".\n" + e);
+            }
+
+            AssetsLoaded = true;
         }
     }
 

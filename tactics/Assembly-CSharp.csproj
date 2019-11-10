@@ -176,12 +176,14 @@
      <Compile Include="Assets\Data\Campaign\CampaignUnjoinScene.cs" />
      <Compile Include="Assets\Data\Settings.cs" />
      <Compile Include="Assets\Generic\UI\CampaignOption\CampaignLoadNextOption.cs" />
+     <Compile Include="Assets\Generic\UI\GenericAnimateOption.cs" />
      <Compile Include="Assets\Generic\UI\GenericOption.cs" />
      <Compile Include="Assets\Generic\UI\GenericOptionList.cs" />
      <Compile Include="Assets\Generic\UI\GenericOptionScrollingList.cs" />
      <Compile Include="Assets\Menu\Scripts\AnimatorTriggerOption.cs" />
      <Compile Include="Assets\Menu\Scripts\CampaignSelectMenu\CampaignSelectMenu.cs" />
      <Compile Include="Assets\Menu\Scripts\CampaignSelectMenu\CampaignSelectOption.cs" />
+     <Compile Include="Assets\Menu\Scripts\MainMenu\MainMenu.cs" />
      <Compile Include="Assets\Menu\Scripts\MenuManager.cs" />
      <Compile Include="Assets\Menu\Scripts\TransitionMenuUI.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
