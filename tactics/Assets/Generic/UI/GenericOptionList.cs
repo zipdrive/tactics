@@ -95,6 +95,17 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
 
     protected virtual void Start()
     {
+        Image background = List.GetComponent<Image>();
+        if (background != null)
+        {
+            background.color = Settings.TextBoxColor;
+        }
+
+        OnEnable();
+    }
+
+    protected virtual void OnEnable()
+    {
         if (Interactable)
         {
             if (m_Options.Count > 0)
@@ -105,12 +116,6 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
             {
                 Interactable = false;
             }
-        }
-
-        Image background = List.GetComponent<Image>();
-        if (background != null)
-        {
-            background.color = Settings.TextBoxColor;
         }
     }
 

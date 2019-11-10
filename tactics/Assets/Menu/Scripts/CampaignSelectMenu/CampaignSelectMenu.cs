@@ -7,11 +7,6 @@ public class CampaignSelectMenu : GenericOptionScrollingList<CampaignSelectOptio
 
     protected override void Start()
     {
-        Debug.Log("start");
-        Clear();
-        Interactable = true;
-        backButton.Highlighted = false;
-
         foreach (Campaign mainCampaign in AssetHolder.MainCampaigns)
         {
             // TODO if unlocked
@@ -20,6 +15,14 @@ public class CampaignSelectMenu : GenericOptionScrollingList<CampaignSelectOptio
         }
 
         base.Start();
+    }
+
+    protected override void OnEnable()
+    {
+        Interactable = true;
+        backButton.Highlighted = false;
+
+        base.OnEnable();
     }
 
     protected override void Update()
@@ -41,9 +44,14 @@ public class CampaignSelectMenu : GenericOptionScrollingList<CampaignSelectOptio
                 Interactable = false;
             }
         }
-        else if ((Input.GetButtonDown("Submit") && backButton.Highlighted) || Input.GetButtonDown("Cancel"))
+        else if (Input.GetButtonDown("Cancel"))
         {
+            Current.Highlighted = false;
             backButton.Highlighted = true;
+            backButton.Select();
+        }
+        else if (Input.GetButtonDown("Submit") && backButton.Highlighted)
+        {
             backButton.Select();
         }
     }
