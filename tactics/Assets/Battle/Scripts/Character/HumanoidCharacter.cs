@@ -20,7 +20,7 @@ public class HumanoidCharacter : Character
         set
         {
             if (m_Primary != null) PlayerInventory.Increment(m_Primary);
-            
+
             if (value != null && value.Type == WeaponType.Bow && m_Secondary != null)
             {
                 PlayerInventory.Increment(m_Secondary);
@@ -87,7 +87,7 @@ public class HumanoidCharacter : Character
 
 
     private Status[] m_PassiveSkills;
-    public override IEnumerable<Status> PassiveSkills
+    public override Status[] PassiveSkills
     {
         get
         {
@@ -96,8 +96,27 @@ public class HumanoidCharacter : Character
     }
 
 
-    public HumanoidCharacter(XmlElement characterInfo) : base(characterInfo)
+    public HumanoidCharacter(HumanoidCharacter character) : base(character)
     {
+        m_PassiveSkills = new Status[this["Passive Slots"]];
+
+        int passiveSkillIndex = 0;
+        foreach (Status statusEffect in character.m_PassiveSkills)
+        {
+            if (passiveSkillIndex < m_PassiveSkills.Length)
+            {
+                m_PassiveSkills[passiveSkillIndex++] = statusEffect;
+            }
+        }
+    }
+
+    public HumanoidCharacter(XmlElement characterInfo) : base(characterInfo) { }
+
+
+    public override void Load(XmlElement characterInfo)
+    {
+        base.Load(characterInfo);
+
         m_PassiveSkills = new Status[this["Passive Slots"]];
 
         int passiveSkillIndex = 0;
@@ -109,5 +128,10 @@ public class HumanoidCharacter : Character
                     m_PassiveSkills[--passiveSkillIndex] = null;
             }
         }
+    }
+
+    public override Character Copy()
+    {
+        return new HumanoidCharacter(this);
     }
 }

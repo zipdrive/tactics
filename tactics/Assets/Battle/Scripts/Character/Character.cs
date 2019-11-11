@@ -16,6 +16,7 @@ public abstract class Character
         throw new System.IO.FileLoadException("Unrecognized character type \"" + type + "\".");
     }
 
+    private readonly string ID;
     public readonly string Name;
     public readonly string Title;
     public readonly BattleSprite Sprite;
@@ -80,7 +81,7 @@ public abstract class Character
     }
 
     public List<Skill> ActiveSkills = new List<Skill>();
-    public abstract IEnumerable<Status> PassiveSkills { get; }
+    public abstract Status[] PassiveSkills { get; }
 
     public abstract Weapon PrimaryWeapon { get; set; }
     public abstract Weapon SecondaryWeapon { get; set; }
@@ -92,9 +93,28 @@ public abstract class Character
     public List<BattleCommand> Commands = new List<BattleCommand>();
 
 
+    public Character(Character character)
+    {
+        Name = character.Name;
+        Title = character.Title;
+        Sprite = character.Sprite;
+        Profile = character.Profile;
+        m_Stats = character.m_Stats;
+        ActiveSkills = new List<Skill>(character.ActiveSkills);
+
+        PrimaryWeapon = character.PrimaryWeapon;
+        SecondaryWeapon = character.SecondaryWeapon;
+        Head = character.Head;
+        Body = character.Body;
+        Accessory = character.Accessory;
+
+        Commands = character.Commands;
+    }
+
     public Character(XmlElement characterInfo)
     {
         Name = characterInfo.GetAttribute("name");
+        ID = characterInfo.HasAttribute("id") ? characterInfo.GetAttribute("id") : Name;
         Title = characterInfo.GetAttribute("title");
         Sprite = AssetHolder.Sprites[characterInfo.GetAttribute("sprite")];
 
@@ -107,7 +127,7 @@ public abstract class Character
         {
             Profile[profileInfo.Name] = profileInfo.InnerText.Trim();
         }
-        
+
         // Load stats
         foreach (XmlElement statInfo in characterInfo.SelectNodes("stats/stat"))
         {
@@ -116,19 +136,20 @@ public abstract class Character
             m_Stats[statInfo.GetAttribute("name")] = statValue;
         }
 
-        /*
-        XmlElement statsInfo = characterInfo.SelectSingleNode("stats") as XmlElement;
-        if (statsInfo != null)
-        {
-            foreach (XmlElement statInfo in statsInfo.SelectNodes("stat"))
-            {
-                int statValue;
-                if (!int.TryParse(statInfo.InnerText.Trim(), out statValue)) statValue = 0;
-                m_Stats[statInfo.GetAttribute("name")] = statValue;
-            }
-        }
-        */
+        // Load everything else
+        Load(characterInfo);
+    }
 
+    public virtual XmlElement Save(XmlDocument doc)
+    {
+        XmlElement characterInfo = doc.CreateElement("character");
+        characterInfo.SetAttribute("id", ID);
+
+        return characterInfo;
+    }
+
+    public virtual void Load(XmlElement characterInfo)
+    {
         // Load skills
         foreach (XmlElement skillInfo in characterInfo.SelectNodes("skills/active/skill"))
         {
@@ -138,26 +159,6 @@ public abstract class Character
             if (AssetHolder.Skills.TryGetValue(skillName, out skill))
                 ActiveSkills.Add(skill);
         }
-
-        /*
-        XmlNode skillsInfo = characterInfo.SelectSingleNode("skills");
-        if (skillsInfo != null)
-        {
-            // Load active skills
-            XmlNode activeSkillsInfo = skillsInfo.SelectSingleNode("active");
-            if (activeSkillsInfo != null)
-            {
-                foreach (XmlElement skillInfo in activeSkillsInfo.SelectNodes("skill"))
-                {
-                    string skillName = skillInfo.InnerText.Trim();
-
-                    Skill skill;
-                    if (AssetHolder.Skills.TryGetValue(skillName, out skill))
-                        ActiveSkills.Add(skill);
-                }
-            }
-        }
-        */
 
         // Load equipment
         foreach (XmlElement equipInfo in characterInfo.SelectNodes("equipment/*"))
@@ -192,44 +193,6 @@ public abstract class Character
             }
         }
 
-        /*
-        XmlNode equipmentInfo = characterInfo.SelectSingleNode("equipment");
-        if (equipmentInfo != null)
-        {
-            foreach (XmlElement equipInfo in equipmentInfo.ChildNodes)
-            {
-                if (equipInfo.Name.Equals("weapon"))
-                {
-                    Weapon temp;
-
-                    if (AssetHolder.Weapons.TryGetValue(equipInfo.InnerText.Trim(), out temp))
-                    {
-                        if (equipInfo.HasAttribute("slot") && equipInfo.GetAttribute("slot").Equals("secondary"))
-                            SecondaryWeapon = temp;
-                        else if (PrimaryWeapon != null)
-                            SecondaryWeapon = temp;
-                        else
-                            PrimaryWeapon = temp;
-                    }
-                }
-                else
-                {
-                    Equipment temp;
-
-                    if (AssetHolder.Equipment.TryGetValue(equipInfo.InnerText.Trim(), out temp))
-                    {
-                        if (equipInfo.Name.Equals("body"))
-                            Body = temp;
-                        if (equipInfo.Name.Equals("head"))
-                            Head = temp;
-                        if (equipInfo.Name.Equals("accessory"))
-                            Accessory = temp;
-                    }
-                }
-            }
-        }
-        */
-
         // Load commands
         foreach (XmlElement commandInfo in characterInfo.SelectNodes("commands/command"))
         {
@@ -237,18 +200,7 @@ public abstract class Character
             if (AssetHolder.Commands.TryGetValue(commandInfo.InnerText.Trim(), out command))
                 Commands.Add(command);
         }
-
-        /*
-        XmlNode commandsInfo = characterInfo.SelectSingleNode("commands");
-        if (commandsInfo != null)
-        {
-            foreach (XmlElement commandInfo in commandsInfo.SelectNodes("command"))
-            {
-                BattleCommand command;
-                if (AssetHolder.Commands.TryGetValue(commandInfo.InnerText.Trim(), out command))
-                    Commands.Add(command);
-            }
-        }
-        */
     }
+
+    public abstract Character Copy();
 }

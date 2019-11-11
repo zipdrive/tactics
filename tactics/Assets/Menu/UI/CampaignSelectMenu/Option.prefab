@@ -510,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64124fe736baac84fb988fdbdaf97333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Trigger: Fade
   nameText: {fileID: 8055704518129647064}
   descriptionText: {fileID: 8055704518261816642}
   completionText: {fileID: 8055704519207024786}

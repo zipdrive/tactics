@@ -1,6 +1,6 @@
 ﻿using TMPro;
 
-public class CampaignSelectOption : GenericOption
+public class CampaignSelectOption : GenericAnimateOption
 {
     private Campaign m_Campaign;
     public Campaign Campaign
@@ -22,9 +22,7 @@ public class CampaignSelectOption : GenericOption
 
     public override void Select()
     {
-        base.Select();
-
         global::Campaign.Current = m_Campaign;
-        global::Campaign.Reload();// TODO fade out then reload
+        base.Select();
     }
 }

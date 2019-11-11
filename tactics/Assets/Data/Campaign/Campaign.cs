@@ -17,13 +17,13 @@ public class Campaign
         }
     }
 
-    public static void Reload()
+    public static void LoadCurrent()
     {
         if (m_Current != null)
         {
-            if (m_Current.m_Index < m_Current.m_Scenes.Count)
+            if (m_Current.Index < m_Current.m_Scenes.Count)
             {
-                m_Current.m_Scenes[m_Current.m_Index].Load();
+                m_Current.m_Scenes[m_Current.Index].Load();
             }
         }
     }
@@ -32,16 +32,16 @@ public class Campaign
     {
         if (m_Current != null)
         {
-            if (m_Current.m_Index < m_Current.m_Scenes.Count - 1)
+            if (m_Current.Index < m_Current.m_Scenes.Count - 1)
             {
-                m_Current.m_Scenes[++m_Current.m_Index].Load();
+                m_Current.m_Scenes[++m_Current.Index].Load();
             }
         }
     }
 
 
     private List<CampaignScene> m_Scenes;
-    private int m_Index;
+    public int Index;
 
     public string Name;
     public string Description;
@@ -59,14 +59,14 @@ public class Campaign
         get
         {
             int completedBattleCount = 0;
-            for (int k = m_Index - 1; k >= 0; --k)
+            for (int k = Index - 1; k >= 0; --k)
             {
                 if (m_Scenes[k] is CampaignBattleScene)
                     ++completedBattleCount;
             }
 
             int battleCount = completedBattleCount;
-            for (int k = m_Scenes.Count - 1; k >= m_Index; --k)
+            for (int k = m_Scenes.Count - 1; k >= Index; --k)
             {
                 if (m_Scenes[k] is CampaignBattleScene)
                     ++battleCount;
@@ -74,12 +74,44 @@ public class Campaign
 
             if (battleCount == 0)
             {
-                return m_Scenes.Count == 1 ? 100 : 100 * m_Index / (m_Scenes.Count - 1);
+                return m_Scenes.Count == 1 ? 100 : 100 * Index / (m_Scenes.Count - 1);
             }
             else
             {
                 return 100 * completedBattleCount / battleCount;
             }
+        }
+    }
+
+    /// <summary>
+    /// The number of battles in the campaign.
+    /// </summary>
+    public int Battles
+    {
+        get
+        {
+            int battleCount = 0;
+            foreach (CampaignScene scene in m_Scenes)
+                if (scene is CampaignBattleScene)
+                    ++battleCount;
+            return battleCount;
+        }
+    }
+
+
+    private HashSet<CampaignUnlockRequirement> m_Requirements = new HashSet<CampaignUnlockRequirement>();
+
+    /// <summary>
+    /// Returns true if the conditions to unlock the campaign have been met, false otherwise.
+    /// </summary>
+    public bool Unlocked
+    {
+        get
+        {
+            foreach (CampaignUnlockRequirement requirement in m_Requirements)
+                if (!requirement.IsSatisfied())
+                    return false;
+            return true;
         }
     }
 
@@ -92,8 +124,33 @@ public class Campaign
         Description = descriptionInfoNode != null ? descriptionInfoNode.InnerText.Trim() : "";
 
         m_Scenes = new List<CampaignScene>();
-        m_Index = 0;
-        Party = new Party();
+
+        XmlNode unlockInfoNodes = campaignInfo.SelectSingleNode("unlock");
+        if (unlockInfoNodes != null)
+        {
+            foreach (XmlNode unlockInfoNode in unlockInfoNodes.ChildNodes)
+            {
+                XmlElement unlockInfo = unlockInfoNode as XmlElement;
+
+                if (unlockInfo != null)
+                {
+                    try
+                    {
+                        switch (unlockInfo.Name)
+                        {
+                            case "complete":
+                                m_Requirements.Add(new CampaignCompletionUnlockRequirement(unlockInfo.InnerText.Trim()));
+                                break;
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        // TODO
+                        UnityEngine.Debug.Log("[Campaign] Unable to load \"" + unlockInfo.OuterXml + "\".\n" + e);
+                    }
+                }
+            }
+        }
 
         XmlNode sceneInfoNodes = campaignInfo.SelectSingleNode("scenes");
         if (sceneInfoNodes != null)
@@ -146,5 +203,13 @@ public class Campaign
                 }
             }
         }
+
+        Reset();
+    }
+
+    public void Reset()
+    {
+        Index = 0;
+        Party = new Party();
     }
 }

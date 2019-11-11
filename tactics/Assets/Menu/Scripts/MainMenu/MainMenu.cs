@@ -4,11 +4,17 @@ public class MainMenu : GenericOptionList<GenericAnimateOption>
 {
     public GameObject pressAnyKeyToContinue;
 
-    protected override void Start()
+    protected override void OnEnable()
     {
-        // Add "Play" option
+        Clear();
+
+        // Add "New Game" option
         // Transition to campaign select menu
-        Add(true, "Play").Trigger = "Campaign";
+        Add(true, "New Game").Trigger = "NewGame";
+
+        // Add "Continue" option
+        // Transition to load game menu
+        Add(SaveGameIO.SavedGames.Count > 0, "Continue").Trigger = "Continue";
 
         // Add "Settings" option
         // Transition to settings menu
@@ -22,14 +28,19 @@ public class MainMenu : GenericOptionList<GenericAnimateOption>
         // Quit game
         Add(true, "Quit");
 
-        base.Start();
+        Index = SaveGameIO.SavedGames.Count > 0 ? 1 : 0;
+
+        base.OnEnable();
+
+        SaveGameIO.Current = null;
+        Campaign.Current = null;
     }
 
     protected override void Update()
     {
         if (!Interactable)
         {
-            if (Input.anyKeyDown)
+            if (Input.anyKeyDown && pressAnyKeyToContinue.activeInHierarchy)
             {
                 Destroy(pressAnyKeyToContinue);
                 List.gameObject.SetActive(true);

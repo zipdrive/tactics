@@ -5,20 +5,18 @@ public class CampaignSelectMenu : GenericOptionScrollingList<CampaignSelectOptio
 {
     public GenericOption backButton;
 
-    protected override void Start()
-    {
-        foreach (Campaign mainCampaign in AssetHolder.MainCampaigns)
-        {
-            // TODO if unlocked
-            Add(true, "", "", "");
-            m_Options[m_Options.Count - 1].Campaign = mainCampaign;
-        }
-
-        base.Start();
-    }
-
     protected override void OnEnable()
     {
+        Clear();
+
+        foreach (Campaign mainCampaign in AssetHolder.MainCampaigns)
+        {
+            if (mainCampaign.Unlocked)
+            {
+                Add(true, string.Empty, string.Empty, string.Empty).Campaign = mainCampaign;
+            }
+        }
+
         Interactable = true;
         backButton.Highlighted = false;
 

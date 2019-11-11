@@ -8,7 +8,7 @@ public class AssetHolder : MonoBehaviour
     public static bool AssetsLoaded = false;
 
     public static List<Campaign> MainCampaigns = new List<Campaign>();
-    public static Dictionary<string, Campaign> SideCampaigns = new Dictionary<string, Campaign>();
+    public static Dictionary<string, Campaign> Campaigns = new Dictionary<string, Campaign>();
 
     public static Dictionary<string, BattleSprite> Sprites = new Dictionary<string, BattleSprite>();
     public static Dictionary<string, BattleSpriteAnimation> SpecialEffects = new Dictionary<string, BattleSpriteAnimation>();
@@ -21,7 +21,9 @@ public class AssetHolder : MonoBehaviour
     public static Dictionary<string, Status> StatusEffects = new Dictionary<string, Status>();
     public static Dictionary<string, Skill> Skills = new Dictionary<string, Skill>();
     public static Dictionary<string, Item> Items = new Dictionary<string, Item>();
-    public static Dictionary<string, Character> Characters = new Dictionary<string, Character>();
+
+    public static Dictionary<string, Character> BaseCharacters = new Dictionary<string, Character>();
+    public static Dictionary<string, Character> Characters = null;
 
     public static Dictionary<string, Equipment> Equipment = new Dictionary<string, Equipment>();
     public static Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
@@ -411,7 +413,7 @@ public class AssetHolder : MonoBehaviour
                             characterInfo.GetAttribute("id") :
                             characterInfo.GetAttribute("name");
 
-                        Characters[id] = Character.Parse(characterInfo);
+                        BaseCharacters[id] = Character.Parse(characterInfo);
                     }
                     catch (Exception e)
                     {
@@ -438,10 +440,11 @@ public class AssetHolder : MonoBehaviour
                 {
                     try
                     {
-                        if (campaignInfo.HasAttribute("type") && !campaignInfo.GetAttribute("type").Equals("main"))
-                            SideCampaigns[campaignInfo.GetAttribute("name")] = new Campaign(campaignInfo);
-                        else
-                            MainCampaigns.Add(new Campaign(campaignInfo));
+                        Campaign campaign = new Campaign(campaignInfo);
+
+                        if (!campaignInfo.HasAttribute("type") || campaignInfo.GetAttribute("type").Equals("main"))
+                            MainCampaigns.Add(campaign);
+                        Campaigns[campaignInfo.GetAttribute("name")] = campaign;
                     }
                     catch (Exception e)
                     {
