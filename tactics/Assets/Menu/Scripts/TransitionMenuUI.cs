@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TransitionMenuUI : GenericOptionList<AnimatorTriggerOption>
+public class TransitionMenuUI : GenericOptionList<GenericAnimateOption>
 {
     public Image background;
     public TextMeshProUGUI nextBattleText;
@@ -12,29 +12,53 @@ public class TransitionMenuUI : GenericOptionList<AnimatorTriggerOption>
     public GenericOption fightOption;
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        Alignment = Layout.Vertical;
-
-        Add(true, "Party");
-        m_Options[0].trigger = "Party";
-
-        Add(MenuManager.Menu.ShopEnabled, "Shop");
-        m_Options[1].trigger = "Shop";
-
-        if (false) // TODO?
+        if (MenuManager.Menu.NextMap.Equals(string.Empty))
         {
-            Add(true, "Missions");
-            m_Options[2].trigger = "Missions";
+            // Do something to show that main campaign is complete
+
+            fightOption.gameObject.SetActive(false);
+        }
+        else
+        {
+            nextBattleText.text = MenuManager.Menu.NextMap;
         }
 
-        Add(true, "Settings");
-        m_Options[m_Options.Count - 1].trigger = "Fade";
+        // Purchase skills and alter equipment of party members
+        Add(true, "Party").Trigger = "Party";
 
-        Add(true, "Main Menu");
-        m_Options[m_Options.Count - 1].trigger = "Fade";
+        // Buy and sell items
+        Add(MenuManager.Menu.ShopEnabled, "Shop").Trigger = "Shop";
 
-        base.Start();
+        // Play side missions for extra AP
+        if (true) // no missions available: TODO?
+        {
+            GenericAnimateOption emptyOption = Add(false);
+            emptyOption.transform.SetAsFirstSibling();
+            m_Options.Remove(emptyOption);
+        }
+        else
+        {
+            Add(true, "Missions").Trigger = "Missions";
+        }
+
+        // Alter settings
+        Add(true, "Settings").Trigger = "Settings";
+
+        // Return to main menu
+        Add(true, "Main Menu").Trigger = "Fade";
+
+        base.Awake();
+    }
+
+    protected override void OnEnable()
+    {
+        Interactable = false;
+        Current.Highlighted = false;
+        fightOption.Highlighted = true;
+
+        base.OnEnable();
     }
 
     // Update is called once per frame
@@ -42,7 +66,7 @@ public class TransitionMenuUI : GenericOptionList<AnimatorTriggerOption>
     {
         base.Update();
 
-        if (Input.GetButtonDown("Horizontal"))
+        if (Input.GetButtonDown("Horizontal") && fightOption.gameObject.activeInHierarchy)
         {
             if (Input.GetAxis("Horizontal") < 0f && fightOption.Highlighted)
             {
@@ -52,9 +76,9 @@ public class TransitionMenuUI : GenericOptionList<AnimatorTriggerOption>
             }
             else if (Input.GetAxis("Horizontal") > 0f && !fightOption.Highlighted)
             {
-                fightOption.Highlighted = true;
                 Interactable = false;
-                m_Options[m_Index].Highlighted = false;
+                fightOption.Highlighted = true;
+                Current.Highlighted = false;
             }
         }
         else if (Input.GetButtonDown("Submit") && fightOption.Highlighted)

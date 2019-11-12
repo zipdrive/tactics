@@ -169,7 +169,7 @@ public class Campaign
                                 m_Scenes.Add(
                                     new CampaignBattleScene(
                                         sceneInfo.GetAttribute("map"),
-                                        sceneInfo.GetAttribute("battle")
+                                        sceneInfo.GetAttribute("id")
                                     )
                                 );
                                 break;

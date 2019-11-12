@@ -93,15 +93,13 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
     }
 
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         Image background = List.GetComponent<Image>();
         if (background != null)
         {
             background.color = Settings.TextBoxColor;
         }
-
-        OnEnable();
     }
 
     protected virtual void OnEnable()

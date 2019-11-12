@@ -27,9 +27,9 @@ public class BattleOptionList : GenericOptionList<BattleOption>
     }
 
 
-    protected override void Start()
+    protected override void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
 
         if (transform.GetSiblingIndex() > 0)
         {

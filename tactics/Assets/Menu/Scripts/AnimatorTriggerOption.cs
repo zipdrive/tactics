@@ -8,6 +8,7 @@ public class AnimatorTriggerOption : GenericOption
     protected override void Start()
     {
         base.Start();
+
         // Find the top-most Animator
         Animator[] animators = GetComponentsInParent<Animator>();
         m_TopmostAnimator = animators[animators.Length - 1];
