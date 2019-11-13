@@ -20,8 +20,8 @@ public class GenericOption : MonoBehaviour
             m_Enabled = value;
 
             Color labelColor = m_Enabled ?
-                new Color(0f, 0f, 0f, 0.847f) :
-                new Color(0.75f * Settings.TextBoxColor.r, 0.75f * Settings.TextBoxColor.g, 0.75f * Settings.TextBoxColor.b, 0.847f);
+                new Color(0f, 0f, 0f, 1f) :
+                new Color(0f, 0f, 0f, 0.45f);
             
             foreach (TextMeshProUGUI label in m_Labels)
             {

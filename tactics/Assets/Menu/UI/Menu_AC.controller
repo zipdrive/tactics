@@ -200,7 +200,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Main
-  m_Speed: 1
+  m_Speed: 30
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101356918797434490}
@@ -282,7 +282,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Fade Out
-  m_Speed: -1
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -294,7 +294,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 19fe6da5ce51fe2468aa371bee6af949, type: 2}
+  m_Motion: {fileID: 7400000, guid: bd35e896980b2914caf2fa4acb4c29b3, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -323,7 +323,7 @@ AnimatorStateMachine:
     m_Position: {x: 0, y: 168, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102574208092617708}
-    m_Position: {x: 432, y: 168, z: 0}
+    m_Position: {x: 60, y: -96, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

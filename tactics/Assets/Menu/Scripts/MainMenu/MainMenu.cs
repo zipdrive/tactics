@@ -28,7 +28,7 @@ public class MainMenu : GenericOptionList<GenericAnimateOption>
         // Quit game
         Add(true, "Quit");
 
-        Index = SaveGameIO.SavedGames.Count > 0 ? 1 : 0;
+        m_Index = SaveGameIO.SavedGames.Count > 0 ? 1 : 0;
 
         base.OnEnable();
 

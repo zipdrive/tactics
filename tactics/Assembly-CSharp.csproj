@@ -193,7 +193,8 @@
      <Compile Include="Assets\Menu\Scripts\MainMenuManager.cs" />
      <Compile Include="Assets\Menu\Scripts\MenuManager.cs" />
      <Compile Include="Assets\Menu\Scripts\NewGameMenu.cs" />
-     <Compile Include="Assets\Menu\Scripts\TransitionMenuUI.cs" />
+     <Compile Include="Assets\Menu\Scripts\TransitionMenu\MainMenuOption.cs" />
+     <Compile Include="Assets\Menu\Scripts\TransitionMenu\TransitionMenu.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\Save\save1.xml" />

@@ -2,6 +2,27 @@
 
 public class MainMenuManager : MonoBehaviour
 {
+    private static bool m_FancyFadeIn = true;
+
+    private void Start()
+    {
+        Animator animator = GetComponent<Animator>();
+        if (m_FancyFadeIn)
+        {
+            animator.SetTrigger("Fade");
+            m_FancyFadeIn = false;
+        }
+        else
+        {
+            MainMenu main = GetComponentInChildren<MainMenu>();
+            Destroy(main.pressAnyKeyToContinue);
+            main.List.gameObject.SetActive(true);
+            main.Interactable = true;
+            main.Reset();
+        }
+    }
+
+
     public void CreateNewSaveGame(string name)
     {
         SaveGameIO.SaveGame saveGame = new SaveGameIO.SaveGame(

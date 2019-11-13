@@ -33,6 +33,7 @@ public abstract class BattleListMenu : BattleMenu
         }
 
         m_UI.Index = m_Index;
+        m_UI.Interactable = true;
         m_UI.Reset();
         m_UI.ShowDescription(m_Options[m_Index].description);
     }

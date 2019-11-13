@@ -81,10 +81,11 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
         return option;
     }
 
-    public void Add(T customOption)
+    public T Add(T customOption)
     {
-        customOption.transform.parent = List;
+        customOption.transform.SetParent(List);
         m_Options.Add(customOption);
+        return customOption;
     }
 
     public void Reset()
@@ -108,7 +109,7 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
         {
             if (m_Options.Count > 0)
             {
-                m_Options[m_Index].Highlighted = true;
+                Current.Highlighted = true;
             }
             else
             {
@@ -123,7 +124,7 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
         {
             if (Input.GetButtonDown("Submit") && Current.Enabled)
             {
-                m_Options[m_Index].Select();
+                Current.Select();
             }
             else
             {
