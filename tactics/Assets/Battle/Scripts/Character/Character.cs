@@ -78,6 +78,11 @@ public abstract class Character
 
             return value;
         }
+
+        set
+        {
+            m_Stats[stat] = value;
+        }
     }
 
     public List<Skill> ActiveSkills = new List<Skill>();
@@ -165,9 +170,11 @@ public abstract class Character
         {
             if (equipInfo.Name.Equals("weapon"))
             {
+                Item tempItem;
                 Weapon temp;
 
-                if (AssetHolder.Weapons.TryGetValue(equipInfo.InnerText.Trim(), out temp))
+                if (AssetHolder.Items.TryGetValue(equipInfo.InnerText.Trim(), out tempItem) 
+                    && (temp = tempItem as Weapon) != null)
                 {
                     if (equipInfo.HasAttribute("slot") && equipInfo.GetAttribute("slot").Equals("secondary"))
                         SecondaryWeapon = temp;
@@ -179,9 +186,11 @@ public abstract class Character
             }
             else
             {
+                Item tempItem;
                 Equipment temp;
 
-                if (AssetHolder.Equipment.TryGetValue(equipInfo.InnerText.Trim(), out temp))
+                if (AssetHolder.Items.TryGetValue(equipInfo.InnerText.Trim(), out tempItem) 
+                    && (temp = tempItem as Equipment) != null)
                 {
                     if (equipInfo.Name.Equals("body"))
                         Body = temp;

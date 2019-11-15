@@ -25,9 +25,6 @@ public class AssetHolder : MonoBehaviour
     public static Dictionary<string, Character> BaseCharacters = new Dictionary<string, Character>();
     public static Dictionary<string, Character> Characters = null;
 
-    public static Dictionary<string, Equipment> Equipment = new Dictionary<string, Equipment>();
-    public static Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
-
     void Awake()
     {
         if (!AssetsLoaded)
@@ -335,59 +332,27 @@ public class AssetHolder : MonoBehaviour
                 itemsDoc.Load(Application.dataPath + "/Resources/Data/items.xml");
                 XmlElement root = itemsDoc["items"];
 
-                foreach (XmlElement weaponInfo in root.SelectNodes("weapon"))
+                foreach (XmlNode itemInfoNode in root.ChildNodes)
                 {
-                    try
-                    {
-                        string name = weaponInfo.GetAttribute("name");
-                        Weapons[name] = new Weapon(weaponInfo);
-                    }
-                    catch (Exception e)
-                    {
-                        string id = weaponInfo.HasAttribute("name") ? weaponInfo.GetAttribute("name") : "UNKNOWN_NAME";
-                        Error("[AssetHolder] Unable to load weapon \"" + id + "\".\n" + e);
-                    }
-                }
+                    XmlElement itemInfo = itemInfoNode as XmlElement;
 
-                foreach (XmlElement bodyInfo in root.SelectNodes("body"))
-                {
-                    try
+                    if (itemInfo != null)
                     {
-                        string name = bodyInfo.GetAttribute("name");
-                        Equipment[name] = new Equipment(bodyInfo, global::Equipment.Location.Body);
-                    }
-                    catch (Exception e)
-                    {
-                        string id = bodyInfo.HasAttribute("name") ? bodyInfo.GetAttribute("name") : "UNKNOWN_NAME";
-                        Error("[AssetHolder] Unable to load body equipment \"" + id + "\".\n" + e);
-                    }
-                }
+                        string id = "UNKNOWN_NAME";
 
-                foreach (XmlElement headInfo in root.SelectNodes("head"))
-                {
-                    try
-                    {
-                        string name = headInfo.GetAttribute("name");
-                        Equipment[name] = new Equipment(headInfo, global::Equipment.Location.Head);
-                    }
-                    catch (Exception e)
-                    {
-                        string id = headInfo.HasAttribute("name") ? headInfo.GetAttribute("name") : "UNKNOWN_NAME";
-                        Error("[AssetHolder] Unable to load head equipment \"" + id + "\".\n" + e);
-                    }
-                }
+                        try
+                        {
+                            if (itemInfo.HasAttribute("id"))
+                                id = itemInfo.GetAttribute("id");
+                            else
+                                id = itemInfo.GetAttribute("name");
 
-                foreach (XmlElement accessoryInfo in root.SelectNodes("accessory"))
-                {
-                    try
-                    {
-                        string name = accessoryInfo.GetAttribute("name");
-                        Equipment[name] = new Equipment(accessoryInfo, global::Equipment.Location.Accessory);
-                    }
-                    catch (Exception e)
-                    {
-                        string id = accessoryInfo.HasAttribute("name") ? accessoryInfo.GetAttribute("name") : "UNKNOWN_NAME";
-                        Error("[AssetHolder] Unable to load accessory \"" + id + "\".\n" + e);
+                            Items[id] = Item.Parse(itemInfo);
+                        }
+                        catch (Exception e)
+                        {
+                            Error("[AssetHolder] Unable to load item \"" + id + "\".\n" + e);
+                        }
                     }
                 }
             }

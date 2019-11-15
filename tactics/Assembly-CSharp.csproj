@@ -113,6 +113,9 @@
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleTargetConfirm.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleTargetSelect.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleQueue\BattleWalk.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleReward\BattleExpReward.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleReward\BattleItemReward.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleReward\BattleReward.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableManhattanPath.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableManhattanRadius.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleSelectableZone\BattleSelectableRectangle.cs" />
@@ -162,10 +165,12 @@
      <Compile Include="Assets\Battle\UI\BattleAgentDialogueUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleAgentReportUI.cs" />
      <Compile Include="Assets\Battle\UI\BattleAgentUI.cs" />
+     <Compile Include="Assets\Battle\UI\BattleFailedOption.cs" />
      <Compile Include="Assets\Battle\UI\BattleOption.cs" />
      <Compile Include="Assets\Battle\UI\BattleOptionList.cs" />
      <Compile Include="Assets\Battle\UI\BattleOverScreen.cs" />
      <Compile Include="Assets\Battle\UI\BattleSelectableAreaUI.cs" />
+     <Compile Include="Assets\Battle\UI\BattleSuccessReward.cs" />
      <Compile Include="Assets\Battle\UI\BattleTargetedAreaUI.cs" />
      <Compile Include="Assets\Data\AssetHolder.cs" />
      <Compile Include="Assets\Data\Campaign\Campaign.cs" />

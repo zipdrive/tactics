@@ -2065,7 +2065,8 @@ MonoBehaviour:
     type: 3}
   Interactable: 1
   background: {fileID: 418887784}
-  nextBattleText: {fileID: 1065660659}
+  nextBattleLabel: {fileID: 783278525}
+  nextBattle: {fileID: 1065660659}
   fightOption: {fileID: 1937279545}
   mainMenuOption: {fileID: 5347372200348304192, guid: 0097391f843262442b3c717fe903dabb,
     type: 3}

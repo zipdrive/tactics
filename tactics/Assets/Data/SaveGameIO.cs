@@ -131,6 +131,8 @@ public class SaveGameIO
             XmlElement campaignInfo = document.CreateElement("campaign");
             campaignInfo.SetAttribute("name", pair.Key);
             campaignInfo.SetAttribute("progress", pair.Value.Index.ToString());
+
+            campaignsInfo.AppendChild(campaignInfo);
         }
 
         // Save the file
@@ -172,6 +174,8 @@ public class SaveGameIO
                 }
             }
 
+            foreach (KeyValuePair<string, Campaign> pair in AssetHolder.Campaigns)
+                pair.Value.Index = 0;
             foreach (XmlElement campaignInfo in root.SelectNodes("campaigns/campaign"))
             {
                 try

@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <save name="Avery" time="0">
   <characters />
-  <campaigns />
+  <campaigns>
+    <campaign name="Sample1" progress="2" />
+    <campaign name="Sample2" progress="0" />
+  </campaigns>
 </save>

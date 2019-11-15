@@ -39,6 +39,12 @@
       <text character="Debug Journalist">yes you did</text>
     
     </cutscene>
+
+    <rewards>
+      <reward type="exp">420</reward>
+      <reward type="exp">16</reward>
+      <reward type="item">Wrench</reward>
+    </rewards>
   
   </battle>
 </map>

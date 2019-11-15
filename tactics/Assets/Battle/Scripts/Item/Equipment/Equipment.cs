@@ -22,11 +22,27 @@ public class Equipment : Item
         }
     }
 
-    public Equipment(XmlElement equipmentInfo, Location slot) : base(equipmentInfo)
+    public Equipment(XmlElement equipmentInfo) : base(equipmentInfo)
+    {
+        switch (equipmentInfo.Name)
+        {
+            case "weapon":
+                Slot = Location.Hand;
+                break;
+            case "body":
+                Slot = Location.Body;
+                break;
+            case "head":
+                Slot = Location.Hand;
+                break;
+            case "accessory":
+                Slot = Location.Accessory;
+                break;
+        }
+    }
+
+    public Equipment(XmlElement equipmentInfo, Location slot) : this(equipmentInfo)
     {
         Slot = slot;
-
-        foreach (XmlElement statInfo in equipmentInfo.SelectNodes("stat"))
-            m_Stats[statInfo.GetAttribute("name")] = int.Parse(statInfo.InnerText.Trim());
     }
 }

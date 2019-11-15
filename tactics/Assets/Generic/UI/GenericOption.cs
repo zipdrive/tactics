@@ -7,7 +7,7 @@ public class GenericOption : MonoBehaviour
 {
     private Animator m_Animator;
 
-    private bool m_Enabled;
+    private bool m_Enabled = true;
     public bool Enabled
     {
         get

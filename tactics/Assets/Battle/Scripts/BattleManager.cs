@@ -6,6 +6,7 @@ public class BattleManager : MonoBehaviour
 {
     public static string NextMapFile = "map_test";
     public static string NextBattle = "debug";
+    public static bool CutsceneSeen = false;
 
     public Transform battleMenus;
     public BattleOptionList battleOptionListPrefab;
@@ -19,6 +20,8 @@ public class BattleManager : MonoBehaviour
     private List<BattleQueueMember> m_Queue;
     private BattleQueueMember m_Current;
     private Dictionary<string, BattleAction> m_Cutscenes;
+
+    public List<BattleReward> Rewards;
 
     void Start()
     {
@@ -159,6 +162,30 @@ public class BattleManager : MonoBehaviour
                             Debug.Log(e);
                         }
                     }
+
+
+                    // Rewards
+                    Rewards = new List<BattleReward>();
+
+                    foreach (XmlElement rewardInfo in battleInfo.SelectNodes("rewards/reward"))
+                    {
+                        try
+                        {
+                            if (rewardInfo.GetAttribute("type").Equals("exp"))
+                            {
+                                Rewards.Add(new BattleExpReward(int.Parse(rewardInfo.InnerText.Trim())));
+                            }
+                            else if (rewardInfo.GetAttribute("type").Equals("item"))
+                            {
+                                int quantity = rewardInfo.HasAttribute("quantity") ? int.Parse(rewardInfo.GetAttribute("quantity")) : 1;
+                                Rewards.Add(new BattleItemReward(AssetHolder.Items[rewardInfo.InnerText.Trim()], quantity));
+                            }
+                        }
+                        catch (System.Exception e)
+                        {
+                            Debug.Log(e);
+                        }
+                    }
                 }
             }
 
@@ -197,9 +224,10 @@ public class BattleManager : MonoBehaviour
         m_Queue = new List<BattleQueueMember>();
         m_Queue.Add(new BattleClock());
 
-        if (m_Cutscenes.ContainsKey("begin"))
+        if (m_Cutscenes.ContainsKey("begin") && !CutsceneSeen)
         {
             m_Cutscenes["begin"].Execute(this, new BattleQueueTime(-1000f, -100f));
+            CutsceneSeen = true;
         }
 
         m_Current = m_Queue[0];
@@ -210,7 +238,8 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// Check for if the battle has been won or lost.
     /// </summary>
-    public void Check()
+    /// <returns>True if battle is over, false otherwise.</returns>
+    public bool Check()
     {
         Dictionary<string, BattleUnit> units = BattleUnit.GetAll();
 
@@ -232,7 +261,8 @@ public class BattleManager : MonoBehaviour
 
             if (battleOver)
             {
-                EndBattle(false, "");
+                EndBattle(false, "All player characters were incapacitated.");
+                return true;
             }
         }
 
@@ -255,6 +285,7 @@ public class BattleManager : MonoBehaviour
             if (battleOver)
             {
                 EndBattle(false, "You failed to save " + agentName + ".");
+                return true;
             }
         }
 
@@ -275,6 +306,7 @@ public class BattleManager : MonoBehaviour
             if (battleOver)
             {
                 EndBattle(false, "A civilian was harmed.");
+                return true;
             }
         }
 
@@ -295,20 +327,43 @@ public class BattleManager : MonoBehaviour
             if (battleOver)
             {
                 EndBattle(true, "This battle is over!");
+                return true;
             }
         }
+
+        return false;
     }
 
     public void EndBattle(bool success, string message)
     {
+        if (success)
+        {
+            foreach (BattleReward reward in Rewards)
+            {
+                reward.Execute();
+            }
+        }
+
         // Show battle completed screen
         battleOverScreen.gameObject.SetActive(true);
         battleOverScreen.success = success;
         battleOverScreen.message = message;
 
         BattleAgentUI.Shown = false;
+        BattleSelector.Shown = false;
+        BattleSelector.Frozen = true;
 
-        // Destroy the BattleManager
-        GameObject.Destroy(this);
+        m_Current = null;
+    }
+
+    public void LoadCurrent()
+    {
+        Campaign.LoadCurrent();
+    }
+
+    public void LoadNext()
+    {
+        Campaign.LoadNext();
+        SaveGameIO.Save();
     }
 }

@@ -5,6 +5,11 @@ public class Party : IEnumerable<Character>
     private List<Character> ActiveMembers = new List<Character>();
     private List<Character> ReserveMembers = new List<Character>();
 
+    public bool Contains(Character character)
+    {
+        return ActiveMembers.Contains(character) || ReserveMembers.Contains(character);
+    }
+
     public void Add(Character character, bool active)
     {
         if (active)

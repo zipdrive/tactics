@@ -5,7 +5,7 @@ using TMPro;
 [RequireComponent(typeof(Animator))]
 public class BattleAgentUI : MonoBehaviour
 {
-    public static bool Shown = true;
+    public static bool Shown = false;
 
     public Image background;
 
@@ -38,7 +38,7 @@ public class BattleAgentUI : MonoBehaviour
                 nameLabel.text = value.BaseCharacter.Name;
                 titleLabel.text = value.BaseCharacter.Title;
 
-                m_Animator.SetBool("Show", true & Shown);
+                m_Animator.SetBool("Show", true && Shown);
             }
         }
     }

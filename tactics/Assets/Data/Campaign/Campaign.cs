@@ -34,6 +34,7 @@ public class Campaign
         {
             if (m_Current.Index < m_Current.m_Scenes.Count - 1)
             {
+                BattleManager.CutsceneSeen = false;
                 m_Current.m_Scenes[++m_Current.Index].Load();
             }
         }
@@ -41,6 +42,16 @@ public class Campaign
 
 
     private List<CampaignScene> m_Scenes;
+    public CampaignScene this[int index]
+    {
+        get
+        {
+            if (index >= 0 && index < m_Scenes.Count)
+                return m_Scenes[index];
+            return null;
+        }
+    }
+
     public int Index;
 
     public string Name;

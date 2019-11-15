@@ -17,9 +17,7 @@ public class BattleAgentDecision : BattleQueueMember
 
     public override void QStart(BattleManager manager)
     {
-        manager.Check();
-
-        if (m_Agent.CP == 100)
+        if (!manager.Check() && m_Agent.CP == 100)
         {
             if (m_Decider == null)
             {

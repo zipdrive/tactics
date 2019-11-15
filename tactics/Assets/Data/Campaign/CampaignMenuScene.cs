@@ -26,6 +26,8 @@ public class CampaignMenuScene : CampaignScene
     public void Load()
     {
         MenuManager.Menu = this;
+        SaveGameIO.Save();
+
         SceneManager.LoadScene("Menu");
     }
 }

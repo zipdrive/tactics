@@ -7,7 +7,8 @@ using TMPro;
 public class TransitionMenu : GenericOptionList<GenericAnimateOption>
 {
     public Image background;
-    public TextMeshProUGUI nextBattleText;
+    public TextMeshProUGUI nextBattleLabel;
+    public TextMeshProUGUI nextBattle;
 
     public GenericOption fightOption;
     public MainMenuOption mainMenuOption;
@@ -17,13 +18,19 @@ public class TransitionMenu : GenericOptionList<GenericAnimateOption>
     {
         if (MenuManager.Menu.NextMap.Equals(string.Empty))
         {
-            // Do something to show that main campaign is complete
+            nextBattleLabel.text = Campaign.Current.Name;
+            nextBattle.text = "Complete";
 
+            Interactable = true;
             fightOption.gameObject.SetActive(false);
         }
         else
         {
-            nextBattleText.text = MenuManager.Menu.NextMap;
+            nextBattle.text = MenuManager.Menu.NextMap;
+
+            Interactable = false;
+            Current.Highlighted = false;
+            fightOption.Highlighted = true;
         }
 
         // Purchase skills and alter equipment of party members
@@ -51,15 +58,6 @@ public class TransitionMenu : GenericOptionList<GenericAnimateOption>
         Add(Instantiate(mainMenuOption)).Enabled = true;
 
         base.Awake();
-    }
-
-    protected override void OnEnable()
-    {
-        Interactable = false;
-        Current.Highlighted = false;
-        fightOption.Highlighted = true;
-
-        base.OnEnable();
     }
 
     // Update is called once per frame
