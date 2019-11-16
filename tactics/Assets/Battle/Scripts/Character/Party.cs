@@ -10,6 +10,11 @@ public class Party : IEnumerable<Character>
         return ActiveMembers.Contains(character) || ReserveMembers.Contains(character);
     }
 
+    public bool IsActive(Character character)
+    {
+        return ActiveMembers.Contains(character);
+    }
+
     public void Add(Character character, bool active)
     {
         if (active)
@@ -37,6 +42,12 @@ public class Party : IEnumerable<Character>
                 return;
             }
         }
+    }
+
+    public void Clear()
+    {
+        ActiveMembers.Clear();
+        ReserveMembers.Clear();
     }
 
     public IEnumerator<Character> GetEnumerator()

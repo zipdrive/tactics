@@ -16,23 +16,6 @@ public class TransitionMenu : GenericOptionList<GenericAnimateOption>
     // Start is called before the first frame update
     protected override void Awake()
     {
-        if (MenuManager.Menu.NextMap.Equals(string.Empty))
-        {
-            nextBattleLabel.text = Campaign.Current.Name;
-            nextBattle.text = "Complete";
-
-            Interactable = true;
-            fightOption.gameObject.SetActive(false);
-        }
-        else
-        {
-            nextBattle.text = MenuManager.Menu.NextMap;
-
-            Interactable = false;
-            Current.Highlighted = false;
-            fightOption.Highlighted = true;
-        }
-
         // Purchase skills and alter equipment of party members
         Add(true, "Party").Trigger = "Party";
 
@@ -56,6 +39,25 @@ public class TransitionMenu : GenericOptionList<GenericAnimateOption>
 
         // Return to main menu
         Add(Instantiate(mainMenuOption)).Enabled = true;
+
+
+        // Change menu if at end of campaign
+        if (MenuManager.Menu.NextMap.Equals(string.Empty))
+        {
+            nextBattleLabel.text = Campaign.Current.Name;
+            nextBattle.text = "Complete";
+
+            Interactable = true;
+            fightOption.gameObject.SetActive(false);
+        }
+        else
+        {
+            nextBattle.text = MenuManager.Menu.NextMap;
+
+            Interactable = false;
+            Current.Highlighted = false;
+            fightOption.Highlighted = true;
+        }
 
         base.Awake();
     }

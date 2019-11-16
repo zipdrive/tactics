@@ -1,15 +1,15 @@
 ﻿public class CampaignUnjoinScene : CampaignScene
 {
-    private Character m_Character;
+    private string m_Character;
 
-    public CampaignUnjoinScene(Character character)
+    public CampaignUnjoinScene(string character)
     {
         m_Character = character;
     }
 
     public void Load()
     {
-        Campaign.Current.Party.Remove(m_Character);
+        Campaign.Current.Party.Remove(AssetHolder.Characters[m_Character]);
         Campaign.LoadNext();
     }
 }

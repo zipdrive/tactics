@@ -189,7 +189,7 @@ public class Campaign
                             case "join":
                                 m_Scenes.Add(
                                     new CampaignJoinScene(
-                                        AssetHolder.Characters[sceneInfo.GetAttribute("character")],
+                                        sceneInfo.GetAttribute("character"),
                                         sceneInfo.HasAttribute("type") ? sceneInfo.GetAttribute("type").Equals("active") : false
                                     )
                                 );
@@ -197,7 +197,7 @@ public class Campaign
                             case "unjoin":
                                 m_Scenes.Add(
                                     new CampaignUnjoinScene(
-                                        AssetHolder.Characters[sceneInfo.GetAttribute("character")]
+                                        sceneInfo.GetAttribute("character")
                                     )
                                 );
                                 break;

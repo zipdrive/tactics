@@ -8,10 +8,17 @@
     </description>
 
     <scenes>
+      <join character="Debug Journalist" />
+      <join character="Debug Blood Mage" />
+      
       <menu next="Test Map">
         <shop enabled="false" />
       </menu>
+      
       <battle map="map_test" id="debug"/>
+      <join character="Debug Berserker" type="reserve" />
+      <join character="Debug Spellsword" type="reserve" />
+      
       <menu>
         <shop enabled="true">
           

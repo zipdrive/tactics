@@ -16,7 +16,7 @@ public abstract class Character
         throw new System.IO.FileLoadException("Unrecognized character type \"" + type + "\".");
     }
 
-    private readonly string ID;
+    public readonly string ID;
     public readonly string Name;
     public readonly string Title;
     public readonly BattleSprite Sprite;
@@ -101,6 +101,7 @@ public abstract class Character
     public Character(Character character)
     {
         Name = character.Name;
+        ID = character.ID;
         Title = character.Title;
         Sprite = character.Sprite;
         Profile = character.Profile;

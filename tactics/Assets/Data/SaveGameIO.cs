@@ -132,6 +132,15 @@ public class SaveGameIO
             campaignInfo.SetAttribute("name", pair.Key);
             campaignInfo.SetAttribute("progress", pair.Value.Index.ToString());
 
+            foreach (Character partyMember in pair.Value.Party)
+            {
+                XmlElement partyMemberInfo = document.CreateElement("character");
+                partyMemberInfo.SetAttribute("id", partyMember.ID);
+                partyMemberInfo.SetAttribute("type", pair.Value.Party.IsActive(partyMember) ? "active" : "reserve");
+
+                campaignInfo.AppendChild(partyMemberInfo);
+            }
+
             campaignsInfo.AppendChild(campaignInfo);
         }
 
@@ -175,12 +184,24 @@ public class SaveGameIO
             }
 
             foreach (KeyValuePair<string, Campaign> pair in AssetHolder.Campaigns)
+            {
                 pair.Value.Index = 0;
+                pair.Value.Party.Clear();
+            }
             foreach (XmlElement campaignInfo in root.SelectNodes("campaigns/campaign"))
             {
                 try
                 {
-                    AssetHolder.Campaigns[campaignInfo.GetAttribute("name")].Index = int.Parse(campaignInfo.GetAttribute("progress"));
+                    string name = campaignInfo.GetAttribute("name");
+                    AssetHolder.Campaigns[name].Index = int.Parse(campaignInfo.GetAttribute("progress"));
+
+                    foreach (XmlElement partyMemberInfo in campaignInfo.SelectNodes("character"))
+                    {
+                        AssetHolder.Campaigns[name].Party.Add(
+                            AssetHolder.Characters[partyMemberInfo.GetAttribute("id")],
+                            partyMemberInfo.GetAttribute("type").Equals("active")
+                        );
+                    }
                 }
                 catch (Exception e)
                 {
