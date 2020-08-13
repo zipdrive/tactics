@@ -106,11 +106,14 @@ public class BattleAgent
             if (this["Skill: " + skill.Type] == 0) this["Skill: " + skill.Type] = 1;
         }
         
-        foreach (Status status in BaseCharacter.PassiveSkills)
+        foreach (Equipment equipment in BaseCharacter.Equipment)
         {
-            if (status != null)
+            if (equipment != null)
             {
-                Inflict(status, int.MaxValue, new BattleQueueTime(float.NegativeInfinity, 0f));
+                foreach (Status passive in equipment.Passive)
+                {
+                    Inflict(passive, int.MaxValue, new BattleQueueTime(-100f, -10f));
+                }
             }
         }
     }

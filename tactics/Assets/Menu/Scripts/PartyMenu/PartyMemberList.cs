@@ -6,7 +6,7 @@ public class PartyMemberList : GenericOptionScrollingList<PartyMemberOption>
 
     protected override void Awake()
     {
-        foreach (Character character in Campaign.Current.Party)
+        foreach (PlayerCharacter character in Campaign.Current.Party)
         {
             Add(Instantiate(OptionPrefab, List)).PartyMember = character;
         }

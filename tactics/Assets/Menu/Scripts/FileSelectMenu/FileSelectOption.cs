@@ -1,4 +1,4 @@
-﻿public class FileSelectOption : GenericAnimateOption
+﻿public class FileSelectOption : MenuSetPageOption
 {
     public SaveGameIO.SaveGame SaveGame;
 

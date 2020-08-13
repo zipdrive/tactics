@@ -63,6 +63,11 @@ public class Campaign
     public Party Party;
 
     /// <summary>
+    /// The player's items.
+    /// </summary>
+    public Inventory Inventory;
+
+    /// <summary>
     /// The current percentage completion, from 0 to 100.
     /// </summary>
     public int Completion
@@ -222,5 +227,15 @@ public class Campaign
     {
         Index = 0;
         Party = new Party();
+        Inventory = new Inventory();
+
+        /* DEBUG */
+        foreach (KeyValuePair<string, Item> pair in AssetHolder.Items)
+        {
+            if (pair.Key.StartsWith("DEBUG"))
+            {
+                Inventory[pair.Value] = 99;
+            }
+        }
     }
 }

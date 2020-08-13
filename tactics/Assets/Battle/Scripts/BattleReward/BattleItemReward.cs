@@ -33,6 +33,6 @@ public class BattleItemReward : BattleReward
 
     public void Execute()
     {
-        PlayerInventory.Increment(Item, Quantity);
+        Campaign.Current.Inventory[Item] += Quantity;
     }
 }

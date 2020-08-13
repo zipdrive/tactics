@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class NewGameMenu : MonoBehaviour
+public class NewGameMenu : GenericList
 {
     public TMP_InputField inputField;
 

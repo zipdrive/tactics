@@ -280,7 +280,13 @@ public class AssetHolder : MonoBehaviour
                 {
                     try
                     {
-                        StatusEffects.Add(statusInfo.GetAttribute("name"), new Status(statusInfo));
+                        string id = statusInfo.GetAttribute("name");
+                        StatusEffects.Add(id, new Status(statusInfo));
+
+                        if (id.StartsWith("Passive:"))
+                        {
+                            Items.Add(id, new Equipment(StatusEffects[id], int.Parse(statusInfo.GetAttribute("exp"))));
+                        }
                     }
                     catch (Exception e)
                     {

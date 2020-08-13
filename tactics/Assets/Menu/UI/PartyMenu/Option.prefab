@@ -313,7 +313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09bae335a3f407646b923e80ad4a411f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Trigger: 
+  Page: 2
+  PageID: Equipment
   Portrait: {fileID: 3764978453041791488}
   NameLabel: {fileID: 3764978453150489542}
   TitleLabel: {fileID: 3764978452809547686}

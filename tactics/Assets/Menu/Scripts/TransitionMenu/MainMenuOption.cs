@@ -6,8 +6,6 @@ public class MainMenuOption : GenericAnimateOption
 {
     public override void Select()
     {
-        Debug.Log("Selected.");
-
         Campaign.Current = null;
         base.Select();
     }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 
-public class PartyMemberOption : GenericAnimateOption
+public class PartyMemberOption : MenuSetPageOption
 {
-    private Character m_PartyMember;
-    public Character PartyMember
+    private PlayerCharacter m_PartyMember;
+    public PlayerCharacter PartyMember
     {
         get
         {
@@ -17,10 +17,10 @@ public class PartyMemberOption : GenericAnimateOption
         {
             m_PartyMember = value;
 
-            Portrait.sprite = m_PartyMember.Sprite.Portrait;
+            Portrait.sprite = m_PartyMember.BaseCharacter.Sprite.Portrait;
 
-            NameLabel.text = m_PartyMember.Name;
-            TitleLabel.text = m_PartyMember.Title;
+            NameLabel.text = m_PartyMember.BaseCharacter.Name;
+            TitleLabel.text = m_PartyMember.BaseCharacter.Title;
         }
     }
 
@@ -31,7 +31,7 @@ public class PartyMemberOption : GenericAnimateOption
 
     public override void Select()
     {
-
+        CharacterMenu.Character = m_PartyMember;
 
         base.Select();
     }

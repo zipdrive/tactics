@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 
-public class MainMenuManager : MonoBehaviour
+public class MainMenuManager : MenuPageManager
 {
     private static bool m_FancyFadeIn = true;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         Animator animator = GetComponent<Animator>();
         if (m_FancyFadeIn)
         {

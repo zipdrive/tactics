@@ -29,9 +29,9 @@ public class BattleExpReward : BattleReward
 
     public void Execute()
     {
-        foreach (Character character in Campaign.Current.Party)
+        foreach (PlayerCharacter character in Campaign.Current.Party)
         {
-            character["EXP"] += EXP;
+            character.EXP += EXP;
         }
     }
 }

@@ -91,43 +91,43 @@
   Passive skills for characters to have.
     -->
 
-  <effect name="Passive:Offensive Magic Range +2" description="Increase the range of offensive magic skills by 2.">
+  <effect name="Passive:Offensive Magic Range +2" description="Increase the range of offensive magic skills by 2." exp="0">
     <begin>
       <bonus stat="Range:Magic [Offense]">2</bonus>
     </begin>
   </effect>
 
-  <effect name="Passive:Offensive Magic Range +4" description="Increase the range of offensive magic skills by 4.">
+  <effect name="Passive:Offensive Magic Range +4" description="Increase the range of offensive magic skills by 4." exp="0">
     <begin>
       <bonus stat="Range:Magic [Offense]">4</bonus>
     </begin>
   </effect>
 
-  <effect name="Passive:Offensive Magic AoE +1" description="Increase the area of effect of offensive magic skills by 1.">
+  <effect name="Passive:Offensive Magic AoE +1" description="Increase the area of effect of offensive magic skills by 1." exp="0">
     <begin>
       <bonus stat="AoE:Magic [Offense]">1</bonus>
     </begin>
   </effect>
 
-  <effect name="Passive:Offensive Magic AoE +2" description="Increase the area of effect of offensive magic skills by 2.">
+  <effect name="Passive:Offensive Magic AoE +2" description="Increase the area of effect of offensive magic skills by 2." exp="0">
     <begin>
       <bonus stat="AoE:Magic [Offense]">2</bonus>
     </begin>
   </effect>
 
-  <effect name="Passive:Fire +33%" description="Fire magic skills are 33% more powerful.">
+  <effect name="Passive:Fire +33%" description="Fire magic skills are 33% more powerful." exp="0">
     <begin>
       <bonus stat="Power:Fire">33</bonus>
     </begin>
   </effect>
 
-  <effect name="Passive:Fire +67%" description="Fire magic skills are 67% more powerful.">
+  <effect name="Passive:Fire +67%" description="Fire magic skills are 67% more powerful." exp="0">
     <begin>
       <bonus stat="Power:Fire">67</bonus>
     </begin>
   </effect>
 
-  <effect name="Passive:Repair" description="Bio magic support skills ignore bio resistance.">
+  <effect name="Passive:Repair" description="Bio magic support skills ignore bio resistance." exp="0">
     <use type="Magic [Support]" element="Bio">
       <resistance ignore="999" />
     </use>

@@ -2,6 +2,30 @@
 
 <items>
   
+  <!-- DEBUG ITEMS -->
+  <weapon name="DEBUGWeapon_Knife" type="Knife" />
+  <weapon name="DEBUGWeapon_Sword" type="Sword" />
+  <weapon name="DEBUGWeapon_Hammer" type="Hammer" />
+  <weapon name="DEBUGWeapon_Hammer2" type="Hammer" />
+  <weapon name="DEBUGWeapon_Hammer3" type="Hammer">
+    <stat name="Attack">1</stat>
+  </weapon>
+  <weapon name="DEBUGWeapon_Hammer4" type="Hammer">
+    <stat name="Attack">2</stat>
+    <stat name="Magic">-1</stat>
+  </weapon>
+  <weapon name="DEBUGWeapon_Hammer5" type="Hammer" />
+  <weapon name="DEBUGWeapon_Hammer6" type="Hammer" />
+  <weapon name="DEBUGWeapon_Bow" type="Bow" />
+  <body name="DEBUGBody_Cloth">
+    <stat name="Passive Slots">3</stat>
+  </body>
+  <body name="DEBUGBody_Armor">
+    <stat name="Resist Physical">100</stat>
+  </body>
+  
+  
+  
   <!-- SWORDS -->
 
   <weapon name="Saber" type="Sword" />

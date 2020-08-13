@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
+public class GenericOptionList<T> : GenericList where T : GenericOption
 {
     public enum Layout
     {
@@ -14,13 +14,13 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
     public Transform List;
     public T OptionPrefab;
 
-    public bool Interactable = true;
-
     protected List<T> m_Options = new List<T>();
     public T this[int index]
     {
         get
         {
+            if (index < 0 || index >= m_Options.Count)
+                return null;
             return m_Options[index];
         }
     }
@@ -88,9 +88,19 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
         return customOption;
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
-        m_Options[m_Index].Highlighted = true;
+        if (Interactable)
+        {
+            if (Count > 0)
+            {
+                Current.Highlighted = true;
+            }
+            else
+            {
+                Interactable = false;
+            }
+        }
     }
 
 
@@ -105,17 +115,7 @@ public class GenericOptionList<T> : MonoBehaviour where T : GenericOption
 
     protected virtual void OnEnable()
     {
-        if (Interactable)
-        {
-            if (m_Options.Count > 0)
-            {
-                Current.Highlighted = true;
-            }
-            else
-            {
-                Interactable = false;
-            }
-        }
+        Reset();
     }
 
     protected virtual void Update()

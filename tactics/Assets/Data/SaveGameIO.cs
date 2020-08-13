@@ -109,10 +109,10 @@ public class SaveGameIO
         XmlElement charactersInfo = document.CreateElement("characters");
         root.AppendChild(charactersInfo);
 
-        HashSet<Character> alreadySaved = new HashSet<Character>();
+        HashSet<PlayerCharacter> alreadySaved = new HashSet<PlayerCharacter>();
         foreach (Campaign campaign in AssetHolder.MainCampaigns)
         {
-            foreach (Character character in campaign.Party)
+            foreach (PlayerCharacter character in campaign.Party)
             {
                 if (!alreadySaved.Contains(character))
                 {
@@ -132,11 +132,11 @@ public class SaveGameIO
             campaignInfo.SetAttribute("name", pair.Key);
             campaignInfo.SetAttribute("progress", pair.Value.Index.ToString());
 
-            foreach (Character partyMember in pair.Value.Party)
+            foreach (PlayerCharacter partyMember in pair.Value.Party)
             {
                 XmlElement partyMemberInfo = document.CreateElement("character");
-                partyMemberInfo.SetAttribute("id", partyMember.ID);
-                partyMemberInfo.SetAttribute("type", pair.Value.Party.IsActive(partyMember) ? "active" : "reserve");
+                partyMemberInfo.SetAttribute("id", partyMember.BaseCharacter.ID);
+                partyMemberInfo.SetAttribute("type", pair.Value.Party.IsActive(partyMember.BaseCharacter) ? "active" : "reserve");
 
                 campaignInfo.AppendChild(partyMemberInfo);
             }
@@ -165,16 +165,19 @@ public class SaveGameIO
             XmlElement root = document["save"];
             PlayTimeCounter.PlayTime = float.Parse(root.GetAttribute("time"));
 
-            AssetHolder.Characters = new Dictionary<string, Character>();
-            foreach (KeyValuePair<string, Character> baseCharacter in AssetHolder.BaseCharacters)
-                AssetHolder.Characters[baseCharacter.Key] = baseCharacter.Value.Copy();
+            AssetHolder.Characters = new Dictionary<string, Character>(AssetHolder.BaseCharacters);
+            Dictionary<string, PlayerCharacter> playerCharacters = new Dictionary<string, PlayerCharacter>();
 
             foreach (XmlElement characterInfo in root.SelectNodes("characters/character"))
             {
                 try
                 {
                     string id = characterInfo.GetAttribute("id");
-                    AssetHolder.Characters[id].Load(characterInfo);
+
+                    PlayerCharacter pc = new PlayerCharacter(AssetHolder.BaseCharacters[id].Copy());
+                    pc.Load(characterInfo);
+                    AssetHolder.Characters[id] = pc.BaseCharacter;
+                    playerCharacters[id] = pc;
                 }
                 catch (Exception e)
                 {
@@ -198,7 +201,7 @@ public class SaveGameIO
                     foreach (XmlElement partyMemberInfo in campaignInfo.SelectNodes("character"))
                     {
                         AssetHolder.Campaigns[name].Party.Add(
-                            AssetHolder.Characters[partyMemberInfo.GetAttribute("id")],
+                            playerCharacters[partyMemberInfo.GetAttribute("id")],
                             partyMemberInfo.GetAttribute("type").Equals("active")
                         );
                     }

@@ -4,41 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TransitionMenu : GenericOptionList<GenericAnimateOption>
+public class TransitionMenu : GenericOptionList<GenericOption>
 {
     public Image background;
     public TextMeshProUGUI nextBattleLabel;
     public TextMeshProUGUI nextBattle;
 
     public GenericOption fightOption;
-    public MainMenuOption mainMenuOption;
 
     // Start is called before the first frame update
     protected override void Awake()
     {
-        // Purchase skills and alter equipment of party members
-        Add(true, "Party").Trigger = "Party";
+        m_Options = new List<GenericOption>(List.GetComponentsInChildren<GenericOption>());
 
-        // Buy and sell items
-        Add(MenuManager.Menu.ShopEnabled, "Shop").Trigger = "Shop";
-
-        // Play side missions for extra AP
-        if (true) // no missions available: TODO?
-        {
-            GenericAnimateOption emptyOption = Add(false);
-            emptyOption.transform.SetAsFirstSibling();
-            m_Options.Remove(emptyOption);
-        }
-        else
-        {
-            Add(true, "Missions").Trigger = "Missions";
-        }
-
-        // Alter settings
-        Add(true, "Settings").Trigger = "Settings";
-
-        // Return to main menu
-        Add(Instantiate(mainMenuOption)).Enabled = true;
+        m_Options[1].Enabled = MenuManager.Menu.ShopEnabled;
+        m_Options[2].Enabled = false; // TODO missions?
 
 
         // Change menu if at end of campaign

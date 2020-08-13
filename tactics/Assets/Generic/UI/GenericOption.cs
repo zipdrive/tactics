@@ -8,7 +8,7 @@ public class GenericOption : MonoBehaviour
     private Animator m_Animator;
 
     private bool m_Enabled = true;
-    public bool Enabled
+    public virtual bool Enabled
     {
         get
         {
@@ -79,6 +79,8 @@ public class GenericOption : MonoBehaviour
     
     protected virtual void Start()
     {
+        m_Animator = GetComponent<Animator>();
+
         Image background = GetComponent<Image>();
         if (background != null)
         {
